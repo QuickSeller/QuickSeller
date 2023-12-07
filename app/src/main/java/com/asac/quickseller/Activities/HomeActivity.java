@@ -1,14 +1,16 @@
-package com.asac.quickseller;
+package com.asac.quickseller.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class WelcomePageActivity extends AppCompatActivity {
+import com.asac.quickseller.R;
+
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome_page_activity);
+        setContentView(R.layout.home_activity);
     }
 }

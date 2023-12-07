@@ -1,14 +1,16 @@
-package com.asac.quickseller;
+package com.asac.quickseller.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class AddItemActivity extends AppCompatActivity {
+import com.asac.quickseller.R;
+
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_item_activity);
+        setContentView(R.layout.profile_activity);
     }
 }

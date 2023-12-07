@@ -5,6 +5,6 @@
     android:id="@+id/verify"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VerifyActivity">
+    tools:context=".Activities.VerifyActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
