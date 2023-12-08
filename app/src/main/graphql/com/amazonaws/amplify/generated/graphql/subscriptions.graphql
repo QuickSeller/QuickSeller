@@ -1,0 +1,454 @@
+# this is an auto generated file. This will be overwritten
+
+subscription OnCreateProduct($filter: ModelSubscriptionProductFilterInput) {
+  onCreateProduct(filter: $filter) {
+    id
+    name
+    description
+    dateCreated
+    productCategory
+    productImageS3Key
+    productLatitude
+    productLongitude
+    userId
+    userPerson {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateProduct($filter: ModelSubscriptionProductFilterInput) {
+  onUpdateProduct(filter: $filter) {
+    id
+    name
+    description
+    dateCreated
+    productCategory
+    productImageS3Key
+    productLatitude
+    productLongitude
+    userId
+    userPerson {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteProduct($filter: ModelSubscriptionProductFilterInput) {
+  onDeleteProduct(filter: $filter) {
+    id
+    name
+    description
+    dateCreated
+    productCategory
+    productImageS3Key
+    productLatitude
+    productLongitude
+    userId
+    userPerson {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+  onCreateUser(filter: $filter) {
+    id
+    email
+    fullName
+    products {
+      nextToken
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+  onUpdateUser(filter: $filter) {
+    id
+    email
+    fullName
+    products {
+      nextToken
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+  onDeleteUser(filter: $filter) {
+    id
+    email
+    fullName
+    products {
+      nextToken
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateOrder($filter: ModelSubscriptionOrderFilterInput) {
+  onCreateOrder(filter: $filter) {
+    id
+    orderDate
+    orderStatus
+    products {
+      nextToken
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateOrder($filter: ModelSubscriptionOrderFilterInput) {
+  onUpdateOrder(filter: $filter) {
+    id
+    orderDate
+    orderStatus
+    products {
+      nextToken
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteOrder($filter: ModelSubscriptionOrderFilterInput) {
+  onDeleteOrder(filter: $filter) {
+    id
+    orderDate
+    orderStatus
+    products {
+      nextToken
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
+  onCreateComment(filter: $filter) {
+    id
+    content
+    createdAt
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
+  onUpdateComment(filter: $filter) {
+    id
+    content
+    createdAt
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
+  onDeleteComment(filter: $filter) {
+    id
+    content
+    createdAt
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateOrderProduct(
+  $filter: ModelSubscriptionOrderProductFilterInput
+) {
+  onCreateOrderProduct(filter: $filter) {
+    id
+    orderId
+    order {
+      id
+      orderDate
+      orderStatus
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    quantity
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateOrderProduct(
+  $filter: ModelSubscriptionOrderProductFilterInput
+) {
+  onUpdateOrderProduct(filter: $filter) {
+    id
+    orderId
+    order {
+      id
+      orderDate
+      orderStatus
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    quantity
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteOrderProduct(
+  $filter: ModelSubscriptionOrderProductFilterInput
+) {
+  onDeleteOrderProduct(filter: $filter) {
+    id
+    orderId
+    order {
+      id
+      orderDate
+      orderStatus
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    quantity
+    createdAt
+    updatedAt
+    __typename
+  }
+}

@@ -1,0 +1,65 @@
+type Product @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String!
+  description: String
+  dateCreated: AWSDateTime
+  productCategory: ProductCategoryEnum
+  productImageS3Key: String
+  productLatitude: String
+  productLongitude: String
+  userId: ID! @index(name: "byUser", sortKeyFields: ["name"])
+  userPerson: User @belongsTo(fields: ["userId"])
+  orders: [OrderProduct] @hasMany(indexName: "byProduct", fields: ["id"])
+  comments: [Comment] @hasMany(indexName: "byProduct", fields: ["id"])
+}
+
+type User @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  email: String!
+  fullName: String
+  products: [Product] @hasMany(indexName: "byUser", fields: ["id"])
+  orders: [Order] @hasMany(indexName: "byUser", fields: ["id"])
+  comments: [Comment] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+type Order @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  orderDate: AWSDateTime
+  orderStatus: OrderStatusEnum
+  products: [OrderProduct] @hasMany(indexName: "byOrder", fields: ["id"])
+  userId: ID! @index(name: "byUser", sortKeyFields: ["orderDate"])
+  user: User @belongsTo(fields: ["userId"])
+}
+
+type Comment @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  content: String!
+  createdAt: AWSDateTime
+  productId: ID! @index(name: "byProduct", sortKeyFields: ["createdAt"])
+  product: Product @belongsTo(fields: ["productId"])
+  userId: ID! @index(name: "byUser", sortKeyFields: ["createdAt"])
+  user: User @belongsTo(fields: ["userId"])
+}
+
+type OrderProduct @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  orderId: ID! @index(name: "byOrder", sortKeyFields: ["id"])
+  order: Order @belongsTo(fields: ["orderId"])
+  productId: ID! @index(name: "byProduct", sortKeyFields: ["id"])
+  product: Product @belongsTo(fields: ["productId"])
+  quantity: Int!
+}
+
+enum ProductCategoryEnum {
+  Clothes
+  Electronics
+  Perishable_Goods
+  Office_supplies
+  Misc
+}
+
+enum OrderStatusEnum {
+  Pending
+  Completed
+  Cancelled
+}
