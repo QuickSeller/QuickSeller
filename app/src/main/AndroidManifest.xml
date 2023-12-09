@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name = ".Activities.QuickSellerAmplifyApplication"
+        android:name=".Activities.QuickSellerAmplifyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuickSeller"
         tools:targetApi="31">
+        <activity
+            android:name=".Activities.ShoppingActivity"
+            android:exported="false" />
         <activity
             android:name=".Activities.LogoutActivity"
             android:exported="false" />

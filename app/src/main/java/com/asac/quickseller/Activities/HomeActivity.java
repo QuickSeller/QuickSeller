@@ -32,10 +32,10 @@ public class HomeActivity extends AppCompatActivity {
                         () ->
                         {
                             Log.i(TAG, "Logout succeeded");
-    //                        runOnUiThread(() ->
-    //                        {
-    //                            ((TextView)findViewById(R.id.userEmailTextView)).setText("");
-    //                        });
+                            //                        runOnUiThread(() ->
+                            //                        {
+                            //                            ((TextView)findViewById(R.id.userEmailTextView)).setText("");
+                            //                        });
                             Intent goToLogInIntent = new Intent(HomeActivity.this, LoginActivity.class);
                             startActivity(goToLogInIntent);
                         },
@@ -46,5 +46,4 @@ public class HomeActivity extends AppCompatActivity {
                                     Toast.makeText(HomeActivity.this, "Log out failed", Toast.LENGTH_LONG).show());
                         }
                 ));
-    }
-}
+    }}
