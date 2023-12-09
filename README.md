@@ -165,7 +165,7 @@ ______
 
 ### **Logout Page**
 
-![LogoutPage](Assests/itemDetails.png)
+![LogoutPage](Assests/logoutpage.png)
 
 ## Domain Modeling and Schema
 
