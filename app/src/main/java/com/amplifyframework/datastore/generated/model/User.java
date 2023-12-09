@@ -2,7 +2,6 @@ package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.annotations.HasMany;
 import com.amplifyframework.core.model.temporal.Temporal;
-import com.amplifyframework.core.model.ModelIdentifier;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +22,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the User type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Users", type = Model.Type.USER, version = 1, authRules = {
+@ModelConfig(pluralName = "Users",authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 public final class User implements Model {
@@ -222,14 +221,6 @@ public final class User implements Model {
     @Override
      public CopyOfBuilder fullName(String fullName) {
       return (CopyOfBuilder) super.fullName(fullName);
-    }
-  }
-  
-
-  public static class UserIdentifier extends ModelIdentifier<User> {
-    private static final long serialVersionUID = 1L;
-    public UserIdentifier(String id) {
-      super(id);
     }
   }
   

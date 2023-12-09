@@ -3,7 +3,6 @@ package com.amplifyframework.datastore.generated.model;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.core.model.annotations.BelongsTo;
 import com.amplifyframework.core.model.annotations.HasMany;
-import com.amplifyframework.core.model.ModelIdentifier;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +23,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the Product type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Products", type = Model.Type.USER, version = 1, authRules = {
+@ModelConfig(pluralName = "Products", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 @Index(name = "byUser", fields = {"userId","name"})
@@ -46,7 +45,7 @@ public final class Product implements Model {
   private final @ModelField(targetType="String") String productImageS3Key;
   private final @ModelField(targetType="String") String productLatitude;
   private final @ModelField(targetType="String") String productLongitude;
-  private final @ModelField(targetType="User") @BelongsTo(targetName = "userId", targetNames = {"userId"}, type = User.class) User userPerson;
+  private final @ModelField(targetType="User") @BelongsTo(targetName = "userId", type = User.class) User userPerson;
   private final @ModelField(targetType="OrderProduct") @HasMany(associatedWith = "product", type = OrderProduct.class) List<OrderProduct> orders = null;
   private final @ModelField(targetType="Comment") @HasMany(associatedWith = "product", type = Comment.class) List<Comment> comments = null;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
@@ -381,14 +380,6 @@ public final class Product implements Model {
     @Override
      public CopyOfBuilder userPerson(User userPerson) {
       return (CopyOfBuilder) super.userPerson(userPerson);
-    }
-  }
-  
-
-  public static class ProductIdentifier extends ModelIdentifier<Product> {
-    private static final long serialVersionUID = 1L;
-    public ProductIdentifier(String id) {
-      super(id);
     }
   }
   
