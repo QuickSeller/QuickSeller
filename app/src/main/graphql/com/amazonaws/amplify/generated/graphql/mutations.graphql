@@ -1,0 +1,493 @@
+# this is an auto generated file. This will be overwritten
+
+mutation CreateProduct(
+  $input: CreateProductInput!
+  $condition: ModelProductConditionInput
+) {
+  createProduct(input: $input, condition: $condition) {
+    id
+    name
+    description
+    dateCreated
+    productCategory
+    productImageS3Key
+    productLatitude
+    productLongitude
+    userId
+    userPerson {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation UpdateProduct(
+  $input: UpdateProductInput!
+  $condition: ModelProductConditionInput
+) {
+  updateProduct(input: $input, condition: $condition) {
+    id
+    name
+    description
+    dateCreated
+    productCategory
+    productImageS3Key
+    productLatitude
+    productLongitude
+    userId
+    userPerson {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation DeleteProduct(
+  $input: DeleteProductInput!
+  $condition: ModelProductConditionInput
+) {
+  deleteProduct(input: $input, condition: $condition) {
+    id
+    name
+    description
+    dateCreated
+    productCategory
+    productImageS3Key
+    productLatitude
+    productLongitude
+    userId
+    userPerson {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation CreateUser(
+  $input: CreateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  createUser(input: $input, condition: $condition) {
+    id
+    email
+    fullName
+    products {
+      nextToken
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation UpdateUser(
+  $input: UpdateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  updateUser(input: $input, condition: $condition) {
+    id
+    email
+    fullName
+    products {
+      nextToken
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation DeleteUser(
+  $input: DeleteUserInput!
+  $condition: ModelUserConditionInput
+) {
+  deleteUser(input: $input, condition: $condition) {
+    id
+    email
+    fullName
+    products {
+      nextToken
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation CreateOrder(
+  $input: CreateOrderInput!
+  $condition: ModelOrderConditionInput
+) {
+  createOrder(input: $input, condition: $condition) {
+    id
+    orderDate
+    orderStatus
+    products {
+      nextToken
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation UpdateOrder(
+  $input: UpdateOrderInput!
+  $condition: ModelOrderConditionInput
+) {
+  updateOrder(input: $input, condition: $condition) {
+    id
+    orderDate
+    orderStatus
+    products {
+      nextToken
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation DeleteOrder(
+  $input: DeleteOrderInput!
+  $condition: ModelOrderConditionInput
+) {
+  deleteOrder(input: $input, condition: $condition) {
+    id
+    orderDate
+    orderStatus
+    products {
+      nextToken
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation CreateComment(
+  $input: CreateCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  createComment(input: $input, condition: $condition) {
+    id
+    content
+    createdAt
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+
+mutation UpdateComment(
+  $input: UpdateCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  updateComment(input: $input, condition: $condition) {
+    id
+    content
+    createdAt
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+
+mutation DeleteComment(
+  $input: DeleteCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  deleteComment(input: $input, condition: $condition) {
+    id
+    content
+    createdAt
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+
+mutation CreateOrderProduct(
+  $input: CreateOrderProductInput!
+  $condition: ModelOrderProductConditionInput
+) {
+  createOrderProduct(input: $input, condition: $condition) {
+    id
+    orderId
+    order {
+      id
+      orderDate
+      orderStatus
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    quantity
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation UpdateOrderProduct(
+  $input: UpdateOrderProductInput!
+  $condition: ModelOrderProductConditionInput
+) {
+  updateOrderProduct(input: $input, condition: $condition) {
+    id
+    orderId
+    order {
+      id
+      orderDate
+      orderStatus
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    quantity
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation DeleteOrderProduct(
+  $input: DeleteOrderProductInput!
+  $condition: ModelOrderProductConditionInput
+) {
+  deleteOrderProduct(input: $input, condition: $condition) {
+    id
+    orderId
+    order {
+      id
+      orderDate
+      orderStatus
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    quantity
+    createdAt
+    updatedAt
+    __typename
+  }
+}

@@ -1,0 +1,439 @@
+# this is an auto generated file. This will be overwritten
+
+query GetProduct($id: ID!) {
+  getProduct(id: $id) {
+    id
+    name
+    description
+    dateCreated
+    productCategory
+    productImageS3Key
+    productLatitude
+    productLongitude
+    userId
+    userPerson {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+query ListProducts(
+  $filter: ModelProductFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query GetUser($id: ID!) {
+  getUser(id: $id) {
+    id
+    email
+    fullName
+    products {
+      nextToken
+      __typename
+    }
+    orders {
+      nextToken
+      __typename
+    }
+    comments {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query GetOrder($id: ID!) {
+  getOrder(id: $id) {
+    id
+    orderDate
+    orderStatus
+    products {
+      nextToken
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+query ListOrders(
+  $filter: ModelOrderFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      orderDate
+      orderStatus
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query GetComment($id: ID!) {
+  getComment(id: $id) {
+    id
+    content
+    createdAt
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    user {
+      id
+      email
+      fullName
+      createdAt
+      updatedAt
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+
+query ListComments(
+  $filter: ModelCommentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      content
+      createdAt
+      productId
+      userId
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query GetOrderProduct($id: ID!) {
+  getOrderProduct(id: $id) {
+    id
+    orderId
+    order {
+      id
+      orderDate
+      orderStatus
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    productId
+    product {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    quantity
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+query ListOrderProducts(
+  $filter: ModelOrderProductFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listOrderProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      orderId
+      productId
+      quantity
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query ProductsByUserIdAndName(
+  $userId: ID!
+  $name: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelProductFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  productsByUserIdAndName(
+    userId: $userId
+    name: $name
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      description
+      dateCreated
+      productCategory
+      productImageS3Key
+      productLatitude
+      productLongitude
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query OrdersByUserIdAndOrderDate(
+  $userId: ID!
+  $orderDate: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelOrderFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  ordersByUserIdAndOrderDate(
+    userId: $userId
+    orderDate: $orderDate
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      orderDate
+      orderStatus
+      userId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query CommentsByProductIdAndCreatedAt(
+  $productId: ID!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelCommentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  commentsByProductIdAndCreatedAt(
+    productId: $productId
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      content
+      createdAt
+      productId
+      userId
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query CommentsByUserIdAndCreatedAt(
+  $userId: ID!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelCommentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  commentsByUserIdAndCreatedAt(
+    userId: $userId
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      content
+      createdAt
+      productId
+      userId
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query OrderProductsByOrderIdAndId(
+  $orderId: ID!
+  $id: ModelIDKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelOrderProductFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  orderProductsByOrderIdAndId(
+    orderId: $orderId
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      orderId
+      productId
+      quantity
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query OrderProductsByProductIdAndId(
+  $productId: ID!
+  $id: ModelIDKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelOrderProductFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  orderProductsByProductIdAndId(
+    productId: $productId
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      orderId
+      productId
+      quantity
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}

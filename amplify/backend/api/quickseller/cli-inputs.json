@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "quickseller",
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 60,
+      "apiKeyExpirationDate": "2024-02-07T05:47:11.943Z",
+      "keyDescription": "this api key is for quickSeller project models"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
+  }
+}
