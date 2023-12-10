@@ -2,7 +2,6 @@ package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.annotations.BelongsTo;
 import com.amplifyframework.core.model.temporal.Temporal;
-import com.amplifyframework.core.model.ModelIdentifier;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +22,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the OrderProduct type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "OrderProducts", type = Model.Type.USER, version = 1, authRules = {
+@ModelConfig(pluralName = "OrderProducts", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 @Index(name = "byOrder", fields = {"orderId","id"})
@@ -34,8 +33,8 @@ public final class OrderProduct implements Model {
   public static final QueryField PRODUCT = field("OrderProduct", "productId");
   public static final QueryField QUANTITY = field("OrderProduct", "quantity");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="Order") @BelongsTo(targetName = "orderId", targetNames = {"orderId"}, type = Order.class) Order order;
-  private final @ModelField(targetType="Product") @BelongsTo(targetName = "productId", targetNames = {"productId"}, type = Product.class) Product product;
+  private final @ModelField(targetType="Order") @BelongsTo(targetName = "orderId", type = Order.class) Order order;
+  private final @ModelField(targetType="Product") @BelongsTo(targetName = "productId", type = Product.class) Product product;
   private final @ModelField(targetType="Int", isRequired = true) Integer quantity;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
@@ -236,14 +235,6 @@ public final class OrderProduct implements Model {
     @Override
      public CopyOfBuilder product(Product product) {
       return (CopyOfBuilder) super.product(product);
-    }
-  }
-  
-
-  public static class OrderProductIdentifier extends ModelIdentifier<OrderProduct> {
-    private static final long serialVersionUID = 1L;
-    public OrderProductIdentifier(String id) {
-      super(id);
     }
   }
   

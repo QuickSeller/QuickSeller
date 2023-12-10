@@ -7,13 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".Activities.WelcomePageActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/btnWelcomePageSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="364dp"
+        android:layout_marginEnd="56dp"
+        android:text="Sign Up"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btnWelcomePageLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="364dp"
+        android:layout_marginEnd="272dp"
+        android:text="Login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

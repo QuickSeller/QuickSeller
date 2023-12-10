@@ -3,7 +3,6 @@ package com.amplifyframework.datastore.generated.model;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.core.model.annotations.HasMany;
 import com.amplifyframework.core.model.annotations.BelongsTo;
-import com.amplifyframework.core.model.ModelIdentifier;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +23,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the Order type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Orders", type = Model.Type.USER, version = 1, authRules = {
+@ModelConfig(pluralName = "Orders", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 @Index(name = "byUser", fields = {"userId","orderDate"})
@@ -37,7 +36,7 @@ public final class Order implements Model {
   private final @ModelField(targetType="AWSDateTime") Temporal.DateTime orderDate;
   private final @ModelField(targetType="OrderStatusEnum") OrderStatusEnum orderStatus;
   private final @ModelField(targetType="OrderProduct") @HasMany(associatedWith = "order", type = OrderProduct.class) List<OrderProduct> products = null;
-  private final @ModelField(targetType="User") @BelongsTo(targetName = "userId", targetNames = {"userId"}, type = User.class) User user;
+  private final @ModelField(targetType="User") @BelongsTo(targetName = "userId", type = User.class) User user;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   /** @deprecated This API is internal to Amplify and should not be used. */
@@ -238,13 +237,6 @@ public final class Order implements Model {
       return (CopyOfBuilder) super.user(user);
     }
   }
-  
 
-  public static class OrderIdentifier extends ModelIdentifier<Order> {
-    private static final long serialVersionUID = 1L;
-    public OrderIdentifier(String id) {
-      super(id);
-    }
-  }
   
 }

@@ -2,7 +2,6 @@ package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.core.model.annotations.BelongsTo;
-import com.amplifyframework.core.model.ModelIdentifier;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +22,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the Comment type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Comments", type = Model.Type.USER, version = 1, authRules = {
+@ModelConfig(pluralName = "Comments", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 @Index(name = "byProduct", fields = {"productId","createdAt"})
@@ -37,8 +36,8 @@ public final class Comment implements Model {
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String content;
   private final @ModelField(targetType="AWSDateTime") Temporal.DateTime createdAt;
-  private final @ModelField(targetType="Product") @BelongsTo(targetName = "productId", targetNames = {"productId"}, type = Product.class) Product product;
-  private final @ModelField(targetType="User") @BelongsTo(targetName = "userId", targetNames = {"userId"}, type = User.class) User user;
+  private final @ModelField(targetType="Product") @BelongsTo(targetName = "productId", type = Product.class) Product product;
+  private final @ModelField(targetType="User") @BelongsTo(targetName = "userId", type = User.class) User user;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   /** @deprecated This API is internal to Amplify and should not be used. */
   @Deprecated
@@ -257,13 +256,6 @@ public final class Comment implements Model {
       return (CopyOfBuilder) super.user(user);
     }
   }
-  
 
-  public static class CommentIdentifier extends ModelIdentifier<Comment> {
-    private static final long serialVersionUID = 1L;
-    public CommentIdentifier(String id) {
-      super(id);
-    }
-  }
   
 }
