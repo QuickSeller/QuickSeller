@@ -17,16 +17,27 @@ public class HomeActivity extends AppCompatActivity {
     public final String TAG = "HomeActivity";
 
     Button logoutButton = null;
+
+    Button addItemButton = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-        logoutButton = findViewById(R.id.btnHomeActivityLogout);
+        logoutButton = findViewById(R.id.btnHomeActivityAddItem);
         logout();
+        addItemIntent();
     }
 
-    public void logout() {
+
+    private void addItemIntent(){
+addItemButton= (Button) findViewById(R.id.btnHomeActivityAddItem);
+addItemButton.setOnClickListener(b -> {
+    Intent goToAddItem = new Intent(HomeActivity.this, AddItemActivity.class);
+    startActivity(goToAddItem);
+});
+    }
+    private void logout() {
         logoutButton.setOnClickListener(v ->
                 Amplify.Auth.signOut(
                         () ->

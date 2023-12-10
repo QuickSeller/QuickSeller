@@ -26,35 +26,33 @@ public class SignupActivity extends AppCompatActivity {
         signUp();
     }
 
-    public void signUp() {
+    private void signUp() {
         Button signupSubmitButton = (Button) findViewById(R.id.signupSubmitButton);
         signupSubmitButton.setOnClickListener(v ->
         {
-            String username = ((EditText) findViewById(R.id.signupUsernameEditText)).getText().toString();
+            String email = ((EditText) findViewById(R.id.signupEmailEditText)).getText().toString();
+            String nickname = ((EditText) findViewById(R.id.signupUsernameEditText)).getText().toString();
             String password = ((EditText) findViewById(R.id.signupPasswordEditText)).getText().toString(); //mohamad123
 
-            Amplify.Auth.signUp(username,
+            Amplify.Auth.signUp(email,
                     password,
-                    AuthSignUpOptions.builder()
-                            .userAttribute(AuthUserAttributeKey.email(), username)
-                            .userAttribute(AuthUserAttributeKey.nickname(), "T")
+                    AuthSignUpOptions.builder().userAttribute(AuthUserAttributeKey.email(),email)
+                            .userAttribute(AuthUserAttributeKey.nickname(),nickname)
                             .build(),
-                    good ->
-                    {
-                        Log.i(TAG, "Signup succeeded: " + good.toString());
-                        Intent goToVerifyIntent = new Intent(SignupActivity.this, VerifyActivity.class);
-                        goToVerifyIntent.putExtra(SIGNUP_EMAIL_TAG, username);
+                    success -> {
+                        Log.i(TAG, "SignupActivity() : Signed up successfully" + success.toString());
+                        Intent goToVerifyIntent= new Intent(SignupActivity.this, VerifyActivity.class);
+                        goToVerifyIntent.putExtra(SIGNUP_EMAIL_TAG, email);
                         startActivity(goToVerifyIntent);
                     },
-                    bad ->
-                    {
-                        Log.i(TAG, "Signup failed with username: " + username + " with this message: " + bad.toString());
-                        runOnUiThread(() ->
-                        {
-                            Toast.makeText(SignupActivity.this, "Signup failed", Toast.LENGTH_LONG).show();
+                    failure -> {
+                        Log.e(TAG, "SignupActivity() : Failed to Sign up", failure);
+                        runOnUiThread(() -> {
+                            Toast.makeText(SignupActivity.this, "Signup failed: " + failure.getCause().toString(), Toast.LENGTH_LONG).show();
                         });
                     }
             );
+
         });
     }
 
