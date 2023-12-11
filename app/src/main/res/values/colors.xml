@@ -2,6 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="pink">#FF4081</color>
+    <color name="blue">#4083E6</color>
     <color name="g_white">#F5F8FA</color>
     <color name="g_dark_blue">#50A5DD</color>
     <color name="g_blue_gray200">#EC0734</color>
@@ -9,5 +11,12 @@
     <color name="g_orange">#D9470D</color>
     <color name="g_orange_light">#FFB69F</color>
     <color name="g_orange_light1">#FC987A</color>
+    <color name="fade_gray">#F3F3F3</color>
+    <color name="primary">#4CAF50</color>
+    <color name="red">#FF0303</color>
+    <color name="yellow">#FF9800</color>
+
+
+
 
 </resources>

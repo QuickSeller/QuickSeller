@@ -39,9 +39,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-
-        logout();
-        setupGoToAddProductIntent();
     }
 
     @Override
@@ -104,33 +101,27 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void setupGoToAddProductIntent(){
-        addItemButton= (Button) findViewById(R.id.btnHomeActivityAddItem);
-        addItemButton.setOnClickListener(b -> {
-            Intent goToAddItem = new Intent(HomeActivity.this, AddItemActivity.class);
-            startActivity(goToAddItem);
-        });
-    }
 
-    private void logout() {
-        logoutButton = findViewById(R.id.btnHomeActivityAddItem);
-        logoutButton.setOnClickListener(v ->
-                Amplify.Auth.signOut(
-                        () ->
-                        {
-                            Log.i(TAG, "Logout succeeded");
-                            //                        runOnUiThread(() ->
-                            //                        {
-                            //                            ((TextView)findViewById(R.id.userEmailTextView)).setText("");
-                            //                        });
-                            Intent goToLogInIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                            startActivity(goToLogInIntent);
-                        },
-                        failure ->
-                        {
-                            Log.i(TAG, "Logout failed");
-                            runOnUiThread(() ->
-                                    Toast.makeText(HomeActivity.this, "Log out failed", Toast.LENGTH_LONG).show());
-                        }
-                ));
-    }}
+//    private void logout() {
+//        logoutButton = findViewById(R.id.btnHomeActivityAddItem);
+//        logoutButton.setOnClickListener(v ->
+//                Amplify.Auth.signOut(
+//                        () ->
+//                        {
+//                            Log.i(TAG, "Logout succeeded");
+//                            //                        runOnUiThread(() ->
+//                            //                        {
+//                            //                            ((TextView)findViewById(R.id.userEmailTextView)).setText("");
+//                            //                        });
+//                            Intent goToLogInIntent = new Intent(HomeActivity.this, LoginActivity.class);
+//                            startActivity(goToLogInIntent);
+//                        },
+//                        failure ->
+//                        {
+//                            Log.i(TAG, "Logout failed");
+//                            runOnUiThread(() ->
+//                                    Toast.makeText(HomeActivity.this, "Log out failed", Toast.LENGTH_LONG).show());
+//                        }
+//                ));
+//    }
+    }

@@ -7,7 +7,6 @@ type Post @model @auth(rules: [{ allow: public }]) {
   productCategory: ProductCategoryEnum!
   images: [String!]!
   createdAt: AWSDateTime!
-
 }
 
 #

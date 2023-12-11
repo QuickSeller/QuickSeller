@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sett"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.SettingsActivity">
@@ -12,24 +13,24 @@
         android:layout_height="wrap_content"
         android:text="settings"
         android:textSize="34sp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="195dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="195dp" />
 
     <FrameLayout
         android:id="@+id/flFragment"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:visibility="gone"
         tools:ignore="MissingConstraints" />
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:ignore="MissingConstraints" />
-
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -47,5 +48,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
+
+    <Button
+        android:id="@+id/settingsPageAddPostBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="89dp"
+        android:text="Add Post"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

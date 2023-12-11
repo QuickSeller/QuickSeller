@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.asac.quickseller.NavbarAdapter;
 import com.asac.quickseller.R;
@@ -15,6 +16,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class SettingsActivity extends AppCompatActivity {
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
+
+    Button addPost = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +28,17 @@ public class SettingsActivity extends AppCompatActivity {
 
         setupViewPager();
         setupBottomNavigation();
+        setupAddPostBtn();
     }
 
+    private void setupAddPostBtn(){
+        addPost = (Button) findViewById(R.id.settingsPageAddPostBtn) ;
+        addPost.setOnClickListener(b -> {
+            Intent goToAddPost = new Intent(SettingsActivity.this,AddItemActivity.class);
+            startActivity(goToAddPost);
+        });
+
+    }
     private void setupViewPager() {
         NavbarAdapter navbarAdapter = new NavbarAdapter(this);
         viewPager.setAdapter(navbarAdapter);
