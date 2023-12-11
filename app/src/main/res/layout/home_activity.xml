@@ -26,17 +26,23 @@
         android:text="Logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-    <fragment
-        android:id="@+id/shoppingHostFragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+
+
+    <FrameLayout
+        android:id="@+id/flFragment"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/shopping_graph"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"/>
+        android:layout_weight="1"
+        tools:ignore="MissingConstraints" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:ignore="MissingConstraints" />
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

@@ -14,7 +14,7 @@
         android:id="@+id/searchFragment"
         android:name="com.asac.quickseller.Fragments.shopping.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search"/>
+        tools:layout="@layout/fragment_settings"/>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.asac.quickseller.Fragments.shopping.ProfileFragment"
@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_profile"/>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.asac.quickseller.Fragments.shopping.CartFragment"
+        android:name="com.asac.quickseller.Fragments.shopping.SettingsFragment"
         android:label="CartFragment"
         tools:layout="@layout/fragment_cart"/>
 </navigation>

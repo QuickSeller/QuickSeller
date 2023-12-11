@@ -37,4 +37,5 @@ public class WelcomePageActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v ->
                 startActivity(new Intent(WelcomePageActivity.this, LoginActivity.class)));
     }
+
 }
