@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplifyframework.auth.AuthUserAttributeKey;
@@ -24,6 +25,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_activity);
         signUp();
+        goToLoginActivity();
     }
 
     private void signUp() {
@@ -54,6 +56,13 @@ public class SignupActivity extends AppCompatActivity {
             );
 
         });
+    }
+
+
+    private void goToLoginActivity() {
+        TextView loginTextView = findViewById(R.id.backToLogInTextView);
+        loginTextView.setOnClickListener(v ->
+                startActivity(new Intent(SignupActivity.this, LoginActivity.class)));
     }
 
 }

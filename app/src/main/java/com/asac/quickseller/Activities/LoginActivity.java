@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplifyframework.core.Amplify;
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
             );
         });
 
-        Button signUpButton = (Button) findViewById(R.id.signUpButton);
+        TextView signUpButton = (TextView) findViewById(R.id.signUpButton);
         signUpButton.setOnClickListener(v ->
         {
             Intent goToSignUpIntent = new Intent(LoginActivity.this, SignupActivity.class);
