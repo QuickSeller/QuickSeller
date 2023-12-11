@@ -17,6 +17,7 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/backFromAddItem"
             android:layout_width="wrap_content"
             android:layout_height="75dp"
             android:layout_gravity="center_vertical"
@@ -47,6 +48,14 @@
 
     <Spinner
         android:id="@+id/AddItemCategoryspinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:minHeight="40dp" />
+
+    <Spinner
+        android:id="@+id/AddItemCitiesSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
