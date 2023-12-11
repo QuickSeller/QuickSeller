@@ -5,129 +5,158 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-<LinearLayout
-    android:id="@+id/profile"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    tools:context=".Activities.ProfileActivity"
-    android:orientation="vertical">
-
     <LinearLayout
+        android:id="@+id/profile"
         android:layout_width="match_parent"
-        android:layout_height="122dp"
-        android:background="#FF4081"
-        android:padding="25dp"
+        android:layout_height="match_parent"
+        tools:context=".Activities.ProfileActivity"
+        android:orientation="vertical">
 
-        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="122dp"
+            android:background="#FF4081"
+            android:padding="25dp"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="25dp"
-            android:textColor="@color/white"
-            android:text="QuickSeller" />
+            >
 
-        <ImageView
-            android:id="@+id/profileImglogoProfile"
-            android:layout_width="75dp"
-            android:layout_height="50dp"
-            android:layout_margin="20dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:textColor="@color/white"
+                android:text="QuickSeller" />
+
+            <ImageView
+                android:id="@+id/profileImglogoProfile"
+                android:layout_width="75dp"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/logoooo"
+                tools:srcCompat="@tools:sample/avatars" />
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/ProfileuttonCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="all category"
+            android:textColor="@color/black"
             android:layout_marginTop="20dp"
-            android:background="@drawable/logoooo"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/categoryphoto"
+            />
+        <Button
+            android:id="@+id/ProfileuttonChangPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="change password"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/baseline_password_24"
+            />
+        <Button
+            android:id="@+id/ProfileuttonTeams"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Teams And Tonditions"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/baseline_pest_control_24"
+            />
+        <Button
+            android:id="@+id/ProfileuttonPrivacy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Privacy And Policy"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/baseline_policy_24"
+            />
+        <Button
+            android:id="@+id/ProfileuttonAboutUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="About Us"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/baseline_question_mark_24"
+            />
+        <Button
+            android:id="@+id/ProfileuttonFaq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FAQ"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/baseline_fiber_manual_record_24"
+            />
+        <Button
+            android:id="@+id/ProfileuttonSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Out"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/baseline_logout_24"
+            />
+        <FrameLayout
+            android:id="@+id/flFragment"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:ignore="MissingConstraints" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:ignore="MissingConstraints" />
 
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/bottom_navigation_background"
+            app:elevation="0dp"
+            app:itemIconTint="@drawable/bottom_nav_item_background"
+            app:itemPaddingBottom="10dp"
+            app:itemPaddingTop="10dp"
+            app:itemRippleColor="@color/g_white"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_navigation_menu" />
 
     </LinearLayout>
-
-
-    <Button
-        android:id="@+id/ProfileuttonCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="all category"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/categoryphoto"
-        />
-    <Button
-        android:id="@+id/ProfileuttonChangPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="change password"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/baseline_password_24"
-        />
-    <Button
-        android:id="@+id/ProfileuttonTeams"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Teams And Tonditions"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/baseline_pest_control_24"
-        />
-    <Button
-        android:id="@+id/ProfileuttonPrivacy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Privacy And Policy"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/baseline_policy_24"
-        />
-    <Button
-        android:id="@+id/ProfileuttonAboutUs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="About Us"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/baseline_question_mark_24"
-        />
-    <Button
-        android:id="@+id/ProfileuttonFaq"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="FAQ"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/baseline_fiber_manual_record_24"
-        />
-    <Button
-        android:id="@+id/ProfileuttonSignOut"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign Out"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/baseline_logout_24"
-        />
-
-
-
-</LinearLayout>
 </ScrollView>
+
