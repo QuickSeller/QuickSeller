@@ -20,8 +20,7 @@ public class WelcomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_page_activity);
 
-        signupButton = findViewById(R.id.btnWelcomePageSignup);
-        loginButton = findViewById(R.id.btnWelcomePageSignup);
+
 
         goToSignupActivity();
         goToLoginActivity();
@@ -29,11 +28,13 @@ public class WelcomePageActivity extends AppCompatActivity {
 
 
     private void goToSignupActivity() {
+        signupButton = findViewById(R.id.btnWelcomePageSignup);
         signupButton.setOnClickListener(v ->
                 startActivity(new Intent(WelcomePageActivity.this, SignupActivity.class)));
     }
 
     private void goToLoginActivity() {
+        loginButton = findViewById(R.id.btnWelcomePageLogin);
         loginButton.setOnClickListener(v ->
                 startActivity(new Intent(WelcomePageActivity.this, LoginActivity.class)));
     }
