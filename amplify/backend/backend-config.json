@@ -7,9 +7,9 @@
           "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDate": "2024-02-09T10:38:40.305Z",
+              "apiKeyExpirationDate": "2024-02-07T15:36:21.110Z",
               "apiKeyExpirationDays": 60,
-              "description": "api key for auth"
+              "description": "this api key is for quickSeller project models"
             },
             "authenticationType": "API_KEY"
           }
