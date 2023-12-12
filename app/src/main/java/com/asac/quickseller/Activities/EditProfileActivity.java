@@ -126,24 +126,25 @@ public class EditProfileActivity extends AppCompatActivity {
         updateUserInformation(newUsername, newEmail, newPassword);
     }
     private void updateUserInformation(String newUsername, String newEmail, String newPassword) {
-        User updatedUser = User.builder()
-                //.username(newUsername)
-               // .email(newEmail)
-               // .password(newPassword)
-                .productImageS3Key(s3ImageKey)
-                .build();
+//        User updatedUser = User.builder()
+//                //.username(newUsername)
+//               // .email(newEmail)
+//               // .password(newPassword)
+//                .image(s3ImageKey)
+//                .build();
 
-        Amplify.API.mutate(
-                ModelMutation.update(updatedUser),
-                successResponse -> {
-                    Log.i(TAG, "User information updated successfully");
-                    Snackbar.make(findViewById(R.id.imageUser), "User information updated!", Snackbar.LENGTH_SHORT).show();
-                },
-                failureResponse -> {
-                    Log.e(TAG, "Failed to update user information: " + failureResponse.getMessage());
-                    Snackbar.make(findViewById(R.id.imageUser), "Failed to update user information", Snackbar.LENGTH_SHORT).show();
-                }
-        );
+
+//        Amplify.API.mutate(
+//                ModelMutation.update(updatedUser),
+//                successResponse -> {
+//                    Log.i(TAG, "User information updated successfully");
+//                    Snackbar.make(findViewById(R.id.imageUser), "User information updated!", Snackbar.LENGTH_SHORT).show();
+//                },
+//                failureResponse -> {
+//                    Log.e(TAG, "Failed to update user information: " + failureResponse.getMessage());
+//                    Snackbar.make(findViewById(R.id.imageUser), "Failed to update user information", Snackbar.LENGTH_SHORT).show();
+//                }
+//        );
     }
     private void setUpAddImageButton() {
         Button addImageButton = findViewById(R.id.addImageButton);
@@ -152,22 +153,22 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
     private void saveTask(String imageS3Key) {
-        Button saveButton = findViewById(R.id.saveImageButton);
-        saveButton.setOnClickListener(v -> {
-            User profileToSave = User.builder()
-                    .productImageS3Key(imageS3Key)
-                    .build();
-           // String imageKey = "placeholderImageKey";
-           // updateUserInformation("newUsername", "newEmail@example.com", "newPassword123");
-            Amplify.API.mutate(
-                    ModelMutation.update(profileToSave),
-                    successResponse -> {
-                        Log.i(TAG, "EditActivity.onCreate(): edited a task successfully");
-                        Snackbar.make(findViewById(R.id.imageUser), "Task saved!", Snackbar.LENGTH_SHORT).show();
-                    },
-                    failureResponse -> Log.i(TAG, "EditActivity.onCreate(): failed with this response: " + failureResponse)
-            );
-        });
+//        Button saveButton = findViewById(R.id.saveImageButton);
+//        saveButton.setOnClickListener(v -> {
+//            User profileToSave = User.builder()
+//                    .productImageS3Key(imageS3Key)
+//                    .build();
+//           // String imageKey = "placeholderImageKey";
+//           // updateUserInformation("newUsername", "newEmail@example.com", "newPassword123");
+//            Amplify.API.mutate(
+//                    ModelMutation.update(profileToSave),
+//                    successResponse -> {
+//                        Log.i(TAG, "EditActivity.onCreate(): edited a task successfully");
+//                        Snackbar.make(findViewById(R.id.imageUser), "Task saved!", Snackbar.LENGTH_SHORT).show();
+//                    },
+//                    failureResponse -> Log.i(TAG, "EditActivity.onCreate(): failed with this response: " + failureResponse)
+//            );
+//        });
     }
     private void saveTask() {
         Button saveButton = findViewById(R.id.saveImageButton);
