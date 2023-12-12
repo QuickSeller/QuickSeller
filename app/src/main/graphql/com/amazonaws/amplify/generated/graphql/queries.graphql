@@ -3,6 +3,7 @@
 query GetPost($id: ID!) {
   getPost(id: $id) {
     id
+    userId
     city
     title
     description
@@ -10,6 +11,15 @@ query GetPost($id: ID!) {
     productCategory
     images
     createdAt
+    user {
+      id
+      username
+      email
+      phoneNumber
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -23,6 +33,7 @@ query ListPosts(
   listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      userId
       city
       title
       description
@@ -44,7 +55,10 @@ query GetUser($id: ID!) {
     username
     email
     phoneNumber
-    image
+    posts {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -62,7 +76,6 @@ query ListUsers(
       username
       email
       phoneNumber
-      image
       createdAt
       updatedAt
       __typename

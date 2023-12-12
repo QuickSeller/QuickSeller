@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@aws-amplify/api": "^6.0.6",
+    "@aws-amplify/core": "^6.0.6"
+  }
+}

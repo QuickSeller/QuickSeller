@@ -6,6 +6,7 @@ mutation CreatePost(
 ) {
   createPost(input: $input, condition: $condition) {
     id
+    userId
     city
     title
     description
@@ -13,6 +14,15 @@ mutation CreatePost(
     productCategory
     images
     createdAt
+    user {
+      id
+      username
+      email
+      phoneNumber
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -24,6 +34,7 @@ mutation UpdatePost(
 ) {
   updatePost(input: $input, condition: $condition) {
     id
+    userId
     city
     title
     description
@@ -31,6 +42,15 @@ mutation UpdatePost(
     productCategory
     images
     createdAt
+    user {
+      id
+      username
+      email
+      phoneNumber
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -42,6 +62,7 @@ mutation DeletePost(
 ) {
   deletePost(input: $input, condition: $condition) {
     id
+    userId
     city
     title
     description
@@ -49,6 +70,15 @@ mutation DeletePost(
     productCategory
     images
     createdAt
+    user {
+      id
+      username
+      email
+      phoneNumber
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -63,7 +93,10 @@ mutation CreateUser(
     username
     email
     phoneNumber
-    image
+    posts {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -79,7 +112,10 @@ mutation UpdateUser(
     username
     email
     phoneNumber
-    image
+    posts {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -95,7 +131,10 @@ mutation DeleteUser(
     username
     email
     phoneNumber
-    image
+    posts {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename

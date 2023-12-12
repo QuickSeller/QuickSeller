@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -31,7 +32,7 @@ import com.amplifyframework.datastore.generated.model.Post;
 import com.amplifyframework.datastore.generated.model.ProductCategoryEnum;
 
 
-
+import com.amplifyframework.datastore.generated.model.User;
 import com.asac.quickseller.R;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -51,9 +52,9 @@ public class AddItemActivity extends AppCompatActivity {
     Button addItemBtn = null;
     ImageButton back = null;
     Button addProductImageBtn = null;
-    ActivityResultLauncher<Intent> activityResultLauncher ;
+    ActivityResultLauncher<Intent> activityResultLauncher;
 
-    String[] s3ImageKey= {};
+    String[] s3ImageKey = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         setUpDeleteImageButton();
 
@@ -110,49 +111,43 @@ public class AddItemActivity extends AppCompatActivity {
 
     }
 
-   private void setupAddProductImageBtn(){
-    addProductImageBtn = (Button) findViewById(R.id.addItemAddImageBtn);
-    addProductImageBtn.setOnClickListener(b -> {
-        launchImageSelectionIntent();
-    });
-}
-    private void launchImageSelectionIntent(){
+    private void setupAddProductImageBtn() {
+        addProductImageBtn = (Button) findViewById(R.id.addItemAddImageBtn);
+        addProductImageBtn.setOnClickListener(b -> {
+            launchImageSelectionIntent();
+        });
+    }
+
+    private void launchImageSelectionIntent() {
         Intent imageFilePickingIntent = new Intent(Intent.ACTION_GET_CONTENT);
         imageFilePickingIntent.setType("*/*");
         imageFilePickingIntent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/jpeg", "image/png"});
         activityResultLauncher.launch(imageFilePickingIntent);
     }
-    private ActivityResultLauncher<Intent> getImagePickerActivityLauncher(){
+
+    private ActivityResultLauncher<Intent> getImagePickerActivityLauncher() {
         ActivityResultLauncher<Intent> imagePickingActivityResultLauncher =
                 registerForActivityResult(
                         new ActivityResultContracts.StartActivityForResult(),
-                        new ActivityResultCallback<ActivityResult>()
-                        {
+                        new ActivityResultCallback<ActivityResult>() {
                             @Override
-                            public void onActivityResult(ActivityResult result)
-                            {
+                            public void onActivityResult(ActivityResult result) {
                                 Button addImageButton = findViewById(R.id.addItemAddImageBtn);
-                                if (result.getResultCode() == Activity.RESULT_OK)
-                                {
-                                    if (result.getData() != null)
-                                    {
+                                if (result.getResultCode() == Activity.RESULT_OK) {
+                                    if (result.getData() != null) {
                                         Uri pickedImageFileUri = result.getData().getData();
-                                        try
-                                        {
+                                        try {
                                             InputStream pickedImageInputStream = getContentResolver().openInputStream(pickedImageFileUri);
                                             String pickedImageFilename = getFileNameFromUri(pickedImageFileUri);
                                             Log.i(TAG, "Succeeded in getting input stream from file on phone! Filename is: " + pickedImageFilename);
                                             switchFromAddButtonToDeleteButton(addImageButton);
-                                            uploadInputStreamToS3(pickedImageInputStream, pickedImageFilename,pickedImageFileUri);
+                                            uploadInputStreamToS3(pickedImageInputStream, pickedImageFilename, pickedImageFileUri);
 
-                                        } catch (FileNotFoundException fnfe)
-                                        {
+                                        } catch (FileNotFoundException fnfe) {
                                             Log.e(TAG, "Could not get file from file picker! " + fnfe.getMessage(), fnfe);
                                         }
                                     }
-                                }
-                                else
-                                {
+                                } else {
                                     Log.e(TAG, "Activity result error in ActivityResultLauncher.onActivityResult");
                                 }
                             }
@@ -162,7 +157,7 @@ public class AddItemActivity extends AppCompatActivity {
         return imagePickingActivityResultLauncher;
     }
 
-    private void uploadInputStreamToS3(InputStream pickedImageInputStream, String pickedImageFilename,Uri pickedImageFileUri){
+    private void uploadInputStreamToS3(InputStream pickedImageInputStream, String pickedImageFilename, Uri pickedImageFileUri) {
         Amplify.Storage.uploadInputStream(
                 pickedImageFilename,
                 pickedImageInputStream,
@@ -174,12 +169,9 @@ public class AddItemActivity extends AppCompatActivity {
                     updateImageButtons();
                     ImageView productImageView = findViewById(R.id.AddItemimageView);
                     InputStream pickedImageInputStreamCopy = null;
-                    try
-                    {
+                    try {
                         pickedImageInputStreamCopy = getContentResolver().openInputStream(pickedImageFileUri);
-                    }
-                    catch (FileNotFoundException fnfe)
-                    {
+                    } catch (FileNotFoundException fnfe) {
                         Log.e(TAG, "Could not get file stream from URI! " + fnfe.getMessage(), fnfe);
                     }
                     productImageView.setImageBitmap(BitmapFactory.decodeStream(pickedImageInputStreamCopy));
@@ -192,6 +184,7 @@ public class AddItemActivity extends AppCompatActivity {
         );
 
     }
+
     private void updateImageButtons() {
         Button addImageButton = findViewById(R.id.addItemAddImageBtn);
         Button deleteImageButton = (Button) findViewById(R.id.AddItemDeleteImageBtn);
@@ -205,11 +198,13 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
     }
+
     private void switchFromDeleteButtonToAddButton(Button deleteImageButton) {
         Button addImageButton = (Button) findViewById(R.id.addItemAddImageBtn);
         deleteImageButton.setVisibility(View.INVISIBLE);
         addImageButton.setVisibility(View.VISIBLE);
     }
+
     private void switchFromAddButtonToDeleteButton(Button addImageButton) {
         Button deleteImageButton = (Button) findViewById(R.id.AddItemDeleteImageBtn);
         deleteImageButton.setVisibility(View.VISIBLE);
@@ -230,12 +225,12 @@ public class AddItemActivity extends AppCompatActivity {
                     },
                     failure ->
                     {
-                        Log.e(TAG, "Failure in deleting file on S3 with key: " +  s3ImageKey  + " with error: " + failure.getMessage());
+                        Log.e(TAG, "Failure in deleting file on S3 with key: " + s3ImageKey + " with error: " + failure.getMessage());
                     }
             );
             ImageView productImageView = findViewById(R.id.AddItemimageView);
             productImageView.setImageResource(android.R.color.transparent);
-            saveNewProduct("","","", new String[]{""});
+            saveNewProduct("", "", "", new String[]{""});
             switchFromDeleteButtonToAddButton(deleteImageButton);
         });
     }
@@ -245,6 +240,7 @@ public class AddItemActivity extends AppCompatActivity {
         text = text.replaceAll("\"", "");
         return text;
     }
+
     private void setupSpinners() {
         productCategorySpinner = (Spinner) findViewById(R.id.AddItemCategoryspinner);
         productCategorySpinner.setAdapter(new ArrayAdapter<>(
@@ -260,6 +256,7 @@ public class AddItemActivity extends AppCompatActivity {
                 CityEnum.values()
         ));
     }
+
     private void setupAddProductBtn() {
         addItemBtn = (Button) findViewById(R.id.addItemButton);
         addItemBtn.setOnClickListener(b -> {
@@ -268,21 +265,25 @@ public class AddItemActivity extends AppCompatActivity {
             String description = ((EditText) findViewById(R.id.descriptionAddItemEditText)).getText().toString();
             String dateCreated = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
             String price = ((EditText) findViewById(R.id.priceAddItemEditText)).getText().toString();
-            saveNewProduct(title, description, price,s3ImageKey);
+            saveNewProduct(title, description, price, s3ImageKey);
 
         });
 
     }
-    private void setupBackBtn(){
-        back= (ImageButton) findViewById(R.id.backFromAddItem);
+
+    private void setupBackBtn() {
+        back = (ImageButton) findViewById(R.id.backFromAddItem);
         back.setOnClickListener(b -> {
 
-            Intent backToHome = new Intent(AddItemActivity.this,HomeActivity.class);
+            Intent backToHome = new Intent(AddItemActivity.this, HomeActivity.class);
             startActivity(backToHome);
 
         });
     }
-    private void saveNewProduct(String title, String description, String price, String[] imageList){
+
+    private void saveNewProduct(String title, String description, String price, String[] imageList) {
+
+        User userId = User.justId(Amplify.Auth.getCurrentUser().getUserId());
 
         Post newPost = Post.builder()
                 .city((CityEnum) citiesSpinner.getSelectedItem())
@@ -291,26 +292,26 @@ public class AddItemActivity extends AppCompatActivity {
                 .productCategory((ProductCategoryEnum) productCategorySpinner.getSelectedItem())
                 .images(List.of(imageList))
                 .createdAt(new Temporal.DateTime(new Date(), 0))
+                .user(userId) // Use the generated builder method
                 .description(description)
                 .build();
 
 
-
-        if(title == ""){
-            Snackbar.make(findViewById(R.id.addItem),"Please add your product name", Snackbar.LENGTH_SHORT).show();
-        }else if(description == ""){
-            Snackbar.make(findViewById(R.id.addItem),"Please add description about your product", Snackbar.LENGTH_SHORT).show();
-        } else if (price == "") {
-            Snackbar.make(findViewById(R.id.addItem),"Please add your product price", Snackbar.LENGTH_SHORT).show();
-        } else if (imageList == null) {
-            Snackbar.make(findViewById(R.id.addItem),"Please add Image of your product", Snackbar.LENGTH_SHORT).show();
-        }else{
+        if (TextUtils.isEmpty(title)) {
+            Snackbar.make(findViewById(R.id.addItem), "Please add your product name", Snackbar.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(description)) {
+            Snackbar.make(findViewById(R.id.addItem), "Please add description about your product", Snackbar.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(price)) {
+            Snackbar.make(findViewById(R.id.addItem), "Please add your product price", Snackbar.LENGTH_SHORT).show();
+        } else if (imageList == null || imageList.length == 0) {
+            Snackbar.make(findViewById(R.id.addItem), "Please add an image of your product", Snackbar.LENGTH_SHORT).show();
+        } else {
             Amplify.API.mutate(
                     ModelMutation.create(newPost),
                     success -> {
                         Log.i(TAG, "AddItemActivity(): Item added Successfully" + success.toString());
                         runOnUiThread(() -> {
-                            Snackbar.make(findViewById(R.id.addItem),"New Post Added", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(R.id.addItem), "New Post Added", Snackbar.LENGTH_SHORT).show();
                         });
                     },
                     failure -> {
@@ -321,6 +322,7 @@ public class AddItemActivity extends AppCompatActivity {
         }
 
     }
+
     @SuppressLint("Range")
     public String getFileNameFromUri(Uri uri) {
         String result = null;

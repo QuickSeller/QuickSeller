@@ -85,19 +85,22 @@ android:layout_height="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/baseline_search_24"/>
             </LinearLayout>
+
             <LinearLayout
-                android:background="@drawable/round_back_white"
+                android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="40dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/round_back_white"
                 android:orientation="vertical"
                 android:padding="15dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/baseline_logout_24"/>
+                    android:src="@drawable/baseline_logout_24" />
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"

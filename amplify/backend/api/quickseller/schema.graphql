@@ -1,5 +1,6 @@
 type Post @model @auth(rules: [{ allow: public }]) {
   id: ID!
+  userId: ID!
   city: CityEnum!
   title: String!
   description: String
@@ -7,6 +8,8 @@ type Post @model @auth(rules: [{ allow: public }]) {
   productCategory: ProductCategoryEnum!
   images: [String!]!
   createdAt: AWSDateTime!
+  user: User! @belongsTo(fields: ["userId"])
+
 }
 
 #
@@ -14,15 +17,15 @@ type Post @model @auth(rules: [{ allow: public }]) {
 type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
   username: String!
-#  posts: [Post]! @hasMany(fields: ["id"])
   email: String!
   phoneNumber: String!
-#  image: String
-#  comments: [Comment]! @hasMany( fields: ["id"])
-#  orders: [Order]! @hasMany( fields: ["id"])
+  #  image: String
+  posts: [Post] @hasMany(fields: ["id"])
+  #  comments: [Comment]! @hasMany( fields: ["id"])
+  #  orders: [Order]! @hasMany( fields: ["id"])
 
 }
-#
+
 #type Post @model @auth(rules: [{ allow: public }]) {
 #  id: ID!
 #  userId: ID!

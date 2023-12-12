@@ -1,7 +1,7 @@
 package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
-
+import com.amplifyframework.core.model.annotations.BelongsTo;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +34,7 @@ public final class Post implements Model {
   public static final QueryField PRODUCT_CATEGORY = field("Post", "productCategory");
   public static final QueryField IMAGES = field("Post", "images");
   public static final QueryField CREATED_AT = field("Post", "createdAt");
+  public static final QueryField USER = field("Post", "userId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="CityEnum", isRequired = true) CityEnum city;
   private final @ModelField(targetType="String", isRequired = true) String title;
@@ -42,6 +43,7 @@ public final class Post implements Model {
   private final @ModelField(targetType="ProductCategoryEnum", isRequired = true) ProductCategoryEnum productCategory;
   private final @ModelField(targetType="String", isRequired = true) List<String> images;
   private final @ModelField(targetType="AWSDateTime", isRequired = true) Temporal.DateTime createdAt;
+  private final @ModelField(targetType="User", isRequired = true) @BelongsTo(targetName = "userId", type = User.class) User user;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   /** @deprecated This API is internal to Amplify and should not be used. */
   @Deprecated
@@ -81,11 +83,15 @@ public final class Post implements Model {
       return createdAt;
   }
   
+  public User getUser() {
+      return user;
+  }
+  
   public Temporal.DateTime getUpdatedAt() {
       return updatedAt;
   }
   
-  private Post(String id, CityEnum city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt) {
+  private Post(String id, CityEnum city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt, User user) {
     this.id = id;
     this.city = city;
     this.title = title;
@@ -94,6 +100,7 @@ public final class Post implements Model {
     this.productCategory = productCategory;
     this.images = images;
     this.createdAt = createdAt;
+    this.user = user;
   }
   
   @Override
@@ -112,6 +119,7 @@ public final class Post implements Model {
               ObjectsCompat.equals(getProductCategory(), post.getProductCategory()) &&
               ObjectsCompat.equals(getImages(), post.getImages()) &&
               ObjectsCompat.equals(getCreatedAt(), post.getCreatedAt()) &&
+              ObjectsCompat.equals(getUser(), post.getUser()) &&
               ObjectsCompat.equals(getUpdatedAt(), post.getUpdatedAt());
       }
   }
@@ -127,6 +135,7 @@ public final class Post implements Model {
       .append(getProductCategory())
       .append(getImages())
       .append(getCreatedAt())
+      .append(getUser())
       .append(getUpdatedAt())
       .toString()
       .hashCode();
@@ -144,6 +153,7 @@ public final class Post implements Model {
       .append("productCategory=" + String.valueOf(getProductCategory()) + ", ")
       .append("images=" + String.valueOf(getImages()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
+      .append("user=" + String.valueOf(getUser()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
@@ -170,6 +180,7 @@ public final class Post implements Model {
       null,
       null,
       null,
+      null,
       null
     );
   }
@@ -182,7 +193,8 @@ public final class Post implements Model {
       price,
       productCategory,
       images,
-      createdAt);
+      createdAt,
+      user);
   }
   public interface CityStep {
     TitleStep city(CityEnum city);
@@ -210,7 +222,12 @@ public final class Post implements Model {
   
 
   public interface CreatedAtStep {
-    BuildStep createdAt(Temporal.DateTime createdAt);
+    UserStep createdAt(Temporal.DateTime createdAt);
+  }
+  
+
+  public interface UserStep {
+    BuildStep user(User user);
   }
   
 
@@ -221,7 +238,7 @@ public final class Post implements Model {
   }
   
 
-  public static class Builder implements CityStep, TitleStep, PriceStep, ProductCategoryStep, ImagesStep, CreatedAtStep, BuildStep {
+  public static class Builder implements CityStep, TitleStep, PriceStep, ProductCategoryStep, ImagesStep, CreatedAtStep, UserStep, BuildStep {
     private String id;
     private CityEnum city;
     private String title;
@@ -229,12 +246,13 @@ public final class Post implements Model {
     private ProductCategoryEnum productCategory;
     private List<String> images;
     private Temporal.DateTime createdAt;
+    private User user;
     private String description;
     public Builder() {
       
     }
     
-    private Builder(String id, CityEnum city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt) {
+    private Builder(String id, CityEnum city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt, User user) {
       this.id = id;
       this.city = city;
       this.title = title;
@@ -243,6 +261,7 @@ public final class Post implements Model {
       this.productCategory = productCategory;
       this.images = images;
       this.createdAt = createdAt;
+      this.user = user;
     }
     
     @Override
@@ -257,7 +276,8 @@ public final class Post implements Model {
           price,
           productCategory,
           images,
-          createdAt);
+          createdAt,
+          user);
     }
     
     @Override
@@ -296,9 +316,16 @@ public final class Post implements Model {
     }
     
     @Override
-     public BuildStep createdAt(Temporal.DateTime createdAt) {
+     public UserStep createdAt(Temporal.DateTime createdAt) {
         Objects.requireNonNull(createdAt);
         this.createdAt = createdAt;
+        return this;
+    }
+    
+    @Override
+     public BuildStep user(User user) {
+        Objects.requireNonNull(user);
+        this.user = user;
         return this;
     }
     
@@ -320,14 +347,15 @@ public final class Post implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, CityEnum city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt) {
-      super(id, city, title, description, price, productCategory, images, createdAt);
+    private CopyOfBuilder(String id, CityEnum city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt, User user) {
+      super(id, city, title, description, price, productCategory, images, createdAt, user);
       Objects.requireNonNull(city);
       Objects.requireNonNull(title);
       Objects.requireNonNull(price);
       Objects.requireNonNull(productCategory);
       Objects.requireNonNull(images);
       Objects.requireNonNull(createdAt);
+      Objects.requireNonNull(user);
     }
     
     @Override
@@ -361,10 +389,14 @@ public final class Post implements Model {
     }
     
     @Override
+     public CopyOfBuilder user(User user) {
+      return (CopyOfBuilder) super.user(user);
+    }
+    
+    @Override
      public CopyOfBuilder description(String description) {
       return (CopyOfBuilder) super.description(description);
     }
   }
-
-
+  
 }

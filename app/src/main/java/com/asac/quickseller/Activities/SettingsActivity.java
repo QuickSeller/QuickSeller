@@ -4,11 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.amplifyframework.core.Amplify;
 import com.asac.quickseller.NavbarAdapter;
 import com.asac.quickseller.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -18,6 +22,8 @@ public class SettingsActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     Button addPost = null;
+
+    Button logoutButton = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +35,18 @@ public class SettingsActivity extends AppCompatActivity {
         setupViewPager();
         setupBottomNavigation();
         setupAddPostBtn();
+//        logout();
     }
 
-   private void setupAddPostBtn(){
-        addPost = (Button) findViewById(R.id.settingsPageAddPostBtn) ;
+    private void setupAddPostBtn() {
+        addPost = (Button) findViewById(R.id.settingsPageAddPostBtn);
         addPost.setOnClickListener(b -> {
-            Intent goToAddPost = new Intent(SettingsActivity.this,AddItemActivity.class);
+            Intent goToAddPost = new Intent(SettingsActivity.this, AddItemActivity.class);
             startActivity(goToAddPost);
         });
 
     }
+
     private void setupViewPager() {
         NavbarAdapter navbarAdapter = new NavbarAdapter(this);
         viewPager.setAdapter(navbarAdapter);
@@ -69,7 +77,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 return false;
             }
-            });
+        });
     }
 
     private int getNavigationItemId(int position) {
@@ -83,5 +91,26 @@ public class SettingsActivity extends AppCompatActivity {
             default:
                 return 0;
         }
+    }
+
+
+    @SuppressLint("WrongViewCast")
+    private void logout() {
+        logoutButton = findViewById(R.id.btnLogout);
+        logoutButton.setOnClickListener(v ->
+                Amplify.Auth.signOut(
+                        () ->
+                        {
+                            Log.i("TAG Logout", "Logout succeeded");
+                            Intent goToLogInIntent = new Intent(SettingsActivity.this, LoginActivity.class);
+                            startActivity(goToLogInIntent);
+                        },
+                        failure ->
+                        {
+                            Log.i("TAG Logout", "Logout failed");
+                            runOnUiThread(() ->
+                                    Toast.makeText(SettingsActivity.this, "Log out failed", Toast.LENGTH_LONG).show());
+                        }
+                ));
     }
 }

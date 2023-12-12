@@ -259,7 +259,7 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="0dp"
         android:background="@drawable/bottom_navigation_background"
         app:elevation="0dp"
         app:itemIconTint="@drawable/bottom_nav_item_background"

@@ -18,7 +18,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "quickSellerStorage": {
+    "QuickSellerStorage": {
       "BucketName": "string",
       "Region": "string"
     }
