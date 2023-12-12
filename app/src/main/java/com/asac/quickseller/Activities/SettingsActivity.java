@@ -31,7 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
         setupAddPostBtn();
     }
 
-    private void setupAddPostBtn(){
+   private void setupAddPostBtn(){
         addPost = (Button) findViewById(R.id.settingsPageAddPostBtn) ;
         addPost.setOnClickListener(b -> {
             Intent goToAddPost = new Intent(SettingsActivity.this,AddItemActivity.class);

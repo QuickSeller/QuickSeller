@@ -1,29 +1,93 @@
 package com.asac.quickseller.Activities;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.auth.AuthUserAttribute;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.User;
 import com.asac.quickseller.NavbarAdapter;
 import com.asac.quickseller.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.play.core.tasks.Task;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ProfileActivity extends AppCompatActivity {
+    SharedPreferences sharedPreferences;
+    public static final String USER_NICKNAME_TAG="userNickname";
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
+    private String s3ImageKey = "";
+    private static final String TAG = "UserProfileActivity";
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_activity);
         viewPager = findViewById(R.id.viewPager);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-
         setupViewPager();
         setupBottomNavigation();
+
+        Amplify.Auth.fetchUserAttributes(
+                attributes -> {
+                    for (AuthUserAttribute attribute : attributes) {
+                        if ("email".equals(attribute.getKey())) {
+                            String email = attribute.getValue();
+                            updateEditText(R.id.edEmail, email);
+                        } else if ("nickname".equals(attribute.getKey())) {
+                            String nickname = attribute.getValue();
+                            updateEditText(R.id.edFirstName, nickname);
+                        }
+                    }
+                },
+                error -> Log.e(TAG, "Error fetching user attributes: " + error.toString())
+        );
+        Button editButton=findViewById(R.id.editImageButton);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void updateEditText(int editTextId, String text) {
+        EditText editText = findViewById(editTextId);
+        if (editText != null) {
+            editText.setText(text);
+        }
     }
 
     private void setupViewPager() {
@@ -71,4 +135,5 @@ public class ProfileActivity extends AppCompatActivity {
                 return 0;
         }
     }
+
 }

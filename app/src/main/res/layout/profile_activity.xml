@@ -1,130 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-    <LinearLayout
-        android:id="@+id/profile"
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Activities.ProfileActivity"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarUserAccount"
             android:layout_width="match_parent"
+            android:layout_height="70dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <ProgressBar
+            android:id="@+id/progressbarAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageUser"
+            android:layout_width="129dp"
             android:layout_height="122dp"
-            android:background="#FF4081"
-            android:padding="25dp"
+            android:layout_marginTop="24dp"
+            android:src="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarUserAccount"
+            tools:ignore="MissingClass" />
 
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textSize="25dp"
-                android:textColor="@color/white"
-                android:text="QuickSeller" />
-
-            <ImageView
-                android:id="@+id/profileImglogoProfile"
-                android:layout_width="75dp"
-                android:layout_height="50dp"
-                android:layout_margin="20dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/logoooo"
-                tools:srcCompat="@tools:sample/avatars" />
-
-
-        </LinearLayout>
+        <EditText
+            android:id="@+id/edFirstName"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/edit_text_background"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:hint="UserName"
+            android:singleLine="true"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
+            app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/imageUser" />
 
 
-        <Button
-            android:id="@+id/ProfileuttonCategory"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/edEmail"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/edit_text_background"
+            android:editable="false"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:hint="Email"
+            android:singleLine="true"
+            android:textColor="@color/g_blue_gray200"
+            app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/edFirstName"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftGuideline"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="all category"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:backgroundTint="@color/white"
-            android:drawableLeft="@drawable/categoryphoto"
-            />
-        <Button
-            android:id="@+id/ProfileuttonChangPassword"
-            android:layout_width="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightGuideline"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="change password"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:backgroundTint="@color/white"
-            android:drawableLeft="@drawable/baseline_password_24"
-            />
-        <Button
-            android:id="@+id/ProfileuttonTeams"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Teams And Tonditions"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:backgroundTint="@color/white"
-            android:drawableLeft="@drawable/baseline_pest_control_24"
-            />
-        <Button
-            android:id="@+id/ProfileuttonPrivacy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Privacy And Policy"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:backgroundTint="@color/white"
-            android:drawableLeft="@drawable/baseline_policy_24"
-            />
-        <Button
-            android:id="@+id/ProfileuttonAboutUs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="About Us"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:backgroundTint="@color/white"
-            android:drawableLeft="@drawable/baseline_question_mark_24"
-            />
-        <Button
-            android:id="@+id/ProfileuttonFaq"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="FAQ"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:backgroundTint="@color/white"
-            android:drawableLeft="@drawable/baseline_fiber_manual_record_24"
-            />
-        <Button
-            android:id="@+id/ProfileuttonSignOut"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sign Out"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:backgroundTint="@color/white"
-            android:drawableLeft="@drawable/baseline_logout_24"
-            />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.96" />
         <FrameLayout
             android:id="@+id/flFragment"
             android:visibility="gone"
@@ -157,6 +139,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/bottom_navigation_menu" />
 
-    </LinearLayout>
-</ScrollView>
+        <Button
+            android:id="@+id/editImageButton"
+            android:layout_width="391dp"
+            android:layout_height="56dp"
+            android:backgroundTint="#CD483E"
+            android:fontFamily="serif-monospace"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
+            android:text="Edit"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edEmail"
+            app:strokeColor="#F4EFEF" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -16,9 +16,9 @@
         <activity
             android:name=".Activities.SettingsActivity"
             android:exported="false" />
-        <activity
-            android:name=".Activities.ShoppingActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".Activities.ShoppingActivity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".Activities.LogoutActivity"
             android:exported="false" />
@@ -27,7 +27,14 @@
             android:exported="false" />
         <activity
             android:name=".Activities.AddItemActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter android:label="Share to add Post">
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.EditProfileActivity"
             android:exported="false" />
@@ -36,7 +43,15 @@
             android:exported="false" />
         <activity
             android:name=".Activities.HomeActivity"
-            android:exported="false" />
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".Activities.LoginActivity"
             android:exported="false" />
@@ -48,13 +63,9 @@
             android:exported="false" />
         <activity
             android:name=".Activities.WelcomePageActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+<!--        </activity>-->
     </application>
 
 </manifest>
