@@ -6,8 +6,8 @@
     "defaultAuthType": {
       "mode": "API_KEY",
       "expirationTime": 60,
-      "apiKeyExpirationDate": "2024-02-09T13:25:54.884Z",
-      "keyDescription": "api key for auth"
+      "apiKeyExpirationDate": "2024-02-10T00:29:07.254Z",
+      "keyDescription": "this api key is for quickSeller project models"
     },
     "conflictResolution": {},
     "additionalAuthTypes": []
