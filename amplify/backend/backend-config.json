@@ -46,12 +46,5 @@
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
-  },
-  "storage": {
-    "quickSellerStorage": {
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "S3"
-    }
   }
 }

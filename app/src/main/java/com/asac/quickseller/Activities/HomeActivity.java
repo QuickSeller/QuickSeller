@@ -1,6 +1,7 @@
 package com.asac.quickseller.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -33,18 +34,28 @@ public class HomeActivity extends AppCompatActivity {
     Button addItemButton = null;
     Button profileButton = null;
     ViewPager2 viewPager;
+
+    CardView postDetailsBtn = null;
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
-
+        setupPostDetailsBtn();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         queryDataAndDisplay();
+    }
+
+    private void setupPostDetailsBtn(){
+        postDetailsBtn = (CardView) findViewById(R.id.homePagePostDetailsBtn);
+        postDetailsBtn.setOnClickListener(b -> {
+            Intent goToDetails = new Intent(HomeActivity.this, ItemDetailsActivity.class);
+            startActivity(goToDetails);
+        });
     }
     private void queryDataAndDisplay() {
 
