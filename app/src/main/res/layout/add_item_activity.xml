@@ -37,10 +37,24 @@
     </LinearLayout>
 
 
+    <Button
+        android:id="@+id/addItemAddImageBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ED8AAC"
+        android:text="Add Product Image" />
+
+    <Button
+        android:id="@+id/AddItemDeleteImageBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ED8AAC"
+        android:text="Delete Image" />
+
     <ImageView
         android:id="@+id/AddItemimageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:layout_margin="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/ic_launcher_background"
