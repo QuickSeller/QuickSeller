@@ -1,6 +1,5 @@
 package com.amplifyframework.datastore.generated.model;
 
-import com.amplifyframework.core.model.annotations.HasMany;
 import com.amplifyframework.core.model.temporal.Temporal;
 
 import java.util.List;
@@ -22,19 +21,14 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the User type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Users",authRules = {
+@ModelConfig(pluralName = "Users",  authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 public final class User implements Model {
   public static final QueryField ID = field("User", "id");
-  public static final QueryField EMAIL = field("User", "email");
-  public static final QueryField FULL_NAME = field("User", "fullName");
+  public static final QueryField PRODUCT_IMAGE_S3_KEY = field("User", "productImageS3Key");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="String", isRequired = true) String email;
-  private final @ModelField(targetType="String") String fullName;
-  private final @ModelField(targetType="Product") @HasMany(associatedWith = "userPerson", type = Product.class) List<Product> products = null;
-  private final @ModelField(targetType="Order") @HasMany(associatedWith = "user", type = Order.class) List<Order> orders = null;
-  private final @ModelField(targetType="Comment") @HasMany(associatedWith = "user", type = Comment.class) List<Comment> comments = null;
+  private final @ModelField(targetType="String") String productImageS3Key;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   /** @deprecated This API is internal to Amplify and should not be used. */
@@ -47,24 +41,8 @@ public final class User implements Model {
       return id;
   }
   
-  public String getEmail() {
-      return email;
-  }
-  
-  public String getFullName() {
-      return fullName;
-  }
-  
-  public List<Product> getProducts() {
-      return products;
-  }
-  
-  public List<Order> getOrders() {
-      return orders;
-  }
-  
-  public List<Comment> getComments() {
-      return comments;
+  public String getProductImageS3Key() {
+      return productImageS3Key;
   }
   
   public Temporal.DateTime getCreatedAt() {
@@ -75,10 +53,9 @@ public final class User implements Model {
       return updatedAt;
   }
   
-  private User(String id, String email, String fullName) {
+  private User(String id, String productImageS3Key) {
     this.id = id;
-    this.email = email;
-    this.fullName = fullName;
+    this.productImageS3Key = productImageS3Key;
   }
   
   @Override
@@ -90,8 +67,7 @@ public final class User implements Model {
       } else {
       User user = (User) obj;
       return ObjectsCompat.equals(getId(), user.getId()) &&
-              ObjectsCompat.equals(getEmail(), user.getEmail()) &&
-              ObjectsCompat.equals(getFullName(), user.getFullName()) &&
+              ObjectsCompat.equals(getProductImageS3Key(), user.getProductImageS3Key()) &&
               ObjectsCompat.equals(getCreatedAt(), user.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), user.getUpdatedAt());
       }
@@ -101,8 +77,7 @@ public final class User implements Model {
    public int hashCode() {
     return new StringBuilder()
       .append(getId())
-      .append(getEmail())
-      .append(getFullName())
+      .append(getProductImageS3Key())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -114,15 +89,14 @@ public final class User implements Model {
     return new StringBuilder()
       .append("User {")
       .append("id=" + String.valueOf(getId()) + ", ")
-      .append("email=" + String.valueOf(getEmail()) + ", ")
-      .append("fullName=" + String.valueOf(getFullName()) + ", ")
+      .append("productImageS3Key=" + String.valueOf(getProductImageS3Key()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
   }
   
-  public static EmailStep builder() {
+  public static BuildStep builder() {
       return new Builder();
   }
   
@@ -137,40 +111,31 @@ public final class User implements Model {
   public static User justId(String id) {
     return new User(
       id,
-      null,
       null
     );
   }
   
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
-      email,
-      fullName);
+      productImageS3Key);
   }
-  public interface EmailStep {
-    BuildStep email(String email);
-  }
-  
-
   public interface BuildStep {
     User build();
     BuildStep id(String id);
-    BuildStep fullName(String fullName);
+    BuildStep productImageS3Key(String productImageS3Key);
   }
   
 
-  public static class Builder implements EmailStep, BuildStep {
+  public static class Builder implements BuildStep {
     private String id;
-    private String email;
-    private String fullName;
+    private String productImageS3Key;
     public Builder() {
       
     }
     
-    private Builder(String id, String email, String fullName) {
+    private Builder(String id, String productImageS3Key) {
       this.id = id;
-      this.email = email;
-      this.fullName = fullName;
+      this.productImageS3Key = productImageS3Key;
     }
     
     @Override
@@ -179,20 +144,12 @@ public final class User implements Model {
         
         return new User(
           id,
-          email,
-          fullName);
+          productImageS3Key);
     }
     
     @Override
-     public BuildStep email(String email) {
-        Objects.requireNonNull(email);
-        this.email = email;
-        return this;
-    }
-    
-    @Override
-     public BuildStep fullName(String fullName) {
-        this.fullName = fullName;
+     public BuildStep productImageS3Key(String productImageS3Key) {
+        this.productImageS3Key = productImageS3Key;
         return this;
     }
     
@@ -208,20 +165,18 @@ public final class User implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String email, String fullName) {
-      super(id, email, fullName);
-      Objects.requireNonNull(email);
+    private CopyOfBuilder(String id, String productImageS3Key) {
+      super(id, productImageS3Key);
+      
     }
     
     @Override
-     public CopyOfBuilder email(String email) {
-      return (CopyOfBuilder) super.email(email);
-    }
-    
-    @Override
-     public CopyOfBuilder fullName(String fullName) {
-      return (CopyOfBuilder) super.fullName(fullName);
+     public CopyOfBuilder productImageS3Key(String productImageS3Key) {
+      return (CopyOfBuilder) super.productImageS3Key(productImageS3Key);
     }
   }
+  
+
+
   
 }

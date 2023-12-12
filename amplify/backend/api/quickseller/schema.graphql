@@ -17,7 +17,7 @@ type Post @model @auth(rules: [{ allow: public }]) {
 #  posts: [Post]! @hasMany(fields: ["id"])
 #  email: String!
 #  phoneNumber: String!
-#  image: String
+  #productImageS3Key: String
 #  comments: [Comment]! @hasMany( fields: ["id"])
 #  orders: [Order]! @hasMany( fields: ["id"])
 #
