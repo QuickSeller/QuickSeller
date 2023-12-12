@@ -1,0 +1,18 @@
+{
+  "resourceName": "quickSellerStorage",
+  "policyUUID": "71a37071",
+  "bucketName": "quicksellerbf9a8f67b4e94bab89df65f028fcaf09",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
