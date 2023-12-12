@@ -1,7 +1,7 @@
 package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
-
+//import com.amplifyframework.core.model.ModelIdentifier;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +22,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the Post type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Posts",  authRules = {
+@ModelConfig(pluralName = "Posts", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 public final class Post implements Model {
@@ -365,5 +365,13 @@ public final class Post implements Model {
       return (CopyOfBuilder) super.description(description);
     }
   }
+  
 
+//  public static class PostIdentifier extends ModelIdentifier<Post> {
+//    private static final long serialVersionUID = 1L;
+//    public PostIdentifier(String id) {
+//      super(id);
+//    }
+//  }
+  
 }
