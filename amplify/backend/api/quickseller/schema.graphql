@@ -4,19 +4,31 @@ type User @model @auth(rules: [{ allow: public }]) {
   email: String!
   phoneNumber: String!
   image: String
+  posts: [Post] @hasMany(fields: ["id"])
+  #  comments: [Comment]! @hasMany( fields: ["id"])
+  #  orders: [Order]! @hasMany( fields: ["id"])
 
 }
 
 type Post @model @auth(rules: [{ allow: public }]) {
   id: ID!
-  city: CityEnum!
+  userId: ID!
+  user: User! @belongsTo(fields: ["userId"])
+  city: String!
   title: String!
   description: String
   price: String!
   productCategory: ProductCategoryEnum!
   images: [String]
   createdAt: AWSDateTime!
+  #  comments: [Comment]! @hasMany( fields: ["id"])
+  #  order: Order @hasOne
+}
 
+type Comment @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  content: String!
+  createdAt:AWSDateTime!
 }
 
 #

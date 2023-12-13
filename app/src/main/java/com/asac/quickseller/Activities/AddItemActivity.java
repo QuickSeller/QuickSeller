@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.CityEnum;
@@ -31,14 +32,13 @@ import com.amplifyframework.datastore.generated.model.Post;
 import com.amplifyframework.datastore.generated.model.ProductCategoryEnum;
 
 
-
+import com.amplifyframework.datastore.generated.model.User;
 import com.asac.quickseller.R;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -282,51 +282,43 @@ public class AddItemActivity extends AppCompatActivity {
 
         });
     }
-    private void saveNewProduct(String title, String description, String price, String[] imageList){
-//
-//        Post newPost = Post.builder()
-//                .city((CityEnum) citiesSpinner.getSelectedItem())
-//                .title(title)
-//                .price(price)
-//                .productCategory((ProductCategoryEnum) productCategorySpinner.getSelectedItem())
-//                .images(List.of(imageList))
-//                .createdAt(new Temporal.DateTime(new Date(), 0))
-//                .description(description)
-//                .build();
+    private void saveNewProduct(String title, String description, String price, String[] imageList) {
+        Amplify.API.query(
+                ModelQuery.list(User.class, User.EMAIL.eq(Amplify.Auth.getCurrentUser().getUsername())),
+                response -> {
+                    if (response.hasData() && response.getData().iterator().hasNext()) {
+                        User user = response.getData().iterator().next();
+                        Post newPost = Post.builder()
+                                .user(user)
+                                .city(String.valueOf((CityEnum) citiesSpinner.getSelectedItem()))
+                                .title(title)
+                                .price(price)
+                                .productCategory((ProductCategoryEnum) productCategorySpinner.getSelectedItem())
+                                .createdAt(new Temporal.DateTime(new Date(), 0))
+                                .description(description)
+                                .images(List.of(imageList))
+                                .build();
 
-        Post newPost = Post.builder()
-                .city((CityEnum) citiesSpinner.getSelectedItem())
-                .title(title)
-                .price(price)
-                .productCategory((ProductCategoryEnum) productCategorySpinner.getSelectedItem())
-                .createdAt(new Temporal.DateTime(new Date(), 0))
-                .description(description)
-                .images(List.of(imageList)).build();
-
-        if(title == ""){
-            Snackbar.make(findViewById(R.id.addItem),"Please add your product name", Snackbar.LENGTH_SHORT).show();
-        }else if(description == ""){
-            Snackbar.make(findViewById(R.id.addItem),"Please add description about your product", Snackbar.LENGTH_SHORT).show();
-        } else if (price == "") {
-            Snackbar.make(findViewById(R.id.addItem),"Please add your product price", Snackbar.LENGTH_SHORT).show();
-        } else if (imageList == null) {
-            Snackbar.make(findViewById(R.id.addItem),"Please add Image of your product", Snackbar.LENGTH_SHORT).show();
-        }else{
-            Amplify.API.mutate(
-                    ModelMutation.create(newPost),
-                    success -> {
-                        Log.i(TAG, "AddItemActivity(): Item added Successfully" + success.toString());
-                        runOnUiThread(() -> {
-                            Snackbar.make(findViewById(R.id.addItem),"New Post Added", Snackbar.LENGTH_SHORT).show();
-                        });
-                    },
-                    failure -> {
-                        Log.e(TAG, "AddItemActivity(): Failed to add Item" + failure.toString());
-
+                        Amplify.API.mutate(
+                                ModelMutation.create(newPost),
+                                success -> {
+                                    Log.i(TAG, "AddItemActivity(): Item added Successfully" + success.toString());
+                                    runOnUiThread(() -> {
+                                        Snackbar.make(findViewById(R.id.addItem), "New Post Added", Snackbar.LENGTH_SHORT).show();
+                                    });
+                                },
+                                failure -> {
+                                    Log.e(TAG, "AddItemActivity(): Failed to add Item" + failure.toString());
+                                }
+                        );
+                    } else {
+                        Log.e(TAG, "User not found in the User table.");
                     }
-            );
-        }
-
+                },
+                failure -> {
+                    Log.e(TAG, "Failed to query user from the User table: " + failure.getMessage());
+                }
+        );
     }
     @SuppressLint("Range")
     public String getFileNameFromUri(Uri uri) {

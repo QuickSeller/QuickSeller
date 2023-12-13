@@ -3,22 +3,31 @@ package com.asac.quickseller.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.amplifyframework.api.graphql.GraphQLRequest;
 import com.amplifyframework.api.graphql.PaginatedResult;
 import com.amplifyframework.api.graphql.model.ModelPagination;
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUser;
 import com.amplifyframework.core.Amplify;
 
 import com.amplifyframework.datastore.generated.model.Post;
+import com.amplifyframework.datastore.generated.model.ProductCategoryEnum;
 import com.asac.quickseller.NavbarAdapter;
 import com.asac.quickseller.R;
 import com.asac.quickseller.adapter.MyAdapter;
@@ -42,6 +51,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
+        HorizontalScrollView horizontalScrollView = findViewById(R.id.horizontalScrollView);
+
+        ProductCategoryEnum[] categories = ProductCategoryEnum.values();
+
+        populateHorizontalScrollView(horizontalScrollView, categories);
+
         RecyclerView recyclerView = findViewById(R.id.post_view);
         adapter = new MyAdapter(getApplicationContext(), items);
 
@@ -49,6 +64,60 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         queryFirstPage();
+
+        AuthUser authUser = Amplify.Auth.getCurrentUser();
+        Log.i("ssssss" , authUser.toString());
+    }
+
+
+    private void populateHorizontalScrollView(HorizontalScrollView scrollView, ProductCategoryEnum[] categories) {
+        Context context = scrollView.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        LinearLayout containerLayout = new LinearLayout(context);
+        containerLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        ));
+        containerLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        for (ProductCategoryEnum category : categories) {
+            ViewGroup categoryItemLayout = (ViewGroup) inflater.inflate(R.layout.category_item, containerLayout, false);
+
+            TextView categoryName = categoryItemLayout.findViewById(R.id.categoryName);
+
+            switch (category) {
+                case Clothes:
+                    setCategoryItem(categoryName, context, "Clothes");
+                    break;
+                case Electronics:
+                    setCategoryItem(categoryName, context, "Electronics");
+                    break;
+                case Perishable_Goods:
+                    setCategoryItem(categoryName, context, "Perishable Goods");
+                    break;
+                case Office_supplies:
+                    setCategoryItem(categoryName, context, "Office Supplies");
+                    break;
+                case Misc:
+                    setCategoryItem(categoryName, context, "Misc");
+                    break;
+            }
+
+            categoryItemLayout.setOnClickListener(view -> {
+                Log.d(TAG, "Clicked on category: " + categoryName.getText().toString());
+            });
+
+            containerLayout.addView(categoryItemLayout);
+        }
+        scrollView.addView(containerLayout);
+    }
+
+    private void setCategoryItem(TextView categoryName, Context context, String name) {
+        categoryName.setText(name);
+        categoryName.setTextColor(ContextCompat.getColor(context, android.R.color.black));
+        categoryName.setTextSize(12);
+        categoryName.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
     }
 
     public void queryFirstPage() {

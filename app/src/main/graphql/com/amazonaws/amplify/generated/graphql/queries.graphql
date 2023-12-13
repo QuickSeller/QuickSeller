@@ -7,6 +7,10 @@ query GetUser($id: ID!) {
     email
     phoneNumber
     image
+    posts {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -37,6 +41,17 @@ query ListUsers(
 query GetPost($id: ID!) {
   getPost(id: $id) {
     id
+    userId
+    user {
+      id
+      username
+      email
+      phoneNumber
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     city
     title
     description
@@ -57,12 +72,41 @@ query ListPosts(
   listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      userId
       city
       title
       description
       price
       productCategory
       images
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query GetComment($id: ID!) {
+  getComment(id: $id) {
+    id
+    content
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+query ListComments(
+  $filter: ModelCommentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      content
       createdAt
       updatedAt
       __typename
