@@ -1,0 +1,88 @@
+type User @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  username: String!
+  email: String!
+  phoneNumber: String!
+  image: String
+
+}
+
+type Post @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  city: CityEnum!
+  title: String!
+  description: String
+  price: String!
+  productCategory: ProductCategoryEnum!
+  images: [String]
+  createdAt: AWSDateTime!
+
+}
+
+#
+#type User @model @auth(rules: [{ allow: public }]) {
+#  id: ID!
+#  username: String!
+#  posts: [Post]! @hasMany(fields: ["id"])
+#  email: String!
+#  phoneNumber: String!
+#  image: String
+#  comments: [Comment]! @hasMany( fields: ["id"])
+#  orders: [Order]! @hasMany( fields: ["id"])
+#
+#}
+#
+#type Post @model @auth(rules: [{ allow: public }]) {
+#  id: ID!
+#  userId: ID!
+#  user: User! @belongsTo(fields: ["userId"])
+#  city: String!
+#  title: String!
+#  description: String
+#  price: Float!
+#  productCategory: ProductCategoryEnum!
+#  images: [String!]!
+#  createdAt: AWSDateTime!
+#  comments: [Comment]! @hasMany( fields: ["id"])
+#  order: Order @hasOne
+#}
+#
+#type Comment @model @auth(rules: [{ allow: public }]) {
+#  id: ID!
+#  userId: ID!
+#  user: User! @belongsTo(fields: ["userId"])
+#  postId: ID!
+#  post: Post! @belongsTo(fields: ["postId"])
+#  content: String!
+#  createdAt: AWSDateTime!
+#
+#
+#}
+#
+#type Order @model @auth(rules: [{ allow: public }]) {
+#  id: ID!
+#  userId: ID!
+#  user: User! @belongsTo(fields: ["userId"])
+#  postId: ID!
+#  post: Post! @belongsTo(fields: ["postId"])
+#  createdAt: AWSDateTime!
+#  status: OrderStatusEnum!
+#}
+enum CityEnum {
+  Amman
+  Zarqa
+  Irbid
+}
+enum ProductCategoryEnum {
+  Clothes
+  Electronics
+  Perishable_Goods
+  Office_supplies
+  Misc
+}
+
+enum OrderStatusEnum {
+  Pending
+  Completed
+  Cancelled
+}
