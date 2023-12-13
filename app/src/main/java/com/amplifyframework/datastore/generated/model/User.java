@@ -22,7 +22,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the User type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Users",  authRules = {
+@ModelConfig(pluralName = "Users", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 public final class User implements Model {
@@ -51,15 +51,15 @@ public final class User implements Model {
   public String getUsername() {
       return username;
   }
-  
+
   public String getEmail() {
       return email;
   }
-  
+
   public String getPhoneNumber() {
       return phoneNumber;
   }
-  
+
   public String getImage() {
       return image;
   }
@@ -159,12 +159,12 @@ public final class User implements Model {
   public interface UsernameStep {
     EmailStep username(String username);
   }
-  
+
 
   public interface EmailStep {
     PhoneNumberStep email(String email);
   }
-  
+
 
   public interface PhoneNumberStep {
     BuildStep phoneNumber(String phoneNumber);
@@ -207,14 +207,14 @@ public final class User implements Model {
           phoneNumber,
           image);
     }
-    
+
     @Override
      public EmailStep username(String username) {
         Objects.requireNonNull(username);
         this.username = username;
         return this;
     }
-    
+
     @Override
      public PhoneNumberStep email(String email) {
         Objects.requireNonNull(email);
@@ -228,7 +228,7 @@ public final class User implements Model {
         this.phoneNumber = phoneNumber;
         return this;
     }
-    
+
     @Override
      public BuildStep image(String image) {
         this.image = image;
@@ -253,7 +253,7 @@ public final class User implements Model {
       Objects.requireNonNull(email);
       Objects.requireNonNull(phoneNumber);
     }
-    
+
     @Override
      public CopyOfBuilder username(String username) {
       return (CopyOfBuilder) super.username(username);
@@ -268,13 +268,14 @@ public final class User implements Model {
      public CopyOfBuilder phoneNumber(String phoneNumber) {
       return (CopyOfBuilder) super.phoneNumber(phoneNumber);
     }
-    
+
     @Override
      public CopyOfBuilder image(String image) {
       return (CopyOfBuilder) super.image(image);
     }
   }
-  
+
+
 
   
 }

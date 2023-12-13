@@ -40,67 +40,67 @@ public class HomeActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.post_view);
 
-        List<Post> items = new ArrayList<>();
-        items.add(Post.builder()
-                .city(CityEnum.Amman)
-                .title("AAA")
-                .price("111")
-                .productCategory(ProductCategoryEnum.Clothes)
-                .images(List.of("Pic111"))
-                .createdAt(new Temporal.DateTime(new Date(),0)).build()
-        );
-
-        items.add(Post.builder()
-                .city(CityEnum.Zarqa)
-                .title("BBB")
-                .price("222")
-                .productCategory(ProductCategoryEnum.Electronics)
-                .images(List.of("Pic222"))
-                .createdAt(new Temporal.DateTime(new Date(),0)).build()
-        );
-
-
-        items.add(Post.builder()
-                .city(CityEnum.Zarqa)
-                .title("BBB")
-                .price("222")
-                .productCategory(ProductCategoryEnum.Electronics)
-                .images(List.of("Pic222"))
-                .createdAt(new Temporal.DateTime(new Date(),0)).build()
-        );
-
-
-        items.add(Post.builder()
-                .city(CityEnum.Zarqa)
-                .title("BBB")
-                .price("222")
-                .productCategory(ProductCategoryEnum.Electronics)
-                .images(List.of("Pic222"))
-                .createdAt(new Temporal.DateTime(new Date(),0)).build()
-        );
-
-
-        items.add(Post.builder()
-                .city(CityEnum.Zarqa)
-                .title("BBB")
-                .price("222")
-                .productCategory(ProductCategoryEnum.Electronics)
-                .images(List.of("Pic222"))
-                .createdAt(new Temporal.DateTime(new Date(),0)).build()
-        );
-
-
-        items.add(Post.builder()
-                .city(CityEnum.Zarqa)
-                .title("BBB")
-                .price("222")
-                .productCategory(ProductCategoryEnum.Electronics)
-                .images(List.of("R.drawable.logoooo"))
-                .createdAt(new Temporal.DateTime(new Date(),0)).build()
-        );
+//        List<Post> items = new ArrayList<>();
+//        items.add(Post.builder()
+//                .city(CityEnum.Amman)
+//                .title("AAA")
+//                .price("111")
+//                .productCategory(ProductCategoryEnum.Clothes)
+//                .images(List.of("Pic111"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
+//
+//        items.add(Post.builder()
+//                .city(CityEnum.Zarqa)
+//                .title("BBB")
+//                .price("222")
+//                .productCategory(ProductCategoryEnum.Electronics)
+//                .images(List.of("Pic222"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
+//
+//
+//        items.add(Post.builder()
+//                .city(CityEnum.Zarqa)
+//                .title("BBB")
+//                .price("222")
+//                .productCategory(ProductCategoryEnum.Electronics)
+//                .images(List.of("Pic222"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
+//
+//
+//        items.add(Post.builder()
+//                .city(CityEnum.Zarqa)
+//                .title("BBB")
+//                .price("222")
+//                .productCategory(ProductCategoryEnum.Electronics)
+//                .images(List.of("Pic222"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
+//
+//
+//        items.add(Post.builder()
+//                .city(CityEnum.Zarqa)
+//                .title("BBB")
+//                .price("222")
+//                .productCategory(ProductCategoryEnum.Electronics)
+//                .images(List.of("Pic222"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
+//
+//
+//        items.add(Post.builder()
+//                .city(CityEnum.Zarqa)
+//                .title("BBB")
+//                .price("222")
+//                .productCategory(ProductCategoryEnum.Electronics)
+//                .images(List.of("R.drawable.logoooo"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
 //        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapter(getApplicationContext(),items));
+//        recyclerView.setAdapter(new MyAdapter(getApplicationContext(),items));
 
     }
 

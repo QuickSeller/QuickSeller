@@ -365,5 +365,6 @@ public final class Post implements Model {
       return (CopyOfBuilder) super.description(description);
     }
   }
-  
+
+
 }
