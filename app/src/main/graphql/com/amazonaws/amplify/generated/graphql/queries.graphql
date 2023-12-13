@@ -1,5 +1,39 @@
 # this is an auto generated file. This will be overwritten
 
+query GetUser($id: ID!) {
+  getUser(id: $id) {
+    id
+    username
+    email
+    phoneNumber
+    image
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      username
+      email
+      phoneNumber
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
 query GetPost($id: ID!) {
   getPost(id: $id) {
     id
@@ -29,40 +63,6 @@ query ListPosts(
       price
       productCategory
       images
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-
-query GetUser($id: ID!) {
-  getUser(id: $id) {
-    id
-    username
-    email
-    phoneNumber
-    image
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-
-query ListUsers(
-  $filter: ModelUserFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      username
-      email
-      phoneNumber
-      image
       createdAt
       updatedAt
       __typename

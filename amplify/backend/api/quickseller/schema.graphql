@@ -1,3 +1,12 @@
+type User @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  username: String!
+  email: String!
+  phoneNumber: String!
+  image: String
+
+}
+
 type Post @model @auth(rules: [{ allow: public }]) {
   id: ID!
   city: CityEnum!
@@ -5,23 +14,23 @@ type Post @model @auth(rules: [{ allow: public }]) {
   description: String
   price: String!
   productCategory: ProductCategoryEnum!
-  images: [String!]!
+  images: [String]
   createdAt: AWSDateTime!
+
 }
 
 #
-#
-type User @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  username: String!
+#type User @model @auth(rules: [{ allow: public }]) {
+#  id: ID!
+#  username: String!
 #  posts: [Post]! @hasMany(fields: ["id"])
-  email: String!
-  phoneNumber: String!
+#  email: String!
+#  phoneNumber: String!
 #  image: String
 #  comments: [Comment]! @hasMany( fields: ["id"])
 #  orders: [Order]! @hasMany( fields: ["id"])
-
-}
+#
+#}
 #
 #type Post @model @auth(rules: [{ allow: public }]) {
 #  id: ID!
@@ -59,18 +68,17 @@ type User @model @auth(rules: [{ allow: public }]) {
 #  createdAt: AWSDateTime!
 #  status: OrderStatusEnum!
 #}
-#
+enum CityEnum {
+  Amman
+  Zarqa
+  Irbid
+}
 enum ProductCategoryEnum {
   Clothes
   Electronics
   Perishable_Goods
   Office_supplies
   Misc
-}
-enum CityEnum {
-  Amman
-  Zarqa
-  Irbid
 }
 
 enum OrderStatusEnum {

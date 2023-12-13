@@ -1,25 +1,27 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-quickseller-dev-193622-authRole",
-      "UnauthRoleArn": "arn:aws:iam::131487034934:role/amplify-quickseller-dev-193622-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::131487034934:role/amplify-quickseller-dev-193622-authRole",
+      "AuthRoleName": "amplify-quickseller-dev-45439-authRole",
+      "UnauthRoleArn": "arn:aws:iam::131487034934:role/amplify-quickseller-dev-45439-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::131487034934:role/amplify-quickseller-dev-45439-authRole",
       "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-quickseller-dev-193622-deployment",
-      "UnauthRoleName": "amplify-quickseller-dev-193622-unauthRole",
-      "StackName": "amplify-quickseller-dev-193622",
-      "StackId": "arn:aws:cloudformation:us-west-2:131487034934:stack/amplify-quickseller-dev-193622/ef525b40-95e7-11ee-bf00-06eeb5a67939",
-      "AmplifyAppId": "d21faz8y55d0g8"
+      "DeploymentBucketName": "amplify-quickseller-dev-45439-deployment",
+      "UnauthRoleName": "amplify-quickseller-dev-45439-unauthRole",
+      "StackName": "amplify-quickseller-dev-45439",
+      "StackId": "arn:aws:cloudformation:us-west-2:131487034934:stack/amplify-quickseller-dev-45439/968ddd10-995a-11ee-9350-0a122fec9f9d",
+      "AmplifyAppId": "d3anbuy1vujpsf"
     },
     "categories": {
-      "api": {
-        "quickseller": {}
-      },
       "auth": {
-        "quickseller14c7b052": {}
+        "quickseller14c7b052": {},
+        "quicksellerb7658026": {}
       },
       "storage": {
-        "quickSellerStorage": {}
+        "quickSellerStorage": {},
+        "quickseller": {}
+      },
+      "api": {
+        "quickseller": {}
       }
     }
   }

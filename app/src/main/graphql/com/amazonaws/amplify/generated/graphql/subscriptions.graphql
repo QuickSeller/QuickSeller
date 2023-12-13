@@ -1,5 +1,44 @@
 # this is an auto generated file. This will be overwritten
 
+subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+  onCreateUser(filter: $filter) {
+    id
+    username
+    email
+    phoneNumber
+    image
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+  onUpdateUser(filter: $filter) {
+    id
+    username
+    email
+    phoneNumber
+    image
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+  onDeleteUser(filter: $filter) {
+    id
+    username
+    email
+    phoneNumber
+    image
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
 subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
   onCreatePost(filter: $filter) {
     id
@@ -39,45 +78,6 @@ subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
     price
     productCategory
     images
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-
-subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-  onCreateUser(filter: $filter) {
-    id
-    username
-    email
-    phoneNumber
-    image
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-
-subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-  onUpdateUser(filter: $filter) {
-    id
-    username
-    email
-    phoneNumber
-    image
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-
-subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-  onDeleteUser(filter: $filter) {
-    id
-    username
-    email
-    phoneNumber
-    image
     createdAt
     updatedAt
     __typename

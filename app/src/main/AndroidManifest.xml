@@ -42,7 +42,7 @@
             android:name=".Activities.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.HomeActivity"
+            android:name=".Activities.WelcomePageActivity"
             android:exported="true" >
 
             <intent-filter>
@@ -50,7 +50,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
@@ -62,10 +61,11 @@
             android:name=".Activities.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.WelcomePageActivity"
-            android:exported="false"/>
+            android:name=".Activities.HomeActivity"
+            android:exported="true">
 
-<!--        </activity>-->
+
+        </activity>
     </application>
 
 </manifest>

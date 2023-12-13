@@ -283,18 +283,25 @@ public class AddItemActivity extends AppCompatActivity {
         });
     }
     private void saveNewProduct(String title, String description, String price, String[] imageList){
+//
+//        Post newPost = Post.builder()
+//                .city((CityEnum) citiesSpinner.getSelectedItem())
+//                .title(title)
+//                .price(price)
+//                .productCategory((ProductCategoryEnum) productCategorySpinner.getSelectedItem())
+//                .images(List.of(imageList))
+//                .createdAt(new Temporal.DateTime(new Date(), 0))
+//                .description(description)
+//                .build();
 
         Post newPost = Post.builder()
                 .city((CityEnum) citiesSpinner.getSelectedItem())
                 .title(title)
                 .price(price)
                 .productCategory((ProductCategoryEnum) productCategorySpinner.getSelectedItem())
-                .images(List.of(imageList))
                 .createdAt(new Temporal.DateTime(new Date(), 0))
                 .description(description)
-                .build();
-
-
+                .images(List.of(imageList)).build();
 
         if(title == ""){
             Snackbar.make(findViewById(R.id.addItem),"Please add your product name", Snackbar.LENGTH_SHORT).show();
