@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,31 +32,72 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
+import java.util.Objects;
 
 public class EditProfileActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private String s3ImageKey = "";
+    EditText edFirstName ;
+    EditText edEmail ;
+    EditText edPhoneNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile_activity);
-        Intent intent = getIntent();
-        if (intent != null) {
-            String email = intent.getStringExtra(SignupActivity.SIGNUP_EMAIL_TAG);
-            String nickname = intent.getStringExtra("NICKNAME_TAG");
 
-            EditText edFirstName = findViewById(R.id.edFirstName);
-            EditText edEmail = findViewById(R.id.edEmail);
-
-            edFirstName.setText(nickname);
-            edEmail.setText(email);
             activityResultLauncher = getImagePickingActivityResultLauncher();
             setUpAddImageButton();
-            saveTask();
+            setUpSaveButton();
+            updateImageButtons();
+            setUpDeleteImageButton();
         }
 
+
+    private void setUpAddImageButton() {
+        Button addImageButton = (Button) findViewById(R.id.addImageButton);
+        addImageButton.setOnClickListener(b -> {
+            launchImageSelectionIntent();
+        });
     }
 
+    private void setUpDeleteImageButton()
+    {
+        Button deleteImageButton = (Button)findViewById(R.id.deleteImageButton);
+        String s3ImageKey = this.s3ImageKey;
+        deleteImageButton.setOnClickListener(v ->
+        {
+            Amplify.Storage.remove(
+                    s3ImageKey,
+                    success ->
+                    {
+                        Log.i(TAG, "Succeeded in deleting file on S3! Key is: " + success.getKey());
+
+                    },
+                    failure ->
+                    {
+                        Log.e(TAG, "Failure in deleting file on S3 with key: " + s3ImageKey + " with error: " + failure.getMessage());
+                    }
+            );
+            ImageView productImageView = findViewById(R.id.imageUser);
+            productImageView.setImageResource(android.R.color.transparent);
+
+            saveProfile("");
+            switchFromDeleteButtonToAddButton(deleteImageButton);
+        });
+    }
+
+    private void switchFromDeleteButtonToAddButton(Button deleteImageButton) {
+        Button addImageButton = findViewById(R.id.addImageButton);
+        deleteImageButton.setVisibility(View.INVISIBLE);
+        addImageButton.setVisibility(View.VISIBLE);
+    }
+
+    private void switchFromAddButtonToDeleteButton(Button addImageButton) {
+        Button deleteImageButton = findViewById(R.id.deleteImageButton);
+        deleteImageButton.setVisibility(View.VISIBLE);
+        addImageButton.setVisibility(View.INVISIBLE);
+    }
     private ActivityResultLauncher<Intent> getImagePickingActivityResultLauncher() {
         ActivityResultLauncher<Intent> imagePickingActivityResultLauncher =
                 registerForActivityResult(
@@ -71,6 +113,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                             InputStream pickedImageInputStream = getContentResolver().openInputStream(pickedImageFileUri);
                                             String pickedImageFilename = getFileNameFromUri(pickedImageFileUri);
                                             Log.i(TAG, "Succeeded in getting input stream from file on phone! Filename is: " + pickedImageFilename);
+                                            switchFromAddButtonToDeleteButton(addImageButton);
                                             uploadInputStreamToS3(pickedImageInputStream, pickedImageFilename, pickedImageFileUri);
                                         } catch (FileNotFoundException e) {
                                             Log.e(TAG, "Could not get file from file picker! " + e.getMessage(), e);
@@ -90,20 +133,19 @@ public class EditProfileActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e(TAG, "IOException while resetting input stream");
         }
-
         Amplify.Storage.uploadInputStream(
                 pickedImageFilename,
                 pickedImageInputStream,
                 success -> {
                     Log.i(TAG, "Succeeded in getting file uploaded to S3! Key is: " + success.getKey());
                     s3ImageKey = success.getKey();
-                    saveTask(s3ImageKey);
-                    ImageView taskImageView = findViewById(R.id.imageUser);
+                    saveProfile(s3ImageKey);
+                    ImageView profileImageView = findViewById(R.id.imageUser);
                     InputStream pickedImageInputStreamCopy = null;
                     try {
                         pickedImageInputStreamCopy = getContentResolver().openInputStream(pickedImageFileUri);
                         Bitmap bitmap = BitmapFactory.decodeStream(pickedImageInputStreamCopy);
-                        taskImageView.setImageBitmap(bitmap);
+                        profileImageView.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
                         Log.e(TAG, "Could not get file stream from URI! " + e.getMessage(), e);
                     } finally {
@@ -120,63 +162,53 @@ public class EditProfileActivity extends AppCompatActivity {
                     Log.e(TAG, "Failure in uploading file to S3 with filename: " + pickedImageFilename + " with error: " + failure.getMessage());
                 }
         );
-        String newUsername = "newUsername";
-        String newEmail = "newEmail@example.com";
-        String newPassword = "newPassword123";
-        updateUserInformation(newUsername, newEmail, newPassword);
+
     }
-    private void updateUserInformation(String newUsername, String newEmail, String newPassword) {
-//        User updatedUser = User.builder()
-//                //.username(newUsername)
-//               // .email(newEmail)
-//               // .password(newPassword)
-//                .image(s3ImageKey)
-//                .build();
 
 
-//        Amplify.API.mutate(
-//                ModelMutation.update(updatedUser),
-//                successResponse -> {
-//                    Log.i(TAG, "User information updated successfully");
-//                    Snackbar.make(findViewById(R.id.imageUser), "User information updated!", Snackbar.LENGTH_SHORT).show();
-//                },
-//                failureResponse -> {
-//                    Log.e(TAG, "Failed to update user information: " + failureResponse.getMessage());
-//                    Snackbar.make(findViewById(R.id.imageUser), "Failed to update user information", Snackbar.LENGTH_SHORT).show();
-//                }
-//        );
-    }
-    private void setUpAddImageButton() {
-        Button addImageButton = findViewById(R.id.addImageButton);
-        addImageButton.setOnClickListener(b -> {
-            launchImageSelectionIntent();
+
+    private void setUpSaveButton()
+    {
+        Button saveButton = (Button)findViewById(R.id.saveImageButton);
+        saveButton.setOnClickListener(v ->
+        {
+            saveProfile(s3ImageKey);
         });
     }
-    private void saveTask(String imageS3Key) {
-//        Button saveButton = findViewById(R.id.saveImageButton);
-//        saveButton.setOnClickListener(v -> {
-//            User profileToSave = User.builder()
-//                    .productImageS3Key(imageS3Key)
-//                    .build();
-//           // String imageKey = "placeholderImageKey";
-//           // updateUserInformation("newUsername", "newEmail@example.com", "newPassword123");
-//            Amplify.API.mutate(
-//                    ModelMutation.update(profileToSave),
-//                    successResponse -> {
-//                        Log.i(TAG, "EditActivity.onCreate(): edited a task successfully");
-//                        Snackbar.make(findViewById(R.id.imageUser), "Task saved!", Snackbar.LENGTH_SHORT).show();
-//                    },
-//                    failureResponse -> Log.i(TAG, "EditActivity.onCreate(): failed with this response: " + failureResponse)
-//            );
-//        });
-    }
-    private void saveTask() {
-        Button saveButton = findViewById(R.id.saveImageButton);
-        saveButton.setOnClickListener(v -> {
-            String imageKey = "placeholderImageKey";
-            updateUserInformation("newUsername", "newEmail@example.com", "newPassword123");
+    private void updateImageButtons() {
+        Button addImageButton = findViewById(R.id.addItemAddImageBtn);
+        Button deleteImageButton = (Button) findViewById(R.id.AddItemDeleteImageBtn);
+        runOnUiThread(() -> {
+            if (s3ImageKey == null) {
+                deleteImageButton.setVisibility(View.INVISIBLE);
+                addImageButton.setVisibility(View.VISIBLE);
+            } else {
+                deleteImageButton.setVisibility(View.VISIBLE);
+                addImageButton.setVisibility(View.INVISIBLE);
+            }
         });
     }
+    private void saveProfile(String imageS3Key)
+    {
+
+        User profileToSave = User.builder()
+                .username(edFirstName.getText().toString())
+                .email(edEmail.getText().toString())
+                .phoneNumber(edPhoneNumber.getText().toString())
+                .image(imageS3Key)
+                .build();
+        Amplify.API.mutate(
+                ModelMutation.update(profileToSave),
+                successResponse ->
+                {
+                    Log.i(TAG, "EditProfileActivity.onCreate(): edited a profile successfully");
+                    Snackbar.make(findViewById(R.id.saveImageButton), "profile saved!", Snackbar.LENGTH_SHORT).show();
+                },
+                failureResponse -> Log.i(TAG, "EditProfileActivity.onCreate(): failed with this response: " + failureResponse)
+        );
+    }
+
+
     private void launchImageSelectionIntent() {
         Intent imageFilePickingIntent = new Intent(Intent.ACTION_GET_CONTENT);
         imageFilePickingIntent.setType("image/*");

@@ -17,6 +17,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.MenuItem;
@@ -25,10 +26,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amplifyframework.analytics.AnalyticsEvent;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.auth.AuthUserAttribute;
+import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.User;
 import com.asac.quickseller.NavbarAdapter;
@@ -40,49 +44,56 @@ import com.google.android.play.core.tasks.Task;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     public static final String USER_NICKNAME_TAG="userNickname";
+    public static final String USER_EMAIL_TAG="userEmail";
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
-    private ActivityResultLauncher<Intent> activityResultLauncher;
-    private String s3ImageKey = "";
+    SharedPreferences preferences;
+
     private static final String TAG = "UserProfileActivity";
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_activity);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
         viewPager = findViewById(R.id.viewPager);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         setupViewPager();
         setupBottomNavigation();
 
-        Amplify.Auth.fetchUserAttributes(
-                attributes -> {
-                    for (AuthUserAttribute attribute : attributes) {
-                        if ("email".equals(attribute.getKey())) {
-                            String email = attribute.getValue();
-                            updateEditText(R.id.edEmail, email);
-                        } else if ("nickname".equals(attribute.getKey())) {
-                            String nickname = attribute.getValue();
-                            updateEditText(R.id.edFirstName, nickname);
-                        }
-                    }
-                },
-                error -> Log.e(TAG, "Error fetching user attributes: " + error.toString())
-        );
+
         Button editButton=findViewById(R.id.editImageButton);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
                 startActivity(intent);
+
             }
         });
     }
 
+
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String userNickname = preferences.getString(ProfileActivity.USER_NICKNAME_TAG, "No nickname");
+        String userEmail = preferences.getString(ProfileActivity.USER_EMAIL_TAG, "No email");
+        ((TextView)findViewById(R.id.profileEmail)).setText(userEmail);
+        ((TextView)findViewById(R.id.profileUsername)).setText(userNickname);
+
+    }
     private void updateEditText(int editTextId, String text) {
         EditText editText = findViewById(editTextId);
         if (editText != null) {
@@ -134,6 +145,15 @@ public class ProfileActivity extends AppCompatActivity {
             default:
                 return 0;
         }
+    }
+    private void init() {
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        AnalyticsEvent event = AnalyticsEvent.builder()
+                .name("openedApp")
+                .addProperty("time", Long.toString(new Date().getTime()))
+                .addProperty("trackingEvent", " main activity opened")
+                .build();
+        Amplify.Analytics.recordEvent(event);
     }
 
 }

@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -45,6 +43,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="76dp"
             android:text=" Add Image"
+            android:backgroundTint="@color/g_orange_light1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.847"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +67,7 @@
             android:layout_width="135dp"
             android:layout_height="50dp"
             android:text="Delete Image"
+            android:backgroundTint="@color/g_orange_light1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.847"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +77,7 @@
             android:id="@+id/edEmail"
             android:layout_width="0dp"
             android:layout_height="45dp"
+            android:layout_marginBottom="40dp"
             android:background="@drawable/edit_text_background"
             android:editable="false"
             android:fontFamily="sans-serif"
@@ -84,11 +85,11 @@
             android:hint="Email"
             android:singleLine="true"
             android:textColor="@color/g_blue_gray200"
+            app:layout_constraintBottom_toTopOf="@+id/saveImageButton"
             app:layout_constraintEnd_toEndOf="@id/rightGuideline"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/leftGuideline"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="461dp" />
+            tools:ignore="MissingConstraints" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/leftGuideline"
@@ -139,7 +140,6 @@
             android:id="@+id/saveImageButton"
             android:layout_width="391dp"
             android:layout_height="56dp"
-            android:layout_marginTop="68dp"
             android:backgroundTint="#CD483E"
             android:fontFamily="serif-monospace"
             android:paddingStart="20dp"
@@ -151,9 +151,11 @@
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edEmail"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.986"
             app:strokeColor="#F4EFEF" />
 
         <EditText
@@ -171,18 +173,18 @@
             app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/editImageView"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbarUserAccount"
+            app:layout_constraintVertical_bias="0.919" />
 
         <EditText
             android:id="@+id/edPassword"
             android:layout_width="0dp"
             android:layout_height="45dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="52dp"
             android:background="@drawable/edit_text_background"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:hint="Password"
+            android:hint="Phone Number"
             android:singleLine="true"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/edEmail"

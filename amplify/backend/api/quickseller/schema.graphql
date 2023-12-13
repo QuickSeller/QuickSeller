@@ -17,7 +17,7 @@ type User @model @auth(rules: [{ allow: public }]) {
 #  posts: [Post]! @hasMany(fields: ["id"])
   email: String!
   phoneNumber: String!
-#  image: String
+ image: String
 #  comments: [Comment]! @hasMany( fields: ["id"])
 #  orders: [Order]! @hasMany( fields: ["id"])
 
