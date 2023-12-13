@@ -7,9 +7,7 @@
           "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDate": "2024-02-09T21:24:42.653Z",
-              "apiKeyExpirationDays": 60,
-              "description": "api key for auth"
+              "apiKeyExpirationDays": 7
             },
             "authenticationType": "API_KEY"
           }
@@ -20,7 +18,7 @@
     }
   },
   "auth": {
-    "quickseller14c7b052": {
+    "quicksellerb7658026": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -45,6 +43,14 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {},
+  "storage": {
+    "quickseller": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }
