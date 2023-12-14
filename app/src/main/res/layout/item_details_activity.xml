@@ -58,6 +58,7 @@
                 android:layout_marginTop="5dp"/>
 
             <TextView
+                android:id="@+id/itemDetailsItemDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -78,6 +79,7 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/itemDetailsItemPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -88,6 +90,7 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/itemDetailsItemCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"

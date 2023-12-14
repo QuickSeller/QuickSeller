@@ -3,7 +3,6 @@ package com.amplifyframework.datastore.generated.model;
 import com.amplifyframework.core.model.annotations.HasMany;
 import com.amplifyframework.core.model.temporal.Temporal;
 
-
 import java.util.List;
 import java.util.UUID;
 import java.util.Objects;
@@ -53,6 +52,7 @@ public final class User implements Model {
   public String getUsername() {
       return username;
   }
+
   
   public String getEmail() {
       return email;
@@ -162,9 +162,16 @@ public final class User implements Model {
       phoneNumber,
       image);
   }
-  public interface UsernameStep {
+
+    public String getProductImageS3Key() {
+        return null;
+    }
+
+    public interface UsernameStep {
     EmailStep username(String username);
-  }
+
+        BuildStep productImageS3Key(String imageS3Key);
+    }
   
 
   public interface EmailStep {
@@ -220,8 +227,13 @@ public final class User implements Model {
         this.username = username;
         return this;
     }
-    
-    @Override
+
+      @Override
+      public BuildStep productImageS3Key(String imageS3Key) {
+          return null;
+      }
+
+      @Override
      public PhoneNumberStep email(String email) {
         Objects.requireNonNull(email);
         this.email = email;
@@ -281,4 +293,6 @@ public final class User implements Model {
     }
   }
 
+
+  
 }
