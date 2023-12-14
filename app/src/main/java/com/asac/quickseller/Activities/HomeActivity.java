@@ -14,8 +14,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.CityEnum;
+import com.amplifyframework.datastore.generated.model.Comment;
 import com.amplifyframework.datastore.generated.model.Post;
 import com.amplifyframework.datastore.generated.model.ProductCategoryEnum;
 import com.asac.quickseller.NavbarAdapter;
@@ -32,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
 
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +117,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
         queryDataAndDisplay();
     }
+
 
     private void queryDataAndDisplay() {
 

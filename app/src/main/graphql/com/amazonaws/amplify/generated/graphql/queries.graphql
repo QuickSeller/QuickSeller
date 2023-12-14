@@ -71,3 +71,31 @@ query ListPosts(
     __typename
   }
 }
+
+query GetComment($id: ID!) {
+  getComment(id: $id) {
+    id
+    content
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+query ListComments(
+  $filter: ModelCommentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      content
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
