@@ -1,6 +1,7 @@
 package com.asac.quickseller.adapter;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +14,9 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
     ImageView imageView;
     TextView nameView, priceView;
+
+
+
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);

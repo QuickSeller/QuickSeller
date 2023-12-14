@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.SearchView;
 
 import com.amplifyframework.api.graphql.GraphQLRequest;
 import com.amplifyframework.api.graphql.PaginatedResult;
@@ -64,8 +65,24 @@ public class HomeActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.post_view);
         adapter = new MyAdapter(getApplicationContext(), items);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        SearchView searchView = findViewById(R.id.searchHomeProducts);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterItems(newText);
+                return true;
+            }
+        });
+
 
         queryFirstPage();
 
@@ -121,6 +138,18 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    private void filterItems(String query) {
+        List<Post> filteredList = new ArrayList<>();
+
+        for (Post post : items) {
+            if (post.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(post);
+            }
+        }
+
+        adapter.filterList(filteredList);
+    }
+
     public void queryFirstPage() {
         query(ModelQuery.list(Post.class, ModelPagination.limit(1_000)));
     }
@@ -146,6 +175,7 @@ public class HomeActivity extends AppCompatActivity {
                 failure -> Log.e(TAG, "Query failed.", failure)
         );
     }
+
 
     @Override
     protected void onResume() {
