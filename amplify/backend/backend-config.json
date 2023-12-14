@@ -7,7 +7,9 @@
           "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDate": "2024-02-12T18:27:05.193Z",
+              "apiKeyExpirationDays": 60,
+              "description": "update"
             },
             "authenticationType": "API_KEY"
           }
@@ -18,7 +20,7 @@
     }
   },
   "auth": {
-    "quicksellerb7658026": {
+    "quickseller2813fc41": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -47,7 +49,7 @@
   },
   "function": {},
   "storage": {
-    "quickseller": {
+    "s3": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3"

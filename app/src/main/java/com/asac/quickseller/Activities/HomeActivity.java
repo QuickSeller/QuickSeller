@@ -2,43 +2,78 @@ package com.asac.quickseller.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.CityEnum;
+import com.amplifyframework.datastore.generated.model.Comment;
+import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.SearchView;
+
+import com.amplifyframework.api.graphql.GraphQLRequest;
+import com.amplifyframework.api.graphql.PaginatedResult;
+import com.amplifyframework.api.graphql.model.ModelPagination;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUser;
+import com.amplifyframework.core.Amplify;
+
 import com.amplifyframework.datastore.generated.model.Post;
 import com.amplifyframework.datastore.generated.model.ProductCategoryEnum;
 import com.asac.quickseller.NavbarAdapter;
 import com.asac.quickseller.R;
 import com.asac.quickseller.adapter.MyAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class HomeActivity extends AppCompatActivity {
 
-    public final String TAG = "HomeActivity";
+    private final String TAG = "HomeActivity";
+    private ArrayList<Post> items = new ArrayList<>();
+    private MyAdapter adapter;
 
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
+    private ProductCategoryEnum selectedCategory = null;
+    private Set<ProductCategoryEnum> selectedCategories = new HashSet<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
+        HorizontalScrollView horizontalScrollView = findViewById(R.id.horizontalScrollView);
+
+        ProductCategoryEnum[] categories = ProductCategoryEnum.values();
+
+        populateHorizontalScrollView(horizontalScrollView, categories);
+
         RecyclerView recyclerView = findViewById(R.id.post_view);
+        adapter = new MyAdapter(getApplicationContext(), items);
 
 //        List<Post> items = new ArrayList<>();
 //        items.add(Post.builder()
@@ -100,9 +135,115 @@ public class HomeActivity extends AppCompatActivity {
 //        );
 //        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(new MyAdapter(getApplicationContext(),items));
+        recyclerView.setAdapter(adapter);
 
+        SearchView searchView = findViewById(R.id.searchHomeProducts);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterItems(newText);
+                return true;
+            }
+        });
+
+
+        queryFirstPage();
+
+//        AuthUser authUser = Amplify.Auth.getCurrentUser();
+//        Log.i("ssssss", authUser.toString());
     }
+
+
+    private void populateHorizontalScrollView(HorizontalScrollView scrollView, ProductCategoryEnum[] categories) {
+        Context context = scrollView.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        LinearLayout containerLayout = new LinearLayout(context);
+        containerLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        ));
+        containerLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        for (ProductCategoryEnum category : categories) {
+            ViewGroup categoryItemLayout = (ViewGroup) inflater.inflate(R.layout.category_item, containerLayout, false);
+
+            TextView categoryName = categoryItemLayout.findViewById(R.id.categoryName);
+            setCategoryItem(categoryName, context, category);
+
+            categoryItemLayout.setOnClickListener(view -> {
+                Log.d(TAG, "Clicked on category: " + categoryName.getText().toString());
+
+                if (selectedCategories.contains(category)) {
+                    selectedCategories.remove(category);
+                } else {
+                    selectedCategories.add(category);
+                }
+
+                setCategoryItem(categoryName, context, category);
+
+                queryPostsByCategories(new ArrayList<>(selectedCategories));
+            });
+
+            containerLayout.addView(categoryItemLayout);
+        }
+        scrollView.addView(containerLayout);
+    }
+
+
+    private void setCategoryItem(TextView categoryName, Context context, ProductCategoryEnum category) {
+        categoryName.setText(category.name());
+        categoryName.setTextColor(selectedCategories.contains(category)
+                ? ContextCompat.getColor(context, R.color.g_dark_blue)
+                : ContextCompat.getColor(context, R.color.g_orange));
+        categoryName.setTextSize(12);
+        categoryName.setGravity(Gravity.CENTER_HORIZONTAL);
+    }
+
+
+    private void filterItems(String query) {
+        List<Post> filteredList = new ArrayList<>();
+
+        for (Post post : items) {
+            if (post.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(post);
+            }
+        }
+
+        adapter.filterList(filteredList);
+    }
+
+    public void queryFirstPage() {
+        query(ModelQuery.list(Post.class, ModelPagination.limit(1_000)));
+    }
+
+    private void query(GraphQLRequest<PaginatedResult<Post>> request) {
+        Amplify.API.query(
+                request,
+                response -> {
+                    if (response.hasData()) {
+                        Log.i(TAG, "Received data: " + response.getData());
+                        List<Post> itemList = new ArrayList<>();
+                        for (Post post : response.getData().getItems()) {
+                            itemList.add(post);
+                        }
+                        items.addAll(itemList);
+                        runOnUiThread(() -> adapter.notifyDataSetChanged());
+
+                        if (response.getData().hasNextResult()) {
+                            query(response.getData().getRequestForNextResult());
+                        }
+                    }
+                },
+                failure -> Log.e(TAG, "Query failed.", failure)
+        );
+    }
+
 
     @Override
     protected void onResume() {
@@ -167,26 +308,21 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-//    private void logout() {
-//        logoutButton = findViewById(R.id.btnHomeActivityAddItem);
-//        logoutButton.setOnClickListener(v ->
-//                Amplify.Auth.signOut(
-//                        () ->
-//                        {
-//                            Log.i(TAG, "Logout succeeded");
-//                            //                        runOnUiThread(() ->
-//                            //                        {
-//                            //                            ((TextView)findViewById(R.id.userEmailTextView)).setText("");
-//                            //                        });
-//                            Intent goToLogInIntent = new Intent(HomeActivity.this, LoginActivity.class);
-//                            startActivity(goToLogInIntent);
-//                        },
-//                        failure ->
-//                        {
-//                            Log.i(TAG, "Logout failed");
-//                            runOnUiThread(() ->
-//                                    Toast.makeText(HomeActivity.this, "Log out failed", Toast.LENGTH_LONG).show());
-//                        }
-//                ));
-//    }
+    private void queryPostsByCategories(List<ProductCategoryEnum> categories) {
+        items.clear();
+
+        if (categories.isEmpty()) {
+            query(ModelQuery.list(Post.class, ModelPagination.limit(1_000)));
+        } else {
+            for (ProductCategoryEnum category : categories) {
+                GraphQLRequest<PaginatedResult<Post>> request = ModelQuery.list(
+                        Post.class,
+                        Post.PRODUCT_CATEGORY.eq(category),
+                        ModelPagination.limit(1_000)
+                );
+
+                query(request);
+            }
+        }
     }
+}

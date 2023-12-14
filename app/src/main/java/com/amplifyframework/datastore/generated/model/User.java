@@ -1,7 +1,7 @@
 package com.amplifyframework.datastore.generated.model;
 
+import com.amplifyframework.core.model.annotations.HasMany;
 import com.amplifyframework.core.model.temporal.Temporal;
-
 
 import java.util.List;
 import java.util.UUID;
@@ -36,6 +36,7 @@ public final class User implements Model {
   private final @ModelField(targetType="String", isRequired = true) String email;
   private final @ModelField(targetType="String", isRequired = true) String phoneNumber;
   private final @ModelField(targetType="String") String image;
+  private final @ModelField(targetType="Post") @HasMany(associatedWith = "user", type = Post.class) List<Post> posts = null;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   /** @deprecated This API is internal to Amplify and should not be used. */
@@ -51,6 +52,7 @@ public final class User implements Model {
   public String getUsername() {
       return username;
   }
+
   
   public String getEmail() {
       return email;
@@ -62,6 +64,10 @@ public final class User implements Model {
   
   public String getImage() {
       return image;
+  }
+  
+  public List<Post> getPosts() {
+      return posts;
   }
   
   public Temporal.DateTime getCreatedAt() {
@@ -156,9 +162,16 @@ public final class User implements Model {
       phoneNumber,
       image);
   }
-  public interface UsernameStep {
+
+    public String getProductImageS3Key() {
+        return null;
+    }
+
+    public interface UsernameStep {
     EmailStep username(String username);
-  }
+
+        BuildStep productImageS3Key(String imageS3Key);
+    }
   
 
   public interface EmailStep {
@@ -214,8 +227,13 @@ public final class User implements Model {
         this.username = username;
         return this;
     }
-    
-    @Override
+
+      @Override
+      public BuildStep productImageS3Key(String imageS3Key) {
+          return null;
+      }
+
+      @Override
      public PhoneNumberStep email(String email) {
         Objects.requireNonNull(email);
         this.email = email;
@@ -274,6 +292,7 @@ public final class User implements Model {
       return (CopyOfBuilder) super.image(image);
     }
   }
-  
 
+
+  
 }
