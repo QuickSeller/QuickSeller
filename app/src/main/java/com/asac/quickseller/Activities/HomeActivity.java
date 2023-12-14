@@ -142,7 +142,7 @@ public class HomeActivity extends AppCompatActivity {
         List<Post> filteredList = new ArrayList<>();
 
         for (Post post : items) {
-            if (post.getTitle().toLowerCase().contains(query.toLowerCase())) {
+            if (post != null && post.getTitle() != null && post.getTitle().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(post);
             }
         }

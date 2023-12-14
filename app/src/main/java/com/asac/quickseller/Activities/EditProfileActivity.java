@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
@@ -43,29 +44,110 @@ import java.util.Objects;
 public class EditProfileActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private String s3ImageKey = "";
+    private EditText edFirstName, edPassword, edEmail;
+    private Button saveImageButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile_activity);
-        Intent intent = getIntent();
-        if (intent != null) {
-            String currentUsername = intent.getStringExtra("username");
-            String currentEmail = intent.getStringExtra("email");
-            EditText edFirstName = findViewById(R.id.edFirstName);
-            EditText edEmail = findViewById(R.id.edEmail);
 
-            edFirstName.setText(currentUsername);
-            edEmail.setText(currentEmail);
 
-            activityResultLauncher = getImagePickingActivityResultLauncher();
-            setUpAddImageButton();
-            setUpSaveButton();
+        edFirstName = findViewById(R.id.edFirstName);
+        edPassword = findViewById(R.id.edPassword);
+        edEmail = findViewById(R.id.edEmail);
+        saveImageButton = findViewById(R.id.saveImageButton);
 
-        }
+        getUserDataAndPopulateFields();
+        saveImageButton.setOnClickListener(v -> onSaveButtonClick());
 
     }
+
+
+    private void getUserDataAndPopulateFields() {
+        Amplify.API.query(
+                ModelQuery.list(User.class, User.EMAIL.eq(Amplify.Auth.getCurrentUser().getUsername())),
+                response -> {
+                    if (response.hasData() && response.getData().iterator().hasNext()) {
+                        User user = response.getData().iterator().next();
+                        runOnUiThread(() -> {
+                            edFirstName.setText(user.getUsername());
+                            edPassword.setText(user.getPhoneNumber());
+                            edEmail.setText(user.getEmail());
+
+                            edFirstName.setEnabled(true);
+                            edPassword.setEnabled(true);
+                        });
+                    } else {
+                        Log.e(TAG, "User not found in the User table.");
+                    }
+                },
+                failure -> {
+                    Log.e(TAG, "Failed to query user from the User table: " + failure.getMessage());
+                }
+        );
+    }
+
+    private void onSaveButtonClick() {
+        String updatedFirstName = edFirstName.getText().toString().trim();
+        String updatedPassword = edPassword.getText().toString().trim();
+        String updatedEmail = edEmail.getText().toString().trim();
+
+        updateUserDataInDynamoDB(updatedFirstName, updatedPassword, updatedEmail);
+    }
+
+    private void updateUserDataInDynamoDB(String updatedFirstName, String updatedPassword, String updatedEmail) {
+        Amplify.API.query(
+                ModelQuery.list(User.class, User.EMAIL.eq(Amplify.Auth.getCurrentUser().getUsername())),
+                response -> {
+                    if (response.hasData() && response.getData().iterator().hasNext()) {
+                        User user = response.getData().iterator().next();
+                        user = user.copyOfBuilder()
+                                .username(updatedFirstName)
+                                .phoneNumber(updatedPassword)
+                                .build();
+
+                        Amplify.API.mutate(
+                                ModelMutation.update(user),
+                                success -> {
+                                    runOnUiThread(() -> {
+                                        // Optionally, hide loading indicator
+                                        // ProgressBar progressBar = findViewById(R.id.progressbarAccount);
+                                        // progressBar.setVisibility(View.GONE);
+
+                                        // Optionally, show a success message or perform other actions
+                                        Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+
+                                        // Example: finish the activity
+                                        finish();
+                                    });
+                                },
+                                failure -> {
+                                    Log.e(TAG, "Failed to update user data: " + failure.getMessage());
+                                    runOnUiThread(() -> {
+                                        // Optionally, hide loading indicator
+                                        // ProgressBar progressBar = findViewById(R.id.progressbarAccount);
+                                        // progressBar.setVisibility(View.GONE);
+
+                                        // Optionally, show an error message or perform other actions
+                                        Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+                                    });
+                                }
+                        );
+                    } else {
+                        Log.e(TAG, "User not found in the User table.");
+                    }
+                },
+                failure -> {
+                    Log.e(TAG, "Failed to query user from the User table: " + failure.getMessage());
+                }
+        );
+    }
+
+
+
+
     private void uploadInputStreamToS3(InputStream pickedImageInputStream, String pickedImageFilename, Uri pickedImageFileUri) {
         try {
             pickedImageInputStream.reset();
@@ -130,44 +212,44 @@ public class EditProfileActivity extends AppCompatActivity {
 
         return imagePickingActivityResultLauncher;
     }
-    private void setUpSaveButton() {
-        Button saveButton = findViewById(R.id.saveImageButton);
-        saveButton.setOnClickListener(v -> {
-            saveTask(s3ImageKey);
-        });
-    }
-    private void saveTask(String imageS3Key) {
-        EditText edUsername = findViewById(R.id.edFirstName);
-        EditText edEmail = findViewById(R.id.edEmail);
-
-        String updatedUsername = edUsername.getText().toString();
-        String updatedEmail = edEmail.getText().toString();
-
-        AuthUser authUser = Amplify.Auth.getCurrentUser();
-
-        User taskToSave = User.builder()
-                .username(updatedUsername)
-                .email(updatedEmail)
-                .phoneNumber(authUser.getUserId())
-                .image(s3ImageKey)
-                .build();
-
-        Amplify.API.mutate(
-                ModelMutation.update(taskToSave),
-                successResponse -> {
-                    Log.i(TAG, "User data updated successfully");
-                    Snackbar.make(findViewById(R.id.editImageView), "Task saved!", Snackbar.LENGTH_SHORT).show();
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("updatedUsername", updatedUsername);
-                    resultIntent.putExtra("updatedEmail", updatedEmail);
-                    setResult(Activity.RESULT_OK, resultIntent);
-                    finish();
-                },
-                failureResponse -> {
-                    Log.e(TAG, "Failed to update user data: " + failureResponse.toString());
-                }
-        );
-    }
+//    private void setUpSaveButton() {
+//        Button saveButton = findViewById(R.id.saveImageButton);
+//        saveButton.setOnClickListener(v -> {
+//            saveTask(s3ImageKey);
+//        });
+//    }
+//    private void saveTask(String imageS3Key) {
+//        EditText edUsername = findViewById(R.id.edFirstName);
+//        EditText edEmail = findViewById(R.id.edEmail);
+//
+//        String updatedUsername = edUsername.getText().toString();
+//        String updatedEmail = edEmail.getText().toString();
+//
+//        AuthUser authUser = Amplify.Auth.getCurrentUser();
+//
+//        User taskToSave = User.builder()
+//                .username(updatedUsername)
+//                .email(updatedEmail)
+//                .phoneNumber(authUser.getUserId())
+//                .image(s3ImageKey)
+//                .build();
+//
+//        Amplify.API.mutate(
+//                ModelMutation.update(taskToSave),
+//                successResponse -> {
+//                    Log.i(TAG, "User data updated successfully");
+//                    Snackbar.make(findViewById(R.id.editImageView), "Task saved!", Snackbar.LENGTH_SHORT).show();
+//                    Intent resultIntent = new Intent();
+//                    resultIntent.putExtra("updatedUsername", updatedUsername);
+//                    resultIntent.putExtra("updatedEmail", updatedEmail);
+//                    setResult(Activity.RESULT_OK, resultIntent);
+//                    finish();
+//                },
+//                failureResponse -> {
+//                    Log.e(TAG, "Failed to update user data: " + failureResponse.toString());
+//                }
+//        );
+//    }
 
     private void setUpAddImageButton() {
         Button addImageButton = findViewById(R.id.addImageButton);
