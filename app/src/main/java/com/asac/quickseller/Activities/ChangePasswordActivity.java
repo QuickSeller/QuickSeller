@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.asac.quickseller.R;
+import com.google.android.material.snackbar.Snackbar;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -41,14 +42,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
                             () -> runOnUiThread(() -> {
 
                                 Log.i("change", "Changed password");
-                                Toast.makeText(ChangePasswordActivity.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
-
+                                Snackbar.make(findViewById(R.id.changePassword),"Password changed successfully ", Snackbar.LENGTH_SHORT).show();
                             }),
                             error -> runOnUiThread(() -> {
                                 Log.i("no change", "failed Changing password");
+                                Snackbar.make(findViewById(R.id.changePassword),"Error changing password: " + error.getMessage(), Snackbar.LENGTH_SHORT).show();
 
-                                Toast.makeText(ChangePasswordActivity.this, "Error changing password: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                                // Handle error scenario
                             })
                     );
                 } else {

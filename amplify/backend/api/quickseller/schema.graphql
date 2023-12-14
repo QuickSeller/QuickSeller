@@ -14,21 +14,22 @@ type Post @model @auth(rules: [{ allow: public }]) {
   id: ID!
   userId: ID!
   user: User! @belongsTo(fields: ["userId"])
-  city: String!
+  city: CityEnum!
   title: String!
   description: String
   price: String!
   productCategory: ProductCategoryEnum!
   images: [String]
   createdAt: AWSDateTime!
-  #  comments: [Comment]! @hasMany( fields: ["id"])
-  #  order: Order @hasOne
+
 }
 
 type Comment @model @auth(rules: [{ allow: public }]) {
   id: ID!
   content: String!
-  createdAt:AWSDateTime!
+  createdAt: AWSDateTime!
+#    userId: ID!
+#    user: User! @belongsTo(fields: ["userId"])
 }
 
 #

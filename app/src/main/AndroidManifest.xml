@@ -32,7 +32,9 @@
             android:exported="false" />
         <activity
             android:name=".Activities.ItemDetailsActivity"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".Activities.AddItemActivity"
             android:exported="true">

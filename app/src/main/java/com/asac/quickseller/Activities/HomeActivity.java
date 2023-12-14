@@ -15,6 +15,15 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.temporal.Temporal;
+import com.amplifyframework.datastore.generated.model.CityEnum;
+import com.amplifyframework.datastore.generated.model.Comment;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -66,6 +75,65 @@ public class HomeActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.post_view);
         adapter = new MyAdapter(getApplicationContext(), items);
 
+//        List<Post> items = new ArrayList<>();
+//        items.add(Post.builder()
+//                .city(CityEnum.Amman)
+//                .title("AAA")
+//                .price("111")
+//                .productCategory(ProductCategoryEnum.Clothes)
+//                .images(List.of("Pic111"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
+//
+//        items.add(Post.builder()
+//                .city(CityEnum.Zarqa)
+//                .title("BBB")
+//                .price("222")
+//                .productCategory(ProductCategoryEnum.Electronics)
+//                .images(List.of("Pic222"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
+//
+//
+//        items.add(Post.builder()
+//                .city(CityEnum.Zarqa)
+//                .title("BBB")
+//                .price("222")
+//                .productCategory(ProductCategoryEnum.Electronics)
+//                .images(List.of("Pic222"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
+//
+//
+//        items.add(Post.builder()
+//                .city(CityEnum.Zarqa)
+//                .title("BBB")
+//                .price("222")
+//                .productCategory(ProductCategoryEnum.Electronics)
+//                .images(List.of("Pic222"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
+//
+//
+//        items.add(Post.builder()
+//                .city(CityEnum.Zarqa)
+//                .title("BBB")
+//                .price("222")
+//                .productCategory(ProductCategoryEnum.Electronics)
+//                .images(List.of("Pic222"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
+//
+//
+//        items.add(Post.builder()
+//                .city(CityEnum.Zarqa)
+//                .title("BBB")
+//                .price("222")
+//                .productCategory(ProductCategoryEnum.Electronics)
+//                .images(List.of("R.drawable.logoooo"))
+//                .createdAt(new Temporal.DateTime(new Date(),0)).build()
+//        );
+//        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -184,6 +252,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void queryDataAndDisplay() {
+
         viewPager = findViewById(R.id.viewPager);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
 
@@ -256,7 +325,4 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
 }
