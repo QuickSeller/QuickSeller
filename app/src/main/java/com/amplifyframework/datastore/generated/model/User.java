@@ -2,7 +2,6 @@ package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
 
-
 import java.util.List;
 import java.util.UUID;
 import java.util.Objects;
@@ -22,7 +21,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the User type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Users", authRules = {
+@ModelConfig(pluralName = "Users",  authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 public final class User implements Model {
@@ -52,14 +51,15 @@ public final class User implements Model {
       return username;
   }
 
+  
   public String getEmail() {
       return email;
   }
-
+  
   public String getPhoneNumber() {
       return phoneNumber;
   }
-
+  
   public String getImage() {
       return image;
   }
@@ -156,15 +156,22 @@ public final class User implements Model {
       phoneNumber,
       image);
   }
-  public interface UsernameStep {
-    EmailStep username(String username);
-  }
 
+    public String getProductImageS3Key() {
+        return null;
+    }
+
+    public interface UsernameStep {
+    EmailStep username(String username);
+
+        BuildStep productImageS3Key(String imageS3Key);
+    }
+  
 
   public interface EmailStep {
     PhoneNumberStep email(String email);
   }
-
+  
 
   public interface PhoneNumberStep {
     BuildStep phoneNumber(String phoneNumber);
@@ -207,7 +214,7 @@ public final class User implements Model {
           phoneNumber,
           image);
     }
-
+    
     @Override
      public EmailStep username(String username) {
         Objects.requireNonNull(username);
@@ -215,7 +222,12 @@ public final class User implements Model {
         return this;
     }
 
-    @Override
+      @Override
+      public BuildStep productImageS3Key(String imageS3Key) {
+          return null;
+      }
+
+      @Override
      public PhoneNumberStep email(String email) {
         Objects.requireNonNull(email);
         this.email = email;
@@ -228,7 +240,7 @@ public final class User implements Model {
         this.phoneNumber = phoneNumber;
         return this;
     }
-
+    
     @Override
      public BuildStep image(String image) {
         this.image = image;
@@ -253,7 +265,7 @@ public final class User implements Model {
       Objects.requireNonNull(email);
       Objects.requireNonNull(phoneNumber);
     }
-
+    
     @Override
      public CopyOfBuilder username(String username) {
       return (CopyOfBuilder) super.username(username);
@@ -268,13 +280,13 @@ public final class User implements Model {
      public CopyOfBuilder phoneNumber(String phoneNumber) {
       return (CopyOfBuilder) super.phoneNumber(phoneNumber);
     }
-
+    
     @Override
      public CopyOfBuilder image(String image) {
       return (CopyOfBuilder) super.image(image);
     }
   }
-
+  
 
 
   

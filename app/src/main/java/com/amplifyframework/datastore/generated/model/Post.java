@@ -2,7 +2,6 @@ package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
 
-
 import java.util.List;
 import java.util.UUID;
 import java.util.Objects;
@@ -40,7 +39,7 @@ public final class Post implements Model {
   private final @ModelField(targetType="String") String description;
   private final @ModelField(targetType="String", isRequired = true) String price;
   private final @ModelField(targetType="ProductCategoryEnum", isRequired = true) ProductCategoryEnum productCategory;
-  private final @ModelField(targetType="String", isRequired = true) List<String> images;
+  private final @ModelField(targetType="String") List<String> images;
   private final @ModelField(targetType="AWSDateTime", isRequired = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   /** @deprecated This API is internal to Amplify and should not be used. */
@@ -200,12 +199,7 @@ public final class Post implements Model {
   
 
   public interface ProductCategoryStep {
-    ImagesStep productCategory(ProductCategoryEnum productCategory);
-  }
-  
-
-  public interface ImagesStep {
-    CreatedAtStep images(List<String> images);
+    CreatedAtStep productCategory(ProductCategoryEnum productCategory);
   }
   
 
@@ -218,18 +212,19 @@ public final class Post implements Model {
     Post build();
     BuildStep id(String id);
     BuildStep description(String description);
+    BuildStep images(List<String> images);
   }
   
 
-  public static class Builder implements CityStep, TitleStep, PriceStep, ProductCategoryStep, ImagesStep, CreatedAtStep, BuildStep {
+  public static class Builder implements CityStep, TitleStep, PriceStep, ProductCategoryStep, CreatedAtStep, BuildStep {
     private String id;
     private CityEnum city;
     private String title;
     private String price;
     private ProductCategoryEnum productCategory;
-    private List<String> images;
     private Temporal.DateTime createdAt;
     private String description;
+    private List<String> images;
     public Builder() {
       
     }
@@ -282,16 +277,9 @@ public final class Post implements Model {
     }
     
     @Override
-     public ImagesStep productCategory(ProductCategoryEnum productCategory) {
+     public CreatedAtStep productCategory(ProductCategoryEnum productCategory) {
         Objects.requireNonNull(productCategory);
         this.productCategory = productCategory;
-        return this;
-    }
-    
-    @Override
-     public CreatedAtStep images(List<String> images) {
-        Objects.requireNonNull(images);
-        this.images = images;
         return this;
     }
     
@@ -305,6 +293,12 @@ public final class Post implements Model {
     @Override
      public BuildStep description(String description) {
         this.description = description;
+        return this;
+    }
+    
+    @Override
+     public BuildStep images(List<String> images) {
+        this.images = images;
         return this;
     }
     
@@ -326,7 +320,6 @@ public final class Post implements Model {
       Objects.requireNonNull(title);
       Objects.requireNonNull(price);
       Objects.requireNonNull(productCategory);
-      Objects.requireNonNull(images);
       Objects.requireNonNull(createdAt);
     }
     
@@ -351,11 +344,6 @@ public final class Post implements Model {
     }
     
     @Override
-     public CopyOfBuilder images(List<String> images) {
-      return (CopyOfBuilder) super.images(images);
-    }
-    
-    @Override
      public CopyOfBuilder createdAt(Temporal.DateTime createdAt) {
       return (CopyOfBuilder) super.createdAt(createdAt);
     }
@@ -364,7 +352,14 @@ public final class Post implements Model {
      public CopyOfBuilder description(String description) {
       return (CopyOfBuilder) super.description(description);
     }
+    
+    @Override
+     public CopyOfBuilder images(List<String> images) {
+      return (CopyOfBuilder) super.images(images);
+    }
   }
+  
 
 
+  
 }
