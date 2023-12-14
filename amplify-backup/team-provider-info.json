@@ -14,11 +14,11 @@
     "categories": {
       "auth": {
         "quickseller14c7b052": {},
-        "quickseller2813fc41": {}
+        "quicksellerb7658026": {}
       },
       "storage": {
         "quickSellerStorage": {},
-        "s3": {}
+        "quickseller": {}
       },
       "api": {
         "quickseller": {}

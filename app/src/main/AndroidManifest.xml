@@ -38,9 +38,7 @@
             android:exported="true">
             <intent-filter android:label="Share to add Post">
                 <action android:name="android.intent.action.SEND" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="image/*" />
             </intent-filter>
@@ -71,7 +69,8 @@
             android:exported="false" />
         <activity
             android:name=".Activities.HomeActivity"
-            android:exported="true" />
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

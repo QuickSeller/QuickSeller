@@ -5,6 +5,7 @@ import static com.amplifyframework.core.Amplify.Auth;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,10 +39,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
                             oldPassword,
                             newPassword,
                             () -> runOnUiThread(() -> {
+
+                                Log.i("change", "Changed password");
                                 Toast.makeText(ChangePasswordActivity.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
-                                // Handle success scenario
+
                             }),
                             error -> runOnUiThread(() -> {
+                                Log.i("no change", "failed Changing password");
+
                                 Toast.makeText(ChangePasswordActivity.this, "Error changing password: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                                 // Handle error scenario
                             })

@@ -2,5 +2,5 @@
   "AppSyncApiName": "quickseller",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2023-12-13T13:23:49.348Z"
+  "AuthModeLastUpdated": "2023-12-14T18:27:11.591Z"
 }
