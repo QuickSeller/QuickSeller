@@ -19,6 +19,11 @@ type Post @model @auth(rules: [{ allow: public }]) {
 
 }
 
+type Comment @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  content: String!
+  createdAt: AWSDateTime!
+}
 #
 #type User @model @auth(rules: [{ allow: public }]) {
 #  id: ID!
