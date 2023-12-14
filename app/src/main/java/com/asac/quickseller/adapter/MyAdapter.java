@@ -63,6 +63,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         });
 
     }
+    public void filterList(List<Post> filteredList) {
+        items = filteredList;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {

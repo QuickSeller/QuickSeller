@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.SearchView;
 
 import com.amplifyframework.api.graphql.GraphQLRequest;
 import com.amplifyframework.api.graphql.PaginatedResult;
@@ -48,7 +49,34 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        SearchView searchView = findViewById(R.id.searchHomeProducts);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterItems(newText);
+                return true;
+            }
+        });
+
+
         queryFirstPage();
+    }
+
+    private void filterItems(String query) {
+        List<Post> filteredList = new ArrayList<>();
+
+        for (Post post : items) {
+            if (post.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(post);
+            }
+        }
+
+        adapter.filterList(filteredList);
     }
 
     public void queryFirstPage() {
