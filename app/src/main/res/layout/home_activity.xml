@@ -114,10 +114,7 @@
         android:layout_height="wrap_content"
         android:scrollbars="none">
 
-
     </HorizontalScrollView>
-
-
 
 
 

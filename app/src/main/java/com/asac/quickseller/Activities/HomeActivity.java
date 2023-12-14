@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -34,8 +35,9 @@ import com.asac.quickseller.adapter.MyAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -45,6 +47,9 @@ public class HomeActivity extends AppCompatActivity {
 
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
+    private ProductCategoryEnum selectedCategory = null;
+    private Set<ProductCategoryEnum> selectedCategories = new HashSet<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
         queryFirstPage();
 
         AuthUser authUser = Amplify.Auth.getCurrentUser();
-        Log.i("ssssss" , authUser.toString());
+        Log.i("ssssss", authUser.toString());
     }
 
 
@@ -85,27 +90,20 @@ public class HomeActivity extends AppCompatActivity {
             ViewGroup categoryItemLayout = (ViewGroup) inflater.inflate(R.layout.category_item, containerLayout, false);
 
             TextView categoryName = categoryItemLayout.findViewById(R.id.categoryName);
-
-            switch (category) {
-                case Clothes:
-                    setCategoryItem(categoryName, context, "Clothes");
-                    break;
-                case Electronics:
-                    setCategoryItem(categoryName, context, "Electronics");
-                    break;
-                case Perishable_Goods:
-                    setCategoryItem(categoryName, context, "Perishable Goods");
-                    break;
-                case Office_supplies:
-                    setCategoryItem(categoryName, context, "Office Supplies");
-                    break;
-                case Misc:
-                    setCategoryItem(categoryName, context, "Misc");
-                    break;
-            }
+            setCategoryItem(categoryName, context, category);
 
             categoryItemLayout.setOnClickListener(view -> {
                 Log.d(TAG, "Clicked on category: " + categoryName.getText().toString());
+
+                if (selectedCategories.contains(category)) {
+                    selectedCategories.remove(category);
+                } else {
+                    selectedCategories.add(category);
+                }
+
+                setCategoryItem(categoryName, context, category);
+
+                queryPostsByCategories(new ArrayList<>(selectedCategories));
             });
 
             containerLayout.addView(categoryItemLayout);
@@ -113,12 +111,16 @@ public class HomeActivity extends AppCompatActivity {
         scrollView.addView(containerLayout);
     }
 
-    private void setCategoryItem(TextView categoryName, Context context, String name) {
-        categoryName.setText(name);
-        categoryName.setTextColor(ContextCompat.getColor(context, android.R.color.black));
+
+    private void setCategoryItem(TextView categoryName, Context context, ProductCategoryEnum category) {
+        categoryName.setText(category.name());
+        categoryName.setTextColor(selectedCategories.contains(category)
+                ? ContextCompat.getColor(context, R.color.g_dark_blue)
+                : ContextCompat.getColor(context, R.color.g_orange));
         categoryName.setTextSize(12);
-        categoryName.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
+        categoryName.setGravity(Gravity.CENTER_HORIZONTAL);
     }
+
 
     public void queryFirstPage() {
         query(ModelQuery.list(Post.class, ModelPagination.limit(1_000)));
@@ -145,7 +147,6 @@ public class HomeActivity extends AppCompatActivity {
                 failure -> Log.e(TAG, "Query failed.", failure)
         );
     }
-
 
     @Override
     protected void onResume() {
@@ -207,4 +208,26 @@ public class HomeActivity extends AppCompatActivity {
                 return 0;
         }
     }
+
+
+    private void queryPostsByCategories(List<ProductCategoryEnum> categories) {
+        items.clear();
+
+        if (categories.isEmpty()) {
+            query(ModelQuery.list(Post.class, ModelPagination.limit(1_000)));
+        } else {
+            for (ProductCategoryEnum category : categories) {
+                GraphQLRequest<PaginatedResult<Post>> request = ModelQuery.list(
+                        Post.class,
+                        Post.PRODUCT_CATEGORY.eq(category),
+                        ModelPagination.limit(1_000)
+                );
+
+                query(request);
+            }
+        }
+    }
+
+
+
 }
