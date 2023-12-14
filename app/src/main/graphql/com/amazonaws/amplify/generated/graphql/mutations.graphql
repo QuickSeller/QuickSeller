@@ -10,6 +10,10 @@ mutation CreateUser(
     email
     phoneNumber
     image
+    posts {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -26,6 +30,10 @@ mutation UpdateUser(
     email
     phoneNumber
     image
+    posts {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -42,6 +50,10 @@ mutation DeleteUser(
     email
     phoneNumber
     image
+    posts {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -54,6 +66,17 @@ mutation CreatePost(
 ) {
   createPost(input: $input, condition: $condition) {
     id
+    userId
+    user {
+      id
+      username
+      email
+      phoneNumber
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     city
     title
     description
@@ -72,6 +95,17 @@ mutation UpdatePost(
 ) {
   updatePost(input: $input, condition: $condition) {
     id
+    userId
+    user {
+      id
+      username
+      email
+      phoneNumber
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     city
     title
     description
@@ -90,12 +124,62 @@ mutation DeletePost(
 ) {
   deletePost(input: $input, condition: $condition) {
     id
+    userId
+    user {
+      id
+      username
+      email
+      phoneNumber
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     city
     title
     description
     price
     productCategory
     images
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation CreateComment(
+  $input: CreateCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  createComment(input: $input, condition: $condition) {
+    id
+    content
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation UpdateComment(
+  $input: UpdateCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  updateComment(input: $input, condition: $condition) {
+    id
+    content
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation DeleteComment(
+  $input: DeleteCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  deleteComment(input: $input, condition: $condition) {
+    id
+    content
     createdAt
     updatedAt
     __typename

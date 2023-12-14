@@ -14,11 +14,19 @@
         android:theme="@style/Theme.QuickSeller"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.SettingsActivity"
+            android:name=".Activities.ChangePasswordActivity"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".Activities.ShoppingActivity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".Activities.AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.PrivacyAndPolicy"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.SettingsActivity"
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".Activities.ShoppingActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".Activities.LogoutActivity"
             android:exported="false" />
@@ -43,8 +51,7 @@
             android:exported="false" />
         <activity
             android:name=".Activities.WelcomePageActivity"
-            android:exported="true" >
-
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,8 +70,6 @@
         <activity
             android:name=".Activities.HomeActivity"
             android:exported="true">
-
-
         </activity>
     </application>
 

@@ -7,6 +7,10 @@ subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
     email
     phoneNumber
     image
+    posts {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -20,6 +24,10 @@ subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
     email
     phoneNumber
     image
+    posts {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -33,6 +41,10 @@ subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
     email
     phoneNumber
     image
+    posts {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -42,6 +54,17 @@ subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
 subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
   onCreatePost(filter: $filter) {
     id
+    userId
+    user {
+      id
+      username
+      email
+      phoneNumber
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     city
     title
     description
@@ -57,6 +80,17 @@ subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
 subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
   onUpdatePost(filter: $filter) {
     id
+    userId
+    user {
+      id
+      username
+      email
+      phoneNumber
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     city
     title
     description
@@ -72,12 +106,53 @@ subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
 subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
   onDeletePost(filter: $filter) {
     id
+    userId
+    user {
+      id
+      username
+      email
+      phoneNumber
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     city
     title
     description
     price
     productCategory
     images
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
+  onCreateComment(filter: $filter) {
+    id
+    content
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
+  onUpdateComment(filter: $filter) {
+    id
+    content
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
+  onDeleteComment(filter: $filter) {
+    id
+    content
     createdAt
     updatedAt
     __typename

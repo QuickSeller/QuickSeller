@@ -1,7 +1,7 @@
 package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
-import com.amplifyframework.core.model.annotations.BelongsTo;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -25,19 +25,13 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 @ModelConfig(pluralName = "Comments", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
-@Index(name = "byProduct", fields = {"productId","createdAt"})
-@Index(name = "byUser", fields = {"userId","createdAt"})
 public final class Comment implements Model {
   public static final QueryField ID = field("Comment", "id");
   public static final QueryField CONTENT = field("Comment", "content");
   public static final QueryField CREATED_AT = field("Comment", "createdAt");
-  public static final QueryField PRODUCT = field("Comment", "productId");
-  public static final QueryField USER = field("Comment", "userId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String content;
-  private final @ModelField(targetType="AWSDateTime") Temporal.DateTime createdAt;
-  private final @ModelField(targetType="Product") @BelongsTo(targetName = "productId", type = Product.class) Product product;
-  private final @ModelField(targetType="User") @BelongsTo(targetName = "userId", type = User.class) User user;
+  private final @ModelField(targetType="AWSDateTime", isRequired = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   /** @deprecated This API is internal to Amplify and should not be used. */
   @Deprecated
@@ -57,24 +51,14 @@ public final class Comment implements Model {
       return createdAt;
   }
   
-  public Product getProduct() {
-      return product;
-  }
-  
-  public User getUser() {
-      return user;
-  }
-  
   public Temporal.DateTime getUpdatedAt() {
       return updatedAt;
   }
   
-  private Comment(String id, String content, Temporal.DateTime createdAt, Product product, User user) {
+  private Comment(String id, String content, Temporal.DateTime createdAt) {
     this.id = id;
     this.content = content;
     this.createdAt = createdAt;
-    this.product = product;
-    this.user = user;
   }
   
   @Override
@@ -88,8 +72,6 @@ public final class Comment implements Model {
       return ObjectsCompat.equals(getId(), comment.getId()) &&
               ObjectsCompat.equals(getContent(), comment.getContent()) &&
               ObjectsCompat.equals(getCreatedAt(), comment.getCreatedAt()) &&
-              ObjectsCompat.equals(getProduct(), comment.getProduct()) &&
-              ObjectsCompat.equals(getUser(), comment.getUser()) &&
               ObjectsCompat.equals(getUpdatedAt(), comment.getUpdatedAt());
       }
   }
@@ -100,8 +82,6 @@ public final class Comment implements Model {
       .append(getId())
       .append(getContent())
       .append(getCreatedAt())
-      .append(getProduct())
-      .append(getUser())
       .append(getUpdatedAt())
       .toString()
       .hashCode();
@@ -114,8 +94,6 @@ public final class Comment implements Model {
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("content=" + String.valueOf(getContent()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
-      .append("product=" + String.valueOf(getProduct()) + ", ")
-      .append("user=" + String.valueOf(getUser()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
@@ -137,8 +115,6 @@ public final class Comment implements Model {
     return new Comment(
       id,
       null,
-      null,
-      null,
       null
     );
   }
@@ -146,40 +122,36 @@ public final class Comment implements Model {
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
       content,
-      createdAt,
-      product,
-      user);
+      createdAt);
   }
   public interface ContentStep {
-    BuildStep content(String content);
+    CreatedAtStep content(String content);
+  }
+  
+
+  public interface CreatedAtStep {
+    BuildStep createdAt(Temporal.DateTime createdAt);
   }
   
 
   public interface BuildStep {
     Comment build();
     BuildStep id(String id);
-    BuildStep createdAt(Temporal.DateTime createdAt);
-    BuildStep product(Product product);
-    BuildStep user(User user);
   }
   
 
-  public static class Builder implements ContentStep, BuildStep {
+  public static class Builder implements ContentStep, CreatedAtStep, BuildStep {
     private String id;
     private String content;
     private Temporal.DateTime createdAt;
-    private Product product;
-    private User user;
     public Builder() {
       
     }
     
-    private Builder(String id, String content, Temporal.DateTime createdAt, Product product, User user) {
+    private Builder(String id, String content, Temporal.DateTime createdAt) {
       this.id = id;
       this.content = content;
       this.createdAt = createdAt;
-      this.product = product;
-      this.user = user;
     }
     
     @Override
@@ -189,13 +161,11 @@ public final class Comment implements Model {
         return new Comment(
           id,
           content,
-          createdAt,
-          product,
-          user);
+          createdAt);
     }
     
     @Override
-     public BuildStep content(String content) {
+     public CreatedAtStep content(String content) {
         Objects.requireNonNull(content);
         this.content = content;
         return this;
@@ -203,19 +173,8 @@ public final class Comment implements Model {
     
     @Override
      public BuildStep createdAt(Temporal.DateTime createdAt) {
+        Objects.requireNonNull(createdAt);
         this.createdAt = createdAt;
-        return this;
-    }
-    
-    @Override
-     public BuildStep product(Product product) {
-        this.product = product;
-        return this;
-    }
-    
-    @Override
-     public BuildStep user(User user) {
-        this.user = user;
         return this;
     }
     
@@ -231,9 +190,10 @@ public final class Comment implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String content, Temporal.DateTime createdAt, Product product, User user) {
-      super(id, content, createdAt, product, user);
+    private CopyOfBuilder(String id, String content, Temporal.DateTime createdAt) {
+      super(id, content, createdAt);
       Objects.requireNonNull(content);
+      Objects.requireNonNull(createdAt);
     }
     
     @Override
@@ -245,17 +205,6 @@ public final class Comment implements Model {
      public CopyOfBuilder createdAt(Temporal.DateTime createdAt) {
       return (CopyOfBuilder) super.createdAt(createdAt);
     }
-    
-    @Override
-     public CopyOfBuilder product(Product product) {
-      return (CopyOfBuilder) super.product(product);
-    }
-    
-    @Override
-     public CopyOfBuilder user(User user) {
-      return (CopyOfBuilder) super.user(user);
-    }
   }
 
-  
 }

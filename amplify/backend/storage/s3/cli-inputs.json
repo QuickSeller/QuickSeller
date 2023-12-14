@@ -1,0 +1,18 @@
+{
+  "resourceName": "s3",
+  "policyUUID": "f26d367e",
+  "bucketName": "quickselleraefc6ef510ca4060b561fcb101d904ac",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
