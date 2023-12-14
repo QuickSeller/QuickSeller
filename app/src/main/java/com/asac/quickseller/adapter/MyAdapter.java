@@ -90,8 +90,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     intent.putExtra("title", post.getTitle());
                     intent.putExtra("description", post.getDescription());
                     intent.putExtra("price", post.getPrice());
-                    intent.putExtra("productCategory", post.getProductCategory());
+//                    intent.putExtra("productCategory", post.getProductCategory());
                     intent.putExtra("images", post.getImages().toArray(new String[0]));
+                    intent.putExtra("date", post.getCreatedAt().getOffsetTotalSeconds());
 
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
