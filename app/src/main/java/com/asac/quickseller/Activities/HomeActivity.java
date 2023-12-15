@@ -142,13 +142,14 @@ public class HomeActivity extends AppCompatActivity {
         List<Post> filteredList = new ArrayList<>();
 
         for (Post post : items) {
-            if (post.getTitle().toLowerCase().contains(query.toLowerCase())) {
+            if (post != null && post.getTitle() != null && post.getTitle().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(post);
             }
         }
 
         adapter.filterList(filteredList);
     }
+
 
     public void queryFirstPage() {
         query(ModelQuery.list(Post.class, ModelPagination.limit(1_000)));

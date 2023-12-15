@@ -92,6 +92,21 @@ android:layout_height="wrap_content"
                 android:backgroundTint="@color/g_orange_light1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:id="@+id/myPost"
+                android:text="My Post"
+                android:textColor="@color/black">
+
+            </Button>
+
+            <Button
+                android:backgroundTint="@color/g_orange_light1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/settingsPageSignOut"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"

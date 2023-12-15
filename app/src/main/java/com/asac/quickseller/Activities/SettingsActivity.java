@@ -43,7 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
         setupPrivacyPolicyButton();
         setupLogOutButton();
         setupChangePasswordButton();
-
+        setupMyPostButton();
     }
 
    private void setupAddPostBtn(){
@@ -177,6 +177,13 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
+    private void setupMyPostButton(){
+        Button myPosts = findViewById(R.id.myPost);
+        myPosts.setOnClickListener(b -> {
+            Intent intent = new Intent(SettingsActivity.this, MyPostsActivity.class);
+            startActivity(intent);
+        });
+    }
 
 
 

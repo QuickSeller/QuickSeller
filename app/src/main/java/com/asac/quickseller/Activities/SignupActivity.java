@@ -133,5 +133,4 @@ public class SignupActivity extends AppCompatActivity {
         loginTextView.setOnClickListener(v ->
                 startActivity(new Intent(SignupActivity.this, LoginActivity.class)));
     }
-
 }

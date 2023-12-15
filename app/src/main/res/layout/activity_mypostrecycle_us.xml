@@ -13,16 +13,16 @@
         android:orientation="vertical"
         android:background="@color/fade_gray">
 
-        <!-- Product Image -->
+        <!-- Product Image
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageViewMyPost"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:src="@drawable/baseline_person_24" />
 
-        <!-- Product Name -->
+         Product Name -->
         <TextView
-            android:id="@+id/nameTextView"
+            android:id="@+id/nameTextViewMyPost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -30,10 +30,19 @@
             android:text="Product Name"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
+        <TextView
+            android:id="@+id/descriptionTextViewMyPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Product Description"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <!-- Product Price -->
         <TextView
-            android:id="@+id/priceTextView"
+            android:id="@+id/priceTextViewMyPost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

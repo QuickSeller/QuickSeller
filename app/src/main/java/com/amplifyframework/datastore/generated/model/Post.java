@@ -35,7 +35,8 @@ public final class Post implements Model {
   public static final QueryField PRODUCT_CATEGORY = field("Post", "productCategory");
   public static final QueryField IMAGES = field("Post", "images");
   public static final QueryField CREATED_AT = field("Post", "createdAt");
-  private final @ModelField(targetType="ID", isRequired = true) String id;
+
+    private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="User", isRequired = true) @BelongsTo(targetName = "userId",  type = User.class) User user;
   private final @ModelField(targetType="String", isRequired = true) String city;
   private final @ModelField(targetType="String", isRequired = true) String title;
