@@ -241,7 +241,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void queryPostsByCategories(List<ProductCategoryEnum> categories) {
         items.clear();
-
         if (categories.isEmpty()) {
             query(ModelQuery.list(Post.class, ModelPagination.limit(1_000)));
         } else {

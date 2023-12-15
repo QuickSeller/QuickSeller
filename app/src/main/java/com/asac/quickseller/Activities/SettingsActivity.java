@@ -5,16 +5,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asac.quickseller.NavbarAdapter;
@@ -43,17 +39,18 @@ public class SettingsActivity extends AppCompatActivity {
         setupPrivacyPolicyButton();
         setupLogOutButton();
         setupChangePasswordButton();
-
+        setupMyPostButton();
     }
 
-   private void setupAddPostBtn(){
-        addPost = (Button) findViewById(R.id.settingsPageAddPostBtn) ;
+    private void setupAddPostBtn() {
+        addPost = (Button) findViewById(R.id.settingsPageAddPostBtn);
         addPost.setOnClickListener(b -> {
-            Intent goToAddPost = new Intent(SettingsActivity.this,AddItemActivity.class);
+            Intent goToAddPost = new Intent(SettingsActivity.this, AddItemActivity.class);
             startActivity(goToAddPost);
         });
 
     }
+
     private void setupViewPager() {
         NavbarAdapter navbarAdapter = new NavbarAdapter(this);
         viewPager.setAdapter(navbarAdapter);
@@ -84,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 return false;
             }
-            });
+        });
     }
 
     private int getNavigationItemId(int position) {
@@ -101,7 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-    //Logout Functionalty
+    //Logout Functionality
 
     private void showLogoutConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -135,8 +132,8 @@ public class SettingsActivity extends AppCompatActivity {
         );
     }
 
-    private void setupLogOutButton(){
-        Button logoutButton=findViewById(R.id.settingsPageSignOut);
+    private void setupLogOutButton() {
+        Button logoutButton = findViewById(R.id.settingsPageSignOut);
         logoutButton.setOnClickListener(b -> {
             showLogoutConfirmationDialog();
         });
@@ -149,7 +146,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     //Privacy Policy Functionalty
-    private void setupPrivacyPolicyButton(){
+    private void setupPrivacyPolicyButton() {
         Button privacyPolicyButton = findViewById(R.id.settingprivacyandpolicybutton);
         privacyPolicyButton.setOnClickListener(b -> {
             Intent intent = new Intent(SettingsActivity.this, PrivacyAndPolicy.class);
@@ -158,7 +155,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     //About us Button
-    private void setupAboutUsButton(){
+    private void setupAboutUsButton() {
         Button aboutUsButton = findViewById(R.id.settingAboutUsButton);
         aboutUsButton.setOnClickListener(b -> {
             Intent intent = new Intent(SettingsActivity.this, AboutUsActivity.class);
@@ -168,7 +165,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     //change password Button
-    private void setupChangePasswordButton(){
+    private void setupChangePasswordButton() {
         Button changePasswordButton = findViewById(R.id.settingChangePasswordButton);
         changePasswordButton.setOnClickListener(b -> {
             Intent intent = new Intent(SettingsActivity.this, ChangePasswordActivity.class);
@@ -176,11 +173,13 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-
-
-
-
-
-
+    // My Post Button
+    private void setupMyPostButton() {
+        Button myPosts = findViewById(R.id.myPost);
+        myPosts.setOnClickListener(b -> {
+            Intent intent = new Intent(SettingsActivity.this, MyPostsActivity.class);
+            startActivity(intent);
+        });
+    }
 
 }

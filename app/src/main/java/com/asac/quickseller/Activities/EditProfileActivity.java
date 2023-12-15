@@ -35,6 +35,7 @@ import com.amplifyframework.datastore.generated.model.User;
 import com.asac.quickseller.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +47,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private String s3ImageKey = "";
     private EditText edFirstName, edPassword, edEmail;
     private Button saveImageButton;
+    private ImageView editProfileImageView;
+
 
 
     @Override
@@ -61,7 +64,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
         getUserDataAndPopulateFields();
         saveImageButton.setOnClickListener(v -> onSaveButtonClick());
+        editProfileImageView = findViewById(R.id.editImageView);
 
+        activityResultLauncher = getImagePickingActivityResultLauncher();
+        setUpAddImageButton();
     }
 
 
@@ -75,6 +81,26 @@ public class EditProfileActivity extends AppCompatActivity {
                             edFirstName.setText(user.getUsername());
                             edPassword.setText(user.getPhoneNumber());
                             edEmail.setText(user.getEmail());
+
+                            if (user.getImage() != null && !user.getImage().isEmpty()) {
+                                // Load and display the image
+                                Amplify.Storage.downloadFile(
+                                        user.getImage(),
+                                        new File(getApplication().getFilesDir(), user.getImage()),
+                                        success ->
+                                        {
+                                            runOnUiThread(() -> {
+                                                Bitmap bitmap = BitmapFactory.decodeFile(success.getFile().getPath());
+                                                editProfileImageView.setImageBitmap(bitmap);
+                                            });
+                                        },
+                                        failure ->
+                                        {
+                                            Log.e(TAG, "Unable to get image from S3 for reason: " + failure.getMessage());
+                                        }
+                                );
+                            }
+
 
                             edFirstName.setEnabled(true);
                             edPassword.setEnabled(true);
@@ -94,10 +120,12 @@ public class EditProfileActivity extends AppCompatActivity {
         String updatedPassword = edPassword.getText().toString().trim();
         String updatedEmail = edEmail.getText().toString().trim();
 
-        updateUserDataInDynamoDB(updatedFirstName, updatedPassword, updatedEmail);
+        String updatedImageKey = s3ImageKey;
+
+        updateUserDataInDynamoDB(updatedFirstName, updatedPassword, updatedEmail, updatedImageKey);
     }
 
-    private void updateUserDataInDynamoDB(String updatedFirstName, String updatedPassword, String updatedEmail) {
+    private void updateUserDataInDynamoDB(String updatedFirstName, String updatedPassword, String updatedEmail , String updatedImageKey) {
         Amplify.API.query(
                 ModelQuery.list(User.class, User.EMAIL.eq(Amplify.Auth.getCurrentUser().getUsername())),
                 response -> {
@@ -106,6 +134,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         user = user.copyOfBuilder()
                                 .username(updatedFirstName)
                                 .phoneNumber(updatedPassword)
+                                .image(updatedImageKey)
                                 .build();
 
                         Amplify.API.mutate(

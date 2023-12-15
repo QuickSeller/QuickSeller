@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,18 +23,24 @@ import com.asac.quickseller.NavbarAdapter;
 import com.asac.quickseller.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "ProfileActivity";
-//    SharedPreferences preferences;
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
+//    ImageView profileImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_activity);
 
+//        profileImage = findViewById(R.id.profileImageView);
         getUserDataFromDynamoDB();
         goToEditProfile();
 
@@ -76,6 +84,22 @@ public class ProfileActivity extends AppCompatActivity {
         profileUsername.setText(user.getUsername());
         profilePhone.setText(user.getPhoneNumber());
         profileEmail.setText(user.getEmail());
+
+        if (user.getImage() != null && !user.getImage().isEmpty()) {
+            Amplify.Storage.downloadFile(
+                    user.getImage(),
+                    new File(getApplication().getFilesDir(), user.getImage()),
+                    success ->
+                    {
+                        ImageView productImageView = findViewById(R.id.profileImageView);
+                        productImageView.setImageBitmap(BitmapFactory.decodeFile(success.getFile().getPath()));
+                    },
+                    failure ->
+                    {
+                        Log.e(TAG, "Unable to get image from S3  for reason: " + failure.getMessage());
+                    }
+            );
+        }
 
     }
 

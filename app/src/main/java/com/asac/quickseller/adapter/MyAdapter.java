@@ -57,7 +57,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             }
 
             if (price != null && !price.isEmpty()) {
-                holder.priceView.setText(price);
+                holder.priceView.setText(price +" JD");
             } else {
                 holder.priceView.setText("N/A");
             }
@@ -90,9 +90,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     intent.putExtra("title", post.getTitle());
                     intent.putExtra("description", post.getDescription());
                     intent.putExtra("price", post.getPrice());
-//                    intent.putExtra("productCategory", post.getProductCategory());
+                    intent.putExtra("owner", post.getUser().getUsername());
                     intent.putExtra("images", post.getImages().toArray(new String[0]));
-                    intent.putExtra("date", post.getCreatedAt().getOffsetTotalSeconds());
+                    intent.putExtra("date", post.getCreatedAt().toString());
 
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
