@@ -50,6 +50,34 @@
             android:text="$19.99"
             android:textColor="@android:color/holo_green_dark"
             android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:padding="15dp"
+            >
+
+            <Button
+                android:id="@+id/deleteMyPostButton"
+                android:layout_width="135dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/g_orange_light1"
+                android:layout_marginLeft="20dp"
+                android:text="delete post"
+                />
+
+            <Button
+                android:id="@+id/editMyPostButton"
+                android:layout_width="135dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/g_orange_light1"
+                android:text="edit Post" />
+
+
+        </LinearLayout>
+
+
 
 
     </LinearLayout>

@@ -1,12 +1,15 @@
 package com.asac.quickseller.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.auth.AuthUser;
 import com.amplifyframework.core.Amplify;
@@ -20,7 +23,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class MyPostsActivity extends AppCompatActivity {
+public class MyPostsActivity extends AppCompatActivity implements MyPostsAdapter.OnDeleteClickListener{
 
     private RecyclerView recyclerView;
     private MyPostsAdapter myPostsAdapter;
@@ -32,11 +35,22 @@ public class MyPostsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_posts);
 
         recyclerView = findViewById(R.id.recyclerViewMyPosts);
+
         myPostsAdapter = new MyPostsAdapter(this, myPosts);
+        myPostsAdapter.setOnDeleteClickListener(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myPostsAdapter);
 
-        queryMyPosts();
+            myPostsAdapter.setOnEditClickListener((position, post) -> {
+                Intent intent = new Intent(this, EditMyPostActivity.class);
+                intent.putExtra("post", String.valueOf(post));
+                startActivity(intent);
+            });
+
+
+
+            queryMyPosts();
     }
 
     private void queryMyPosts() {
@@ -80,7 +94,38 @@ public class MyPostsActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onDeleteClick(int position) {
+        Post postToDelete = myPosts.get(position);
+        deletePost(postToDelete);
+    }
 
+    private void deletePost(Post post) {
+        Amplify.API.mutate(
+                ModelMutation.delete(post),
+                response -> {
+                    runOnUiThread(() -> {
+                        myPosts.remove(post);
+                        myPostsAdapter.notifyItemRemoved(myPosts.indexOf(post));
+                    });
+                },
+                error -> {
+                    Log.e("DeleteError", "Error deleting post: " + error.getMessage());
+                }
+        );
+    }
+    @Override
+    public void onEditClick(int position, Post post) {
+        Intent intent = new Intent(MyPostsActivity.this, EditMyPostActivity.class);
+        intent.putExtra("postId", post.getId());
+        intent.putExtra("title", post.getTitle());
+        intent.putExtra("description", post.getDescription());
+        intent.putExtra("price", String.valueOf(post.getPrice()));
+        intent.putExtra("city", post.getCity());
+        intent.putExtra("productCategory", post.getProductCategory().toString());
+        intent.putExtra("date", post.getCreatedAt().toString());
+        startActivity(intent);
+    }
 
 
 }

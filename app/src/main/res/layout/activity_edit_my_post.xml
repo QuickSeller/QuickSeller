@@ -1,0 +1,72 @@
+<!-- res/layout/product_card.xml -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@drawable/card_background"
+    android:elevation="4dp"
+    android:radius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/fade_gray">
+
+        <!-- Product Image
+        <ImageView
+            android:id="@+id/imageViewMyPost"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/baseline_person_24" />
+
+         Product Name -->
+        <EditText
+            android:id="@+id/nameEditMyPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+        <EditText
+            android:id="@+id/descriptionEditMyPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <!-- Product Price -->
+        <EditText
+            android:id="@+id/priceEditMyPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:padding="15dp"
+            >
+
+
+            <Button
+                android:id="@+id/editMyPostfinalButton"
+                android:layout_width="135dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/g_orange_light1"
+                android:text="edit Post" />
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

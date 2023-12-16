@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,20 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
         notifyDataSetChanged();
     }
 
+
+    public interface OnEditClickListener {
+        void onEditClick(int position, Post post);
+    }
+
+
+    private OnEditClickListener onEditClickListener;
+
+    public void setOnEditClickListener(OnEditClickListener listener) {
+        onEditClickListener = listener;
+    }
+
+
+
     @NonNull
     @Override
     public MyPostsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,6 +59,18 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
         holder.descriptionTextView.setText(post.getDescription());
         holder.priceTextView.setText("$" + post.getPrice());
     }
+    public interface OnDeleteClickListener {
+        void onDeleteClick(int position);
+
+        void onEditClick(int position, Post post);
+    }
+
+    private OnDeleteClickListener onDeleteClickListener;
+
+    public void setOnDeleteClickListener(OnDeleteClickListener listener) {
+        onDeleteClickListener = listener;
+    }
+
 
     @Override
     public int getItemCount() {
@@ -56,12 +83,30 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
         TextView descriptionTextView;
         TextView priceTextView;
 
+
         public MyPostsViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.nameTextViewMyPost);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextViewMyPost);
             priceTextView = itemView.findViewById(R.id.priceTextViewMyPost);
+            Button deleteButton = itemView.findViewById(R.id.deleteMyPostButton);
+            deleteButton.setOnClickListener(view -> {
+                if (onDeleteClickListener != null) {
+                    onDeleteClickListener.onDeleteClick(getAdapterPosition());
+                }
+            });
+
+            Button editButton = itemView.findViewById(R.id.editMyPostButton);
+            editButton.setOnClickListener(view -> {
+                if (onEditClickListener != null) {
+                    onEditClickListener.onEditClick(getAdapterPosition(), posts.get(getAdapterPosition()));
+                }
+            });
+
+
+
+
+
         }
     }
-
 }
