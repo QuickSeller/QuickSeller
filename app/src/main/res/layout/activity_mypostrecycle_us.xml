@@ -51,6 +51,22 @@
             android:textColor="@android:color/holo_green_dark"
             android:textSize="14sp" />
 
+        <!-- Edit Button -->
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:onClick="onEditButtonClick" />
+
+        <!-- Delete Button -->
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:onClick="onDeleteButtonClick" />
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

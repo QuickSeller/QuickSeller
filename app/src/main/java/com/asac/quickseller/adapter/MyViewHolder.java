@@ -18,12 +18,15 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
 
 
+
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
 
         imageView = itemView.findViewById(R.id.imageView);
         priceView = itemView.findViewById(R.id.priceTextView);
         nameView = itemView.findViewById(R.id.nameTextView);
+
+
     }
 
 }
