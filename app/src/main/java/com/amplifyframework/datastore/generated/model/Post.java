@@ -45,7 +45,10 @@ public final class Post implements Model {
   private final @ModelField(targetType="String") List<String> images;
   private final @ModelField(targetType="AWSDateTime", isRequired = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
-  /** @deprecated This API is internal to Amplify and should not be used. */
+
+
+
+    /** @deprecated This API is internal to Amplify and should not be used. */
   @Deprecated
    public String resolveIdentifier() {
     return id;
