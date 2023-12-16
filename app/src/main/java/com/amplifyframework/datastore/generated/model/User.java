@@ -52,7 +52,6 @@ public final class User implements Model {
   public String getUsername() {
       return username;
   }
-
   
   public String getEmail() {
       return email;
@@ -162,16 +161,9 @@ public final class User implements Model {
       phoneNumber,
       image);
   }
-
-    public String getProductImageS3Key() {
-        return null;
-    }
-
-    public interface UsernameStep {
+  public interface UsernameStep {
     EmailStep username(String username);
-
-        BuildStep productImageS3Key(String imageS3Key);
-    }
+  }
   
 
   public interface EmailStep {
@@ -227,13 +219,8 @@ public final class User implements Model {
         this.username = username;
         return this;
     }
-
-      @Override
-      public BuildStep productImageS3Key(String imageS3Key) {
-          return null;
-      }
-
-      @Override
+    
+    @Override
      public PhoneNumberStep email(String email) {
         Objects.requireNonNull(email);
         this.email = email;
@@ -293,6 +280,4 @@ public final class User implements Model {
     }
   }
 
-
-  
 }
