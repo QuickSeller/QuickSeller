@@ -1,15 +1,22 @@
 package com.asac.quickseller.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Post;
+import com.asac.quickseller.Activities.EditPostActivity;
 import com.asac.quickseller.R;
 
 import java.util.List;
@@ -43,7 +50,53 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
         holder.titleTextView.setText(post.getTitle());
         holder.descriptionTextView.setText(post.getDescription());
         holder.priceTextView.setText("$" + post.getPrice());
+        holder.editButton.setOnClickListener(view -> onEditButtonClick(post));
+        holder.deleteButton.setOnClickListener(view -> onDeleteButtonClick(post));
     }
+
+
+    private void onEditButtonClick(Post post) {
+        // Implement your logic for editing the post
+        // You may want to start an activity for editing or show a dialog, for example
+        // For now, let's just log a message
+        Log.i("EditButton", "Edit button clicked for post: " + post.getId());
+        Intent intent = new Intent(context, EditPostActivity.class);
+        intent.putExtra("postId", post.getId());
+        context.startActivity(intent);
+    }
+
+    // Handle delete button click
+    private void onDeleteButtonClick(Post post) {
+        // Show a confirmation dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirm Deletion");
+        builder.setMessage("Are you sure you want to delete this post?");
+
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            // User confirmed deletion, make an API call to delete the post
+            deletePost(post);
+        });
+
+        builder.setNegativeButton("No", (dialog, which) -> {
+            // User canceled deletion, do nothing
+        });
+
+        builder.show();
+    }
+
+    private void deletePost(Post post) {
+        Amplify.API.mutate(ModelMutation.delete(post),
+                success -> {
+                    // Post deleted successfully, update the UI
+                    posts.remove(post);
+                    notifyDataSetChanged();
+                    Log.i("DeleteButton", "Post deleted successfully");
+                },
+                error -> {
+                    Log.e("DeleteButton", "Error deleting post", error);
+                });
+    }
+
 
     @Override
     public int getItemCount() {
@@ -55,12 +108,17 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
         TextView titleTextView;
         TextView descriptionTextView;
         TextView priceTextView;
+        Button editButton;
+        Button deleteButton;
 
         public MyPostsViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.nameTextViewMyPost);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextViewMyPost);
             priceTextView = itemView.findViewById(R.id.priceTextViewMyPost);
+            editButton = itemView.findViewById(R.id.editButton);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
+
         }
     }
 
