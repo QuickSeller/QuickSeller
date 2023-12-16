@@ -408,8 +408,8 @@
                             "kind": "NON_NULL",
                             "name": null,
                             "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
+                                "kind": "ENUM",
+                                "name": "CityEnum",
                                 "ofType": null
                             }
                         },
@@ -3680,6 +3680,42 @@
             },
             {
                 "kind": "INPUT_OBJECT",
+                "name": "ModelCityEnumInput",
+                "description": null,
+                "specifiedByUrl": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "eq",
+                        "description": null,
+                        "type": {
+                            "kind": "ENUM",
+                            "name": "CityEnum",
+                            "ofType": null
+                        },
+                        "defaultValue": null,
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "ne",
+                        "description": null,
+                        "type": {
+                            "kind": "ENUM",
+                            "name": "CityEnum",
+                            "ofType": null
+                        },
+                        "defaultValue": null,
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "INPUT_OBJECT",
                 "name": "ModelProductCategoryEnumInput",
                 "description": null,
                 "specifiedByUrl": null,
@@ -3750,7 +3786,7 @@
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelStringInput",
+                            "name": "ModelCityEnumInput",
                             "ofType": null
                         },
                         "defaultValue": null,
@@ -3902,7 +3938,7 @@
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelStringInput",
+                            "name": "ModelCityEnumInput",
                             "ofType": null
                         },
                         "defaultValue": null,
@@ -4072,8 +4108,8 @@
                             "kind": "NON_NULL",
                             "name": null,
                             "ofType": {
-                                "kind": "SCALAR",
-                                "name": "String",
+                                "kind": "ENUM",
+                                "name": "CityEnum",
                                 "ofType": null
                             }
                         },
@@ -4213,8 +4249,8 @@
                         "name": "city",
                         "description": null,
                         "type": {
-                            "kind": "SCALAR",
-                            "name": "String",
+                            "kind": "ENUM",
+                            "name": "CityEnum",
                             "ofType": null
                         },
                         "defaultValue": null,

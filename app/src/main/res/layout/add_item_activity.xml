@@ -10,6 +10,7 @@
 
     <!-- Top pink-colored bar with "Add item" text -->
 
+
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
@@ -29,10 +30,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="New Post"
-            android:textColor="#FFFFFF"
             android:background="#FF4081"
             android:padding="20dp"
+            android:text="New Post"
+            android:textColor="#FFFFFF"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -44,20 +45,14 @@
         android:backgroundTint="#ED8AAC"
         android:text="Add Product Image" />
 
-    <Button
-        android:id="@+id/AddItemDeleteImageBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ED8AAC"
-        android:text="Delete Image" />
+
 
     <ImageView
         android:id="@+id/AddItemimageView"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="100dp"
         android:layout_margin="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/ic_launcher_background"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Spinner
@@ -144,13 +139,11 @@
 
     <Button
         android:id="@+id/addItemButton"
-        android:layout_width="match_parent"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="160dp"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="160dp"
         android:backgroundTint="#FF4081"
         android:text="Add" />
-
 
 </LinearLayout>

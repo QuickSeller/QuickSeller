@@ -1,0 +1,72 @@
+<!-- res/layout/product_card.xml -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@drawable/card_background"
+    android:elevation="4dp"
+    android:radius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/fade_gray">
+
+        <!-- Product Image
+        <ImageView
+            android:id="@+id/imageViewMyPost"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/baseline_person_24" />
+
+         Product Name -->
+        <TextView
+            android:id="@+id/nameTextViewMyPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Product Name"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/descriptionTextViewMyPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Product Description"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <!-- Product Price -->
+        <TextView
+            android:id="@+id/priceTextViewMyPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="$19.99"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="14sp" />
+
+        <!-- Edit Button -->
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:onClick="onEditButtonClick" />
+
+        <!-- Delete Button -->
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:onClick="onDeleteButtonClick" />
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

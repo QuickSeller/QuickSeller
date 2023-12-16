@@ -210,7 +210,7 @@ public class HomeActivity extends AppCompatActivity {
         List<Post> filteredList = new ArrayList<>();
 
         for (Post post : items) {
-            if (post.getTitle().toLowerCase().contains(query.toLowerCase())) {
+            if (post != null && post.getTitle() != null && post.getTitle().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(post);
             }
         }
@@ -310,7 +310,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void queryPostsByCategories(List<ProductCategoryEnum> categories) {
         items.clear();
-
         if (categories.isEmpty()) {
             query(ModelQuery.list(Post.class, ModelPagination.limit(1_000)));
         } else {

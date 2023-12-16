@@ -39,6 +39,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +54,7 @@ public class AddItemActivity extends AppCompatActivity {
     Button addProductImageBtn = null;
     ActivityResultLauncher<Intent> activityResultLauncher ;
 
-    String[] s3ImageKey= {};
+    List<String> s3ImageKeys = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +67,14 @@ public class AddItemActivity extends AppCompatActivity {
         setupAddProductBtn();
         setupBackBtn();
         setupAddProductImageBtn();
-        setUpDeleteImageButton();
+//        setUpImageButtons(); // Rename this method
 
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        setUpDeleteImageButton();
+//        setUpImageButtons(); // Rename this method
 
 
         Intent callingIntent = getIntent();
@@ -110,12 +111,12 @@ public class AddItemActivity extends AppCompatActivity {
 
     }
 
-   private void setupAddProductImageBtn(){
-    addProductImageBtn = (Button) findViewById(R.id.addItemAddImageBtn);
-    addProductImageBtn.setOnClickListener(b -> {
-        launchImageSelectionIntent();
-    });
-}
+    private void setupAddProductImageBtn(){
+        addProductImageBtn = (Button) findViewById(R.id.addItemAddImageBtn);
+        addProductImageBtn.setOnClickListener(b -> {
+            launchImageSelectionIntent();
+        });
+    }
     private void launchImageSelectionIntent(){
         Intent imageFilePickingIntent = new Intent(Intent.ACTION_GET_CONTENT);
         imageFilePickingIntent.setType("*/*");
@@ -142,7 +143,7 @@ public class AddItemActivity extends AppCompatActivity {
                                             InputStream pickedImageInputStream = getContentResolver().openInputStream(pickedImageFileUri);
                                             String pickedImageFilename = getFileNameFromUri(pickedImageFileUri);
                                             Log.i(TAG, "Succeeded in getting input stream from file on phone! Filename is: " + pickedImageFilename);
-                                            switchFromAddButtonToDeleteButton(addImageButton);
+//                                            switchFromAddButtonToDeleteButton(addImageButton);
                                             uploadInputStreamToS3(pickedImageInputStream, pickedImageFilename,pickedImageFileUri);
 
                                         } catch (FileNotFoundException fnfe)
@@ -169,9 +170,9 @@ public class AddItemActivity extends AppCompatActivity {
                 success ->
                 {
                     Log.i(TAG, "Succeeded in getting file uploaded to S3! Key is: " + success.getKey());
-                    s3ImageKey = new String[]{success.getKey()};
+                    s3ImageKeys.add(success.getKey());
 //                    saveNewProduct(success.getKey());
-                    updateImageButtons();
+//                    updateImageButtons();
                     ImageView productImageView = findViewById(R.id.AddItemimageView);
                     InputStream pickedImageInputStreamCopy = null;
                     try
@@ -192,53 +193,84 @@ public class AddItemActivity extends AppCompatActivity {
         );
 
     }
-    private void updateImageButtons() {
-        Button addImageButton = findViewById(R.id.addItemAddImageBtn);
-        Button deleteImageButton = (Button) findViewById(R.id.AddItemDeleteImageBtn);
-        runOnUiThread(() -> {
-            if (s3ImageKey == null) {
-                deleteImageButton.setVisibility(View.INVISIBLE);
-                addImageButton.setVisibility(View.VISIBLE);
-            } else {
-                deleteImageButton.setVisibility(View.VISIBLE);
-                addImageButton.setVisibility(View.INVISIBLE);
-            }
-        });
-    }
-    private void switchFromDeleteButtonToAddButton(Button deleteImageButton) {
-        Button addImageButton = (Button) findViewById(R.id.addItemAddImageBtn);
-        deleteImageButton.setVisibility(View.INVISIBLE);
-        addImageButton.setVisibility(View.VISIBLE);
-    }
-    private void switchFromAddButtonToDeleteButton(Button addImageButton) {
-        Button deleteImageButton = (Button) findViewById(R.id.AddItemDeleteImageBtn);
-        deleteImageButton.setVisibility(View.VISIBLE);
-        addImageButton.setVisibility(View.INVISIBLE);
-    }
+//    private void updateImageButtons() {
+//        Button deleteImageButton = findViewById(R.id.AddItemDeleteImageBtn);
+//        Button addImageButton = findViewById(R.id.addItemAddImageBtn);
+//        runOnUiThread(() -> {
+//            if (s3ImageKeys.isEmpty()) {
+//                deleteImageButton.setVisibility(View.INVISIBLE);
+//                addImageButton.setVisibility(View.VISIBLE);
+//            } else {
+//                deleteImageButton.setVisibility(View.VISIBLE);
+//                addImageButton.setVisibility(View.INVISIBLE);
+//            }
+//        });
+//    }
 
-    private void setUpDeleteImageButton() {
-        Button deleteImageButton = (Button) findViewById(R.id.AddItemDeleteImageBtn);
-//        String s3ImageKey = this.s3ImageKey;
-        deleteImageButton.setOnClickListener(v ->
-        {
-            Amplify.Storage.remove(
-                    Arrays.toString(s3ImageKey),
-                    success ->
-                    {
-                        Log.i(TAG, "Succeeded in deleting file on S3! Key is: " + success.getKey());
+//    private void updateImageButtons() {
+//        Button deleteImageButton = findViewById(R.id.AddItemDeleteImageBtn);
+//        Button addImageButton = findViewById(R.id.addItemAddImageBtn);
+//        runOnUiThread(() -> {
+//            if (s3ImageKeys.isEmpty()) {
+//                deleteImageButton.setVisibility(View.INVISIBLE);
+//                addImageButton.setVisibility(View.VISIBLE);
+//            } else {
+//                deleteImageButton.setVisibility(View.VISIBLE);
+//                addImageButton.setVisibility(View.VISIBLE); // Both buttons are visible when there are images
+//            }
+//        });
+//    }
 
-                    },
-                    failure ->
-                    {
-                        Log.e(TAG, "Failure in deleting file on S3 with key: " +  s3ImageKey  + " with error: " + failure.getMessage());
-                    }
-            );
-            ImageView productImageView = findViewById(R.id.AddItemimageView);
-            productImageView.setImageResource(android.R.color.transparent);
-            saveNewProduct("","","", new String[]{""});
-            switchFromDeleteButtonToAddButton(deleteImageButton);
-        });
-    }
+
+//    private void switchFromDeleteButtonToAddButton(Button deleteImageButton) {
+//        Button addImageButton = (Button) findViewById(R.id.addItemAddImageBtn);
+//        deleteImageButton.setVisibility(View.INVISIBLE);
+//        addImageButton.setVisibility(View.VISIBLE);
+//    }
+//    private void switchFromAddButtonToDeleteButton(Button addImageButton) {
+//        Button deleteImageButton = (Button) findViewById(R.id.AddItemDeleteImageBtn);
+//        deleteImageButton.setVisibility(View.VISIBLE);
+//        addImageButton.setVisibility(View.INVISIBLE);
+//    }
+
+//    private void setUpDeleteImageButton() {
+//        Button deleteImageButton = findViewById(R.id.AddItemDeleteImageBtn);
+//        deleteImageButton.setOnClickListener(v -> {
+//            for (String s3ImageKey : s3ImageKeys) {
+//                Amplify.Storage.remove(
+//                        s3ImageKey,
+//                        success -> {
+//                            Log.i(TAG, "Succeeded in deleting file on S3! Key is: " + success.getKey());
+//                        },
+//                        failure -> {
+//                            Log.e(TAG, "Failure in deleting file on S3 with key: " + s3ImageKey + " with error: " + failure.getMessage());
+//                        }
+//                );
+//            }
+//            ImageView productImageView = findViewById(R.id.AddItemimageView);
+//            productImageView.setImageResource(android.R.color.transparent);
+//            switchFromDeleteButtonToAddButton(deleteImageButton);
+//            s3ImageKeys.clear(); // Clear the list of image keys
+//        });
+//    }
+
+//    private void setUpImageButtons() {
+//        Button deleteImageButton = findViewById(R.id.AddItemDeleteImageBtn);
+//        Button addImageButton = findViewById(R.id.addItemAddImageBtn);
+//
+//        addImageButton.setOnClickListener(v -> {
+//            launchImageSelectionIntent();
+//        });
+//
+//        deleteImageButton.setOnClickListener(v -> {
+//            ImageView productImageView = findViewById(R.id.AddItemimageView);
+//            productImageView.setImageResource(android.R.color.transparent);
+//            launchImageSelectionIntent(); // Launch image selection intent to add more images
+//        });
+//
+//        updateImageButtons(); // Update the visibility of buttons
+//    }
+
 
     private String cleanText(String text) {
         text = text.replaceAll("\\b(?:https?|ftp):\\/\\/\\S+\\b", "");
@@ -268,7 +300,7 @@ public class AddItemActivity extends AppCompatActivity {
             String description = ((EditText) findViewById(R.id.descriptionAddItemEditText)).getText().toString();
             String dateCreated = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
             String price = ((EditText) findViewById(R.id.priceAddItemEditText)).getText().toString();
-            saveNewProduct(title, description, price,s3ImageKey);
+            saveNewProduct(title, description, price,s3ImageKeys);
 
         });
 
@@ -282,7 +314,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         });
     }
-    private void saveNewProduct(String title, String description, String price, String[] imageList) {
+    private void saveNewProduct(String title, String description, String price, List<String> imageList) {
         Amplify.API.query(
                 ModelQuery.list(User.class, User.EMAIL.eq(Amplify.Auth.getCurrentUser().getUsername())),
                 response -> {
@@ -296,7 +328,7 @@ public class AddItemActivity extends AppCompatActivity {
                                 .productCategory((ProductCategoryEnum) productCategorySpinner.getSelectedItem())
                                 .createdAt(new Temporal.DateTime(new Date(), 0))
                                 .description(description)
-                                .images(List.of(imageList))
+                                .images(imageList)
                                 .build();
 
                         Amplify.API.mutate(
