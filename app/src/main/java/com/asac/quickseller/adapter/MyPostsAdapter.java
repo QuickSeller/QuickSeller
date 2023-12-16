@@ -1,6 +1,7 @@
 package com.asac.quickseller.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amplifyframework.datastore.generated.model.Post;
+import com.asac.quickseller.Activities.EditMyPostActivity;
 import com.asac.quickseller.R;
 
 import java.util.List;
@@ -24,25 +26,12 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
         this.context = context;
         this.posts = posts;
     }
+
     public void updateData(List<Post> newPosts) {
         this.posts.clear();
         this.posts.addAll(newPosts);
         notifyDataSetChanged();
     }
-
-
-    public interface OnEditClickListener {
-        void onEditClick(int position, Post post);
-    }
-
-
-    private OnEditClickListener onEditClickListener;
-
-    public void setOnEditClickListener(OnEditClickListener listener) {
-        onEditClickListener = listener;
-    }
-
-
 
     @NonNull
     @Override
@@ -58,11 +47,17 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
         holder.titleTextView.setText(post.getTitle());
         holder.descriptionTextView.setText(post.getDescription());
         holder.priceTextView.setText("$" + post.getPrice());
+
+        // Add click listener for the "Edit" button
+        holder.editButton.setOnClickListener(view -> {
+            if (onEditClickListener != null) {
+                onEditClickListener.onEditClick(position);
+            }
+        });
     }
+
     public interface OnDeleteClickListener {
         void onDeleteClick(int position);
-
-        void onEditClick(int position, Post post);
     }
 
     private OnDeleteClickListener onDeleteClickListener;
@@ -71,6 +66,15 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
         onDeleteClickListener = listener;
     }
 
+    public interface OnEditClickListener {
+        void onEditClick(int position);
+    }
+
+    private OnEditClickListener onEditClickListener;
+
+    public void setOnEditClickListener(OnEditClickListener listener) {
+        onEditClickListener = listener;
+    }
 
     @Override
     public int getItemCount() {
@@ -82,31 +86,25 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
         TextView titleTextView;
         TextView descriptionTextView;
         TextView priceTextView;
-
+        Button editButton;
 
         public MyPostsViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.nameTextViewMyPost);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextViewMyPost);
             priceTextView = itemView.findViewById(R.id.priceTextViewMyPost);
+            editButton = itemView.findViewById(R.id.editMyPostButton);
+
+            // Add click listener for the "Delete" button
             Button deleteButton = itemView.findViewById(R.id.deleteMyPostButton);
-            deleteButton.setOnClickListener(view -> {
-                if (onDeleteClickListener != null) {
-                    onDeleteClickListener.onDeleteClick(getAdapterPosition());
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onDeleteClickListener != null) {
+                        onDeleteClickListener.onDeleteClick(getAdapterPosition());
+                    }
                 }
             });
-
-            Button editButton = itemView.findViewById(R.id.editMyPostButton);
-            editButton.setOnClickListener(view -> {
-                if (onEditClickListener != null) {
-                    onEditClickListener.onEditClick(getAdapterPosition(), posts.get(getAdapterPosition()));
-                }
-            });
-
-
-
-
-
         }
     }
 }

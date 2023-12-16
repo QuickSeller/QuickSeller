@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class MyPostsActivity extends AppCompatActivity implements MyPostsAdapter.OnDeleteClickListener{
+public class MyPostsActivity extends AppCompatActivity implements MyPostsAdapter.OnDeleteClickListener, MyPostsAdapter.OnEditClickListener{
 
     private RecyclerView recyclerView;
     private MyPostsAdapter myPostsAdapter;
@@ -38,18 +38,10 @@ public class MyPostsActivity extends AppCompatActivity implements MyPostsAdapter
 
         myPostsAdapter = new MyPostsAdapter(this, myPosts);
         myPostsAdapter.setOnDeleteClickListener(this);
+        myPostsAdapter.setOnEditClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myPostsAdapter);
-
-            myPostsAdapter.setOnEditClickListener((position, post) -> {
-                Intent intent = new Intent(this, EditMyPostActivity.class);
-                intent.putExtra("post", String.valueOf(post));
-                startActivity(intent);
-            });
-
-
-
             queryMyPosts();
     }
 
@@ -115,17 +107,24 @@ public class MyPostsActivity extends AppCompatActivity implements MyPostsAdapter
         );
     }
     @Override
-    public void onEditClick(int position, Post post) {
-        Intent intent = new Intent(MyPostsActivity.this, EditMyPostActivity.class);
-        intent.putExtra("postId", post.getId());
-        intent.putExtra("title", post.getTitle());
-        intent.putExtra("description", post.getDescription());
-        intent.putExtra("price", String.valueOf(post.getPrice()));
-        intent.putExtra("city", post.getCity());
-        intent.putExtra("productCategory", post.getProductCategory().toString());
-        intent.putExtra("date", post.getCreatedAt().toString());
+    public void onEditClick(int position) {
+        // Retrieve the selected post
+        Post selectedPost = myPosts.get(position);
+
+        // Create an Intent to start EditMyPostActivity
+        Intent intent = new Intent(this, EditMyPostActivity.class);
+
+        // Pass the data of the selected post to EditMyPostActivity
+        intent.putExtra("postId", selectedPost.getId());
+        intent.putExtra("postTitle", selectedPost.getTitle());
+        intent.putExtra("postDescription", selectedPost.getDescription());
+        intent.putExtra("postPrice", selectedPost.getPrice());
+
+        // Start the activity
         startActivity(intent);
     }
+
+
 
 
 }
