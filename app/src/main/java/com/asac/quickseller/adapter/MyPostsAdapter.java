@@ -56,29 +56,22 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
 
 
     private void onEditButtonClick(Post post) {
-        // Implement your logic for editing the post
-        // You may want to start an activity for editing or show a dialog, for example
-        // For now, let's just log a message
         Log.i("EditButton", "Edit button clicked for post: " + post.getId());
         Intent intent = new Intent(context, EditPostActivity.class);
         intent.putExtra("postId", post.getId());
         context.startActivity(intent);
     }
 
-    // Handle delete button click
     private void onDeleteButtonClick(Post post) {
-        // Show a confirmation dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Confirm Deletion");
         builder.setMessage("Are you sure you want to delete this post?");
 
         builder.setPositiveButton("Yes", (dialog, which) -> {
-            // User confirmed deletion, make an API call to delete the post
             deletePost(post);
         });
 
         builder.setNegativeButton("No", (dialog, which) -> {
-            // User canceled deletion, do nothing
         });
 
         builder.show();

@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Post;
 import com.asac.quickseller.Activities.ItemDetailsActivity;
 import com.asac.quickseller.R;
@@ -49,6 +50,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         if (post != null) {
             String title = post.getTitle();
             String price = post.getPrice();
+
+//            Temporal.DateTime createdAt = post.getCreatedAt();
+//            if (createdAt != null) {
+//                String formattedDate = formatDate(createdAt);
+//                holder.dateView.setText(formattedDate);
+//            } else {
+//                holder.dateView.setText("N/A");
+//            }
 
             if (title != null && !title.isEmpty()) {
                 holder.nameView.setText(title);
@@ -92,7 +101,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     intent.putExtra("price", post.getPrice());
                     intent.putExtra("owner", post.getUser().getUsername());
                     intent.putExtra("images", post.getImages().toArray(new String[0]));
-                    intent.putExtra("date", post.getCreatedAt().toString());
+                    intent.putExtra("date", formatDate(post.getCreatedAt()));
 
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -101,6 +110,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             });
 
 
+        }
+    }
+
+    private String formatDate(Temporal.DateTime dateTime) {
+        // You can use SimpleDateFormat or DateTimeFormatter for more advanced formatting
+        // For simplicity, let's use substring to extract date and time
+        String dateTimeString = dateTime.toString();
+        if (dateTimeString.length() >= 19) {
+            return dateTimeString.substring(34, dateTimeString.length()-10);
+        } else {
+            return dateTimeString;
         }
     }
 

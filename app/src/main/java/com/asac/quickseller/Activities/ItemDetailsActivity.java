@@ -39,7 +39,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     EditText commentEditText = null;
     List<Comment> commentList = null;
     CommentsAdapter commentsAdapter;
-    ImageView imageView;
+//    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         String description = intent.getStringExtra("description");
         String price = intent.getStringExtra("price");
 //        String productCategory = intent.getStringExtra("productCategory");
-        String[] images = intent.getStringArrayExtra("images");
+//        String[] images = intent.getStringArrayExtra("images");
         String city = intent.getStringExtra("city");
         String owner = intent.getStringExtra("owner");
         String date = intent.getStringExtra("date");
@@ -65,14 +65,14 @@ public class ItemDetailsActivity extends AppCompatActivity {
         TextView priceTextView = findViewById(R.id.itemDetailsItemPrice);
         TextView ownerTextView = findViewById(R.id.itemDetailsOwner);
 //        imageView = findViewById(R.id.itemDetailsImageView);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView dateTextView = findViewById(R.id.itemDetailsDate);
+        TextView dateTextView = findViewById(R.id.itemDetailsDate);
 
 
         cityTextView.setText("City : " + city);
         titleTextView.setText("Item Name : " + title);
         descriptionTextView.setText("Description : " + description);
         priceTextView.setText("Price : " + price);
-        dateTextView.setText("Date : " + date);
+        dateTextView.setText("Date :" + date);
         ownerTextView.setText("Owner : " + owner);
 
 
