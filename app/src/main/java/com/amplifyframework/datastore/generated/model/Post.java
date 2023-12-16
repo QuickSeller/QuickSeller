@@ -22,7 +22,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the Post type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Posts",authRules = {
+@ModelConfig(pluralName = "Posts",  authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 public final class Post implements Model {
@@ -36,7 +36,7 @@ public final class Post implements Model {
   public static final QueryField IMAGES = field("Post", "images");
   public static final QueryField CREATED_AT = field("Post", "createdAt");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="User", isRequired = true) @BelongsTo(targetName = "userId",  type = User.class) User user;
+  private final @ModelField(targetType="User", isRequired = true) @BelongsTo(targetName = "userId",type = User.class) User user;
   private final @ModelField(targetType="String", isRequired = true) String city;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String") String description;
@@ -393,6 +393,4 @@ public final class Post implements Model {
     }
   }
 
-
-  
 }
