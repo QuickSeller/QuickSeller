@@ -7,25 +7,25 @@
     android:orientation="vertical"
     tools:context=".Activities.SettingsActivity">
 
-<RelativeLayout
-android:layout_height="wrap_content"
-    android:layout_width="match_parent">
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_close"
-        android:padding="14dp"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Settings"
-        android:textColor="@color/g_orange_light1"
-        android:textSize="18dp"
-        android:textStyle="bold" />
-</RelativeLayout>
+        android:layout_width="match_parent">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_close"
+            android:padding="14dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Settings"
+            android:textColor="@color/g_orange_light1"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -35,12 +35,12 @@ android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-<ImageView
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:layout_gravity="center"
-    android:layout_margin="10dp"
-    android:src="@drawable/logo3"/>
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:src="@drawable/logo3"/>
 
             <Button
                 android:backgroundTint="@color/g_orange_light1"
@@ -84,6 +84,21 @@ android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:id="@+id/settingprivacyandpolicybutton"
                 android:text="Privacy and Policy "
+                android:textColor="@color/black">
+
+            </Button>
+
+            <Button
+                android:backgroundTint="@color/g_orange_light1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:id="@+id/myPost"
+                android:text="My Post"
                 android:textColor="@color/black">
 
             </Button>
@@ -148,4 +163,3 @@ android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 </LinearLayout>
-

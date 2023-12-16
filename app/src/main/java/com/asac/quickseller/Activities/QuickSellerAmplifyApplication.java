@@ -1,3 +1,4 @@
+
 package com.asac.quickseller.Activities;
 
 import android.app.Application;
@@ -9,6 +10,7 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
+
 
 public class QuickSellerAmplifyApplication extends Application {
 

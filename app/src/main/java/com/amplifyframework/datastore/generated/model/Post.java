@@ -3,7 +3,6 @@ package com.amplifyframework.datastore.generated.model;
 import com.amplifyframework.core.model.annotations.BelongsTo;
 import com.amplifyframework.core.model.temporal.Temporal;
 
-
 import java.util.List;
 import java.util.UUID;
 import java.util.Objects;
@@ -23,7 +22,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the Post type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Posts", authRules = {
+@ModelConfig(pluralName = "Posts",  authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 public final class Post implements Model {
@@ -37,8 +36,8 @@ public final class Post implements Model {
   public static final QueryField IMAGES = field("Post", "images");
   public static final QueryField CREATED_AT = field("Post", "createdAt");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="User", isRequired = true) @BelongsTo(targetName = "userId", type = User.class) User user;
-  private final @ModelField(targetType="CityEnum", isRequired = true) CityEnum city;
+  private final @ModelField(targetType="User", isRequired = true) @BelongsTo(targetName = "userId",type = User.class) User user;
+  private final @ModelField(targetType="String", isRequired = true) String city;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String") String description;
   private final @ModelField(targetType="String", isRequired = true) String price;
@@ -60,7 +59,7 @@ public final class Post implements Model {
       return user;
   }
   
-  public CityEnum getCity() {
+  public String getCity() {
       return city;
   }
   
@@ -92,7 +91,7 @@ public final class Post implements Model {
       return updatedAt;
   }
   
-  private Post(String id, User user, CityEnum city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt) {
+  private Post(String id, User user, String city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt) {
     this.id = id;
     this.user = user;
     this.city = city;
@@ -203,7 +202,7 @@ public final class Post implements Model {
   
 
   public interface CityStep {
-    TitleStep city(CityEnum city);
+    TitleStep city(String city);
   }
   
 
@@ -238,7 +237,7 @@ public final class Post implements Model {
   public static class Builder implements UserStep, CityStep, TitleStep, PriceStep, ProductCategoryStep, CreatedAtStep, BuildStep {
     private String id;
     private User user;
-    private CityEnum city;
+    private String city;
     private String title;
     private String price;
     private ProductCategoryEnum productCategory;
@@ -249,7 +248,7 @@ public final class Post implements Model {
       
     }
     
-    private Builder(String id, User user, CityEnum city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt) {
+    private Builder(String id, User user, String city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt) {
       this.id = id;
       this.user = user;
       this.city = city;
@@ -285,7 +284,7 @@ public final class Post implements Model {
     }
     
     @Override
-     public TitleStep city(CityEnum city) {
+     public TitleStep city(String city) {
         Objects.requireNonNull(city);
         this.city = city;
         return this;
@@ -343,7 +342,7 @@ public final class Post implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, User user, CityEnum city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt) {
+    private CopyOfBuilder(String id, User user, String city, String title, String description, String price, ProductCategoryEnum productCategory, List<String> images, Temporal.DateTime createdAt) {
       super(id, user, city, title, description, price, productCategory, images, createdAt);
       Objects.requireNonNull(user);
       Objects.requireNonNull(city);
@@ -359,7 +358,7 @@ public final class Post implements Model {
     }
     
     @Override
-     public CopyOfBuilder city(CityEnum city) {
+     public CopyOfBuilder city(String city) {
       return (CopyOfBuilder) super.city(city);
     }
     
