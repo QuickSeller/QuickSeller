@@ -1,34 +1,36 @@
 type User @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  username: String!
-  email: String!
-  phoneNumber: String!
-  image: String
-  posts: [Post] @hasMany(fields: ["id"])
-  #  comments: [Comment]! @hasMany( fields: ["id"])
-  #  orders: [Order]! @hasMany( fields: ["id"])
+    id: ID!
+    username: String!
+    email: String!
+    phoneNumber: String!
+    image: String
+    posts: [Post] @hasMany(fields: ["id"])
+    #  comments: [Comment]! @hasMany( fields: ["id"])
+    #  orders: [Order]! @hasMany( fields: ["id"])
 
 }
 
 type Post @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  userId: ID!
-  user: User! @belongsTo(fields: ["userId"])
-  city: String!
-  title: String!
-  description: String
-  price: String!
-  productCategory: ProductCategoryEnum!
-  images: [String]
-  createdAt: AWSDateTime!
-  #  comments: [Comment]! @hasMany( fields: ["id"])
-  #  order: Order @hasOne
+    id: ID!
+    userId: ID!
+    user: User! @belongsTo(fields: ["userId"])
+    city: String!
+    title: String!
+    description: String
+    price: String!
+    productCategory: ProductCategoryEnum!
+    images: [String]
+    createdAt: AWSDateTime!
+    #  comments: [Comment]! @hasMany( fields: ["id"])
+    #  order: Order @hasOne
 }
 
 type Comment @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  content: String!
-  createdAt:AWSDateTime!
+    id: ID!
+    content: String!
+    createdAt:AWSDateTime!
+    postId: ID!
+    post: Post! @belongsTo(fields: ["postId"])
 }
 
 #
@@ -81,20 +83,20 @@ type Comment @model @auth(rules: [{ allow: public }]) {
 #  status: OrderStatusEnum!
 #}
 enum CityEnum {
-  Amman
-  Zarqa
-  Irbid
+    Amman
+    Zarqa
+    Irbid
 }
 enum ProductCategoryEnum {
-  Clothes
-  Electronics
-  Perishable_Goods
-  Office_supplies
-  Misc
+    Clothes
+    Electronics
+    Perishable_Goods
+    Office_supplies
+    Misc
 }
 
 enum OrderStatusEnum {
-  Pending
-  Completed
-  Cancelled
+    Pending
+    Completed
+    Cancelled
 }

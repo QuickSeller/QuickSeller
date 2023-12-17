@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -35,11 +36,14 @@ import java.util.List;
 public class ItemDetailsActivity extends AppCompatActivity {
 
     public static final String TAG = "ItemDetailsActivity";
-    Button addCommentBtn=null;
+    Button addCommentBtn = null;
     EditText commentEditText = null;
     List<Comment> commentList = null;
     CommentsAdapter commentsAdapter;
-//    ImageView imageView;
+
+    private Button button;
+
+    //    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +60,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         String city = intent.getStringExtra("city");
         String owner = intent.getStringExtra("owner");
         String date = intent.getStringExtra("date");
-
+        String phone = intent.getStringExtra("phone");
 
 
         TextView titleTextView = findViewById(R.id.itemDetailsItemNameTextView);
@@ -64,8 +68,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
         TextView descriptionTextView = findViewById(R.id.itemDetailsItemDescription);
         TextView priceTextView = findViewById(R.id.itemDetailsItemPrice);
         TextView ownerTextView = findViewById(R.id.itemDetailsOwner);
+        TextView phoneTextView = findViewById(R.id.itemDetailsPhone);
 //        imageView = findViewById(R.id.itemDetailsImageView);
         TextView dateTextView = findViewById(R.id.itemDetailsDate);
+
+        button = (Button) findViewById(R.id.buttonCall);
 
 
         cityTextView.setText("City : " + city);
@@ -74,14 +81,33 @@ public class ItemDetailsActivity extends AppCompatActivity {
         priceTextView.setText("Price : " + price);
         dateTextView.setText("Date :" + date);
         ownerTextView.setText("Owner : " + owner);
+        phoneTextView.setText("Phone: " + phone);
 
 
-        commentList=new ArrayList<>();
+//        TextView phoneTextView = findViewById(R.id.itemDetailsPhone);
+
+        button.setOnClickListener(v -> {
+            String phoneNumber = phoneTextView.getText().toString().trim();
+            if (!phoneNumber.isEmpty()) {
+                dialPhoneNumber(phoneNumber);
+            }
+        });
+
+
+        commentList = new ArrayList<>();
         recyclerViewSetup();
 
     }
 
-    private void recyclerViewSetup(){
+
+    private void dialPhoneNumber(String phoneNumber) {
+        Intent intentDial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+        intentDial.setData(Uri.parse("tel:" + phoneNumber.substring(5)));
+        startActivity(intentDial);
+    }
+
+
+    private void recyclerViewSetup() {
         RecyclerView commentsRecycler = (RecyclerView) findViewById(R.id.commentsRecyclerView);
         commentsAdapter = new CommentsAdapter(commentList, this);
         commentsRecycler.setAdapter(commentsAdapter);
@@ -100,16 +126,16 @@ public class ItemDetailsActivity extends AppCompatActivity {
         Amplify.API.query(
                 ModelQuery.list(Comment.class),
                 success -> {
-                    Log.i(TAG,"ItemDetailsActivity(): Comment Read Successfully");
+                    Log.i(TAG, "ItemDetailsActivity(): Comment Read Successfully");
                     commentList.clear();
-                    for(Comment userComment : success.getData()){
+                    for (Comment userComment : success.getData()) {
                         commentList.add(userComment);
                     }
                     runOnUiThread(() -> {
                         commentsAdapter.notifyDataSetChanged();
                     });
                 },
-                failure -> Log.i(TAG,"ItemDetailsActivity(): Read Comment Failed")
+                failure -> Log.i(TAG, "ItemDetailsActivity(): Read Comment Failed")
         );
 
         loadAndDisplayImages();
@@ -178,8 +204,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 failure -> Log.i(TAG, "ItemDetailsActivity(): Read Comment Failed")
         );
     }
-
-
 
 
 }

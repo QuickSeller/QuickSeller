@@ -91,6 +91,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     intent.putExtra("title", post.getTitle());
                     intent.putExtra("description", post.getDescription());
                     intent.putExtra("price", post.getPrice());
+                    intent.putExtra("phone", post.getUser().getPhoneNumber());
                     intent.putExtra("owner", post.getUser().getUsername());
                     intent.putExtra("images", post.getImages().toArray(new String[0]));
                     intent.putExtra("date", formatDate(post.getCreatedAt()));
