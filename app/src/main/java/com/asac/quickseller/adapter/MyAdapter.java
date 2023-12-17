@@ -51,14 +51,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             String title = post.getTitle();
             String price = post.getPrice();
 
-//            Temporal.DateTime createdAt = post.getCreatedAt();
-//            if (createdAt != null) {
-//                String formattedDate = formatDate(createdAt);
-//                holder.dateView.setText(formattedDate);
-//            } else {
-//                holder.dateView.setText("N/A");
-//            }
-
             if (title != null && !title.isEmpty()) {
                 holder.nameView.setText(title);
             } else {
@@ -114,8 +106,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
     private String formatDate(Temporal.DateTime dateTime) {
-        // You can use SimpleDateFormat or DateTimeFormatter for more advanced formatting
-        // For simplicity, let's use substring to extract date and time
         String dateTimeString = dateTime.toString();
         if (dateTimeString.length() >= 19) {
             return dateTimeString.substring(34, dateTimeString.length()-10);

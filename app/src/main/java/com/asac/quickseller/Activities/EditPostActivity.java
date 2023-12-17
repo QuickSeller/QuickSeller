@@ -29,7 +29,7 @@ public class EditPostActivity extends AppCompatActivity {
 
     private String postId;
 
-    private List<String> existingImages; // Add this field to store existing images
+    private List<String> existingImages;
 
 
     @Override
@@ -49,7 +49,6 @@ public class EditPostActivity extends AppCompatActivity {
             Log.i("IDddd" , postId);
         }
 
-        // Load the existing post data
         loadPostData();
 
         saveButton.setOnClickListener(view -> onSaveButtonClick());
@@ -62,7 +61,6 @@ public class EditPostActivity extends AppCompatActivity {
                     Post post = response.getData();
                     existingImages = post.getImages();
                     runOnUiThread(() -> {
-                        // Set the existing data in the EditText fields
                         titleEditText.setText(post.getTitle());
                         descriptionEditText.setText(post.getDescription());
                         priceEditText.setText(String.valueOf(post.getPrice()));
@@ -77,34 +75,27 @@ public class EditPostActivity extends AppCompatActivity {
     }
 
     private void onSaveButtonClick() {
-        // Get the updated values from the EditText fields
         String updatedTitle = titleEditText.getText().toString().trim();
         String updatedDescription = descriptionEditText.getText().toString().trim();
         double updatedPrice = Double.parseDouble(priceEditText.getText().toString().trim());
 
-        // Update the post
         updatePost(updatedTitle, updatedDescription, updatedPrice);
     }
 
     private void updatePost(String updatedTitle, String updatedDescription, double updatedPrice) {
-        // Fetch the existing post from the database to get user, createdAt, productCategory, and city values
         Amplify.API.query(
                 ModelQuery.get(Post.class, postId),
                 response -> {
                     Post existingPost = response.getData();
                     if (existingPost != null) {
-                        // Get existing user, createdAt, productCategory, and city values
                         User existingUser = existingPost.getUser();
                         Temporal.DateTime existingCreatedAt = existingPost.getCreatedAt();
                         ProductCategoryEnum existingProductCategory = existingPost.getProductCategory();
                         String existingCity = existingPost.getCity();
 
-                        // Get the updated values from the EditText fields
-                        // Use existing values or set default values based on your logic
                         String updatedCity = existingCity != null ? existingCity : "Default City";
                         ProductCategoryEnum updatedProductCategory = existingProductCategory != null ? existingProductCategory : ProductCategoryEnum.Misc;
 
-                        // Create a new Post object with updated values, using existing user, createdAt, productCategory, and city
                         Post updatedPost = Post.builder()
                                 .user(existingUser)
                                 .city(updatedCity)
@@ -114,26 +105,23 @@ public class EditPostActivity extends AppCompatActivity {
                                 .createdAt(existingCreatedAt)
                                 .id(postId)
                                 .description(updatedDescription)
-                                .images(existingImages) // Include existing images
+                                .images(existingImages)
                                 .build();
 
-                        // Update the post
                         Amplify.API.mutate(
                                 ModelMutation.update(updatedPost),
                                 mutationResponse -> {
                                     runOnUiThread(() -> {
                                         showToast("Post updated successfully");
-                                        finish(); // Finish the activity after updating the post
+                                        finish();
                                     });
                                 },
                                 error -> {
-                                    // Handle error
                                     showToast("Error updating post");
                                 });
                     }
                 },
                 error -> {
-                    // Handle error
                     showToast("Error fetching existing post");
                 });
     }

@@ -80,7 +80,6 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
     private void deletePost(Post post) {
         Amplify.API.mutate(ModelMutation.delete(post),
                 success -> {
-                    // Post deleted successfully, update the UI
                     posts.remove(post);
                     notifyDataSetChanged();
                     Log.i("DeleteButton", "Post deleted successfully");
