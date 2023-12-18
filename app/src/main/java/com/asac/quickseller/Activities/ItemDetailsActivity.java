@@ -21,6 +21,7 @@ import com.amplifyframework.auth.AuthUser;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Comment;
+import com.amplifyframework.datastore.generated.model.Post;
 import com.asac.quickseller.R;
 import com.asac.quickseller.adapter.CommentsAdapter;
 import com.asac.quickseller.adapter.ItemDetailsImageAdapter;
@@ -39,7 +40,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     EditText commentEditText = null;
     List<Comment> commentList = null;
     CommentsAdapter commentsAdapter;
-//    ImageView imageView;
+    //    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,10 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         commentList=new ArrayList<>();
         recyclerViewSetup();
+        Log.i(TAG, "ItemDetailsActivity onCreate: postId = " + postId);
+        queryComments(postId);
+
+
 
     }
 
@@ -90,30 +95,34 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onResume() {
         super.onResume();
 
-        addComments();
+        Intent intent = getIntent();
+        String postId = intent.getStringExtra("postId");
 
         Amplify.API.query(
-                ModelQuery.list(Comment.class),
+                ModelQuery.list(Comment.class, Comment.POST.eq(postId)),
                 success -> {
-                    Log.i(TAG,"ItemDetailsActivity(): Comment Read Successfully");
+                    Log.i(TAG, "ItemDetailsActivity(): Comment Read Successfully");
                     commentList.clear();
-                    for(Comment userComment : success.getData()){
+                    for (Comment userComment : success.getData()) {
                         commentList.add(userComment);
                     }
                     runOnUiThread(() -> {
                         commentsAdapter.notifyDataSetChanged();
                     });
                 },
-                failure -> Log.i(TAG,"ItemDetailsActivity(): Read Comment Failed")
+                failure -> {
+                    Log.e(TAG, "ItemDetailsActivity(): Read Comment Failed", failure);
+                }
         );
 
+        addComments(); // Move this outside the query block to avoid redundant queries
         loadAndDisplayImages();
     }
+
 
     private void loadAndDisplayImages() {
         Intent intent = getIntent();
@@ -132,6 +141,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
 
     private void addComments() {
+        Intent intent = getIntent();
+        String postId = intent.getStringExtra("postId");
         addCommentBtn = findViewById(R.id.HomePageAddCommentBtn);
         commentEditText = findViewById(R.id.HomePageEditTextComment);
 
@@ -141,6 +152,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
             Comment newComment = Comment.builder()
                     .content(comment)
                     .createdAt(new Temporal.DateTime(new Date(), 0))
+                    .post(Post.justId(postId))
                     .build();
 
             Amplify.API.mutate(
@@ -150,7 +162,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             Snackbar.make(findViewById(R.id.itemDetails), "Comment Added", Snackbar.LENGTH_SHORT).show();
                             commentsAdapter.notifyDataSetChanged();
-                            queryComments();
+                            queryComments(postId);  // Move this inside the runOnUiThread block
                         });
                         commentEditText.setText("");
                     },
@@ -159,12 +171,14 @@ public class ItemDetailsActivity extends AppCompatActivity {
                     }
             );
         });
-        queryComments();
     }
 
-    private void queryComments() {
+
+    private void queryComments(String postId) {
+        Log.i(TAG, "Querying comments for post ID: " + postId);
+
         Amplify.API.query(
-                ModelQuery.list(Comment.class),
+                ModelQuery.list(Comment.class, Comment.POST.eq(postId)),
                 success -> {
                     Log.i(TAG, "ItemDetailsActivity(): Comment Read Successfully");
                     commentList.clear();
@@ -175,9 +189,13 @@ public class ItemDetailsActivity extends AppCompatActivity {
                         commentsAdapter.notifyDataSetChanged();
                     });
                 },
-                failure -> Log.i(TAG, "ItemDetailsActivity(): Read Comment Failed")
+                failure -> {
+                    Log.e(TAG, "ItemDetailsActivity(): Read Comment Failed", failure);
+                }
         );
     }
+
+
 
 
 

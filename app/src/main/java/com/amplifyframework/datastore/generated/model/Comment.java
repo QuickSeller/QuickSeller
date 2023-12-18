@@ -1,6 +1,7 @@
 package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
+import com.amplifyframework.core.model.annotations.BelongsTo;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,9 +29,11 @@ public final class Comment implements Model {
   public static final QueryField ID = field("Comment", "id");
   public static final QueryField CONTENT = field("Comment", "content");
   public static final QueryField CREATED_AT = field("Comment", "createdAt");
+  public static final QueryField POST = field("Comment", "postId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String content;
   private final @ModelField(targetType="AWSDateTime", isRequired = true) Temporal.DateTime createdAt;
+  private final @ModelField(targetType="Post", isRequired = true) @BelongsTo(targetName = "postId", type = Post.class) Post post;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   /** @deprecated This API is internal to Amplify and should not be used. */
   @Deprecated
@@ -50,14 +53,19 @@ public final class Comment implements Model {
       return createdAt;
   }
   
+  public Post getPost() {
+      return post;
+  }
+  
   public Temporal.DateTime getUpdatedAt() {
       return updatedAt;
   }
   
-  private Comment(String id, String content, Temporal.DateTime createdAt) {
+  private Comment(String id, String content, Temporal.DateTime createdAt, Post post) {
     this.id = id;
     this.content = content;
     this.createdAt = createdAt;
+    this.post = post;
   }
   
   @Override
@@ -71,6 +79,7 @@ public final class Comment implements Model {
       return ObjectsCompat.equals(getId(), comment.getId()) &&
               ObjectsCompat.equals(getContent(), comment.getContent()) &&
               ObjectsCompat.equals(getCreatedAt(), comment.getCreatedAt()) &&
+              ObjectsCompat.equals(getPost(), comment.getPost()) &&
               ObjectsCompat.equals(getUpdatedAt(), comment.getUpdatedAt());
       }
   }
@@ -81,6 +90,7 @@ public final class Comment implements Model {
       .append(getId())
       .append(getContent())
       .append(getCreatedAt())
+      .append(getPost())
       .append(getUpdatedAt())
       .toString()
       .hashCode();
@@ -93,6 +103,7 @@ public final class Comment implements Model {
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("content=" + String.valueOf(getContent()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
+      .append("post=" + String.valueOf(getPost()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
@@ -114,6 +125,7 @@ public final class Comment implements Model {
     return new Comment(
       id,
       null,
+      null,
       null
     );
   }
@@ -121,7 +133,8 @@ public final class Comment implements Model {
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
       content,
-      createdAt);
+      createdAt,
+      post);
   }
   public interface ContentStep {
     CreatedAtStep content(String content);
@@ -129,7 +142,12 @@ public final class Comment implements Model {
   
 
   public interface CreatedAtStep {
-    BuildStep createdAt(Temporal.DateTime createdAt);
+    PostStep createdAt(Temporal.DateTime createdAt);
+  }
+  
+
+  public interface PostStep {
+    BuildStep post(Post post);
   }
   
 
@@ -139,18 +157,20 @@ public final class Comment implements Model {
   }
   
 
-  public static class Builder implements ContentStep, CreatedAtStep, BuildStep {
+  public static class Builder implements ContentStep, CreatedAtStep, PostStep, BuildStep {
     private String id;
     private String content;
     private Temporal.DateTime createdAt;
+    private Post post;
     public Builder() {
       
     }
     
-    private Builder(String id, String content, Temporal.DateTime createdAt) {
+    private Builder(String id, String content, Temporal.DateTime createdAt, Post post) {
       this.id = id;
       this.content = content;
       this.createdAt = createdAt;
+      this.post = post;
     }
     
     @Override
@@ -160,7 +180,8 @@ public final class Comment implements Model {
         return new Comment(
           id,
           content,
-          createdAt);
+          createdAt,
+          post);
     }
     
     @Override
@@ -171,9 +192,16 @@ public final class Comment implements Model {
     }
     
     @Override
-     public BuildStep createdAt(Temporal.DateTime createdAt) {
+     public PostStep createdAt(Temporal.DateTime createdAt) {
         Objects.requireNonNull(createdAt);
         this.createdAt = createdAt;
+        return this;
+    }
+    
+    @Override
+     public BuildStep post(Post post) {
+        Objects.requireNonNull(post);
+        this.post = post;
         return this;
     }
     
@@ -189,10 +217,11 @@ public final class Comment implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String content, Temporal.DateTime createdAt) {
-      super(id, content, createdAt);
+    private CopyOfBuilder(String id, String content, Temporal.DateTime createdAt, Post post) {
+      super(id, content, createdAt, post);
       Objects.requireNonNull(content);
       Objects.requireNonNull(createdAt);
+      Objects.requireNonNull(post);
     }
     
     @Override
@@ -204,7 +233,14 @@ public final class Comment implements Model {
      public CopyOfBuilder createdAt(Temporal.DateTime createdAt) {
       return (CopyOfBuilder) super.createdAt(createdAt);
     }
+    
+    @Override
+     public CopyOfBuilder post(Post post) {
+      return (CopyOfBuilder) super.post(post);
+    }
   }
+  
+
 
   
 }
