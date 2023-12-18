@@ -138,14 +138,23 @@
                 tools:ignore="MissingConstraints" />
 
 
-
-
+            <ImageButton
+                android:id="@+id/homePageAddPostBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="320dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/main_blue"
+                app:srcCompat="@drawable/baseline_add_24" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/post_view"
                 />
+
+
 
 
         </LinearLayout>
@@ -161,7 +170,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/bottom_navigation_background"
         app:elevation="0dp"
-        app:itemIconTint="@drawable/bottom_nav_item_background"
+        app:itemIconTint="@color/main_blue"
         app:itemRippleColor="@color/g_white"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
