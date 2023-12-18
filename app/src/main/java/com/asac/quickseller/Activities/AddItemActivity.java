@@ -322,7 +322,7 @@ public class AddItemActivity extends AppCompatActivity {
                         User user = response.getData().iterator().next();
                         Post newPost = Post.builder()
                                 .user(user)
-                                .city(String.valueOf((CityEnum) citiesSpinner.getSelectedItem()))
+                                .city((CityEnum) citiesSpinner.getSelectedItem())
                                 .title(title)
                                 .price(price)
                                 .productCategory((ProductCategoryEnum) productCategorySpinner.getSelectedItem())

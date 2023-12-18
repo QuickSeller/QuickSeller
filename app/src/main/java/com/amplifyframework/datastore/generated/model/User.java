@@ -3,7 +3,6 @@ package com.amplifyframework.datastore.generated.model;
 import com.amplifyframework.core.model.annotations.HasMany;
 import com.amplifyframework.core.model.temporal.Temporal;
 
-
 import java.util.List;
 import java.util.UUID;
 import java.util.Objects;
@@ -280,4 +279,6 @@ public final class User implements Model {
       return (CopyOfBuilder) super.image(image);
     }
   }
+
+  
 }

@@ -72,6 +72,10 @@ subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
     productCategory
     images
     createdAt
+    comments {
+      nextToken
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -98,6 +102,10 @@ subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
     productCategory
     images
     createdAt
+    comments {
+      nextToken
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -124,6 +132,10 @@ subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
     productCategory
     images
     createdAt
+    comments {
+      nextToken
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -134,6 +146,20 @@ subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
     id
     content
     createdAt
+    postId
+    post {
+      id
+      userId
+      city
+      title
+      description
+      price
+      productCategory
+      images
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -144,6 +170,20 @@ subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
     id
     content
     createdAt
+    postId
+    post {
+      id
+      userId
+      city
+      title
+      description
+      price
+      productCategory
+      images
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -154,6 +194,20 @@ subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
     id
     content
     createdAt
+    postId
+    post {
+      id
+      userId
+      city
+      title
+      description
+      price
+      productCategory
+      images
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
