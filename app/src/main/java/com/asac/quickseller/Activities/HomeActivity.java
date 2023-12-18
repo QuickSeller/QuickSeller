@@ -200,7 +200,7 @@ public class HomeActivity extends AppCompatActivity {
         categoryName.setText(category.name());
         categoryName.setTextColor(selectedCategories.contains(category)
                 ? ContextCompat.getColor(context, R.color.g_dark_blue)
-                : ContextCompat.getColor(context, R.color.g_orange));
+                : ContextCompat.getColor(context, R.color.black));
         categoryName.setTextSize(12);
         categoryName.setGravity(Gravity.CENTER_HORIZONTAL);
     }
