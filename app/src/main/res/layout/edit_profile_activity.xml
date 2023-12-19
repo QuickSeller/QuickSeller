@@ -214,6 +214,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:hint="hello@gmail.com"
+                                android:inputType="none"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:longClickable="false"
                                 android:textColor="@color/black"
                                 android:textSize="15sp" />
                         </LinearLayout>
