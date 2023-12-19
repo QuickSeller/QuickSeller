@@ -85,6 +85,8 @@
             android:name=".Activities.HomeActivity"
             android:exported="true">
 
+
+
         </activity>
     </application>
 

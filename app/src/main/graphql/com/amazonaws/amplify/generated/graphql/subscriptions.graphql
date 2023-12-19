@@ -11,6 +11,10 @@ subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
       nextToken
       __typename
     }
+    comment {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -28,6 +32,10 @@ subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
       nextToken
       __typename
     }
+    comment {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -42,6 +50,10 @@ subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
     phoneNumber
     image
     posts {
+      nextToken
+      __typename
+    }
+    comment {
       nextToken
       __typename
     }
@@ -160,6 +172,17 @@ subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
       updatedAt
       __typename
     }
+    userId
+    user {
+      id
+      username
+      email
+      phoneNumber
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -184,6 +207,17 @@ subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
       updatedAt
       __typename
     }
+    userId
+    user {
+      id
+      username
+      email
+      phoneNumber
+      image
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -204,6 +238,17 @@ subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
       price
       productCategory
       images
+      createdAt
+      updatedAt
+      __typename
+    }
+    userId
+    user {
+      id
+      username
+      email
+      phoneNumber
+      image
       createdAt
       updatedAt
       __typename

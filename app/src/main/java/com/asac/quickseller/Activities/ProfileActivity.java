@@ -91,8 +91,8 @@ public class ProfileActivity extends AppCompatActivity {
                     new File(getApplication().getFilesDir(), user.getImage()),
                     success ->
                     {
-                      //  ImageView productImageView = findViewById(R.id.profileImageView);
-                      //  productImageView.setImageBitmap(BitmapFactory.decodeFile(success.getFile().getPath()));
+                        ImageView productImageView = findViewById(R.id.profileImageView);
+                        productImageView.setImageBitmap(BitmapFactory.decodeFile(success.getFile().getPath()));
                     },
                     failure ->
                     {

@@ -19,7 +19,6 @@ public class PrivacyAndPolicy extends AppCompatActivity {
 
         TextView privicyPolicy = (TextView)findViewById(R.id.privacypolicytextview);
 
-        // Your HTML string containing formatting
         String htmlString = "<p><b>QuickSeller</b> is committed to ensuring the privacy and security of your personal information.</p>\n" +
                 "\n" +
                 "        <p>This Privacy Policy outlines how we collect, use, and safeguard information when you use our mobile application to buy or sell products.</p>\n" +

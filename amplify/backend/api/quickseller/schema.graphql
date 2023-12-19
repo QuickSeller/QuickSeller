@@ -5,6 +5,7 @@ type User @model @auth(rules: [{ allow: public }]) {
   phoneNumber: String!
   image: String
   posts: [Post] @hasMany(fields: ["id"])
+  comment: [Comment] @hasMany(fields: ["id"])
 }
 
 type Post @model @auth(rules: [{ allow: public }]) {
@@ -19,8 +20,6 @@ type Post @model @auth(rules: [{ allow: public }]) {
   images: [String]
   createdAt: AWSDateTime!
   comments: [Comment]! @hasMany( fields: ["id"])
-
-
 }
 
 type Comment @model @auth(rules: [{ allow: public }]) {
@@ -29,6 +28,8 @@ type Comment @model @auth(rules: [{ allow: public }]) {
   createdAt: AWSDateTime!
   postId: ID!
   post: Post! @belongsTo(fields: ["postId"])
+  userId: ID!
+  user: User! @belongsTo(fields: ["userId"])
 }
 
 enum CityEnum {
