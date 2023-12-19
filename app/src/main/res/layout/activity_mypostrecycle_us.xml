@@ -10,18 +10,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@drawable/circularbordersolid"
-        >
+        android:orientation="vertical">
 
-    <!-- Product Image
-        <ImageView
-            android:id="@+id/imageViewMyPost"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/baseline_person_24" />
+        <!-- Product Image
+            <ImageView
+                android:id="@+id/imageViewMyPost"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/baseline_person_24" />
 
-         Product Name -->
+             Product Name -->
         <TextView
             android:id="@+id/nameTextViewMyPost"
             android:layout_width="match_parent"
@@ -52,32 +51,33 @@
             android:text="$19.99"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="90dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-        <!-- Edit Button -->
-        <Button
-            android:id="@+id/editButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onEditButtonClick"
-            android:text="Edit"
-            android:backgroundTint="@color/main_blue"/>
 
-        <!-- Delete Button -->
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onDeleteButtonClick"
-      android:layout_marginLeft="10dp"
-            android:text="Delete"
-            android:backgroundTint="@color/main_blue"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <!-- Edit Button -->
+            <Button
+                android:id="@+id/editButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/main_blue"
+                android:onClick="onEditButtonClick"
+                android:text="Edit" />
 
-    </LinearLayout>
+            <!-- Delete Button -->
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:backgroundTint="@color/main_blue"
+                android:onClick="onDeleteButtonClick"
+                android:text="Delete" />
+
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

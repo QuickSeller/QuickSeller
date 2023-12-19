@@ -44,6 +44,7 @@ import com.asac.quickseller.NavbarAdapter;
 import com.asac.quickseller.R;
 import com.asac.quickseller.adapter.MyAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -55,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
     private final String TAG = "HomeActivity";
     private ArrayList<Post> items = new ArrayList<>();
     private MyAdapter adapter;
-    ImageButton addPost = null;
+    FloatingActionButton addPost = null;
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
     private ProductCategoryEnum selectedCategory = null;
@@ -268,7 +269,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void setupAddPostBtn() {
-        addPost = (ImageButton) findViewById(R.id.homePageAddPostBtn);
+        addPost = (FloatingActionButton) findViewById(R.id.fabAddPost);
         addPost.setOnClickListener(b -> {
             Intent goToAddPost = new Intent(HomeActivity.this, AddItemActivity.class);
             startActivity(goToAddPost);
