@@ -102,7 +102,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     intent.putExtra("owner", post.getUser().getUsername());
                     intent.putExtra("images", post.getImages().toArray(new String[0]));
                     intent.putExtra("date", formatDate(post.getCreatedAt()));
-
+                    intent.putExtra("phone", post.getUser().getPhoneNumber());
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     context.startActivity(intent);

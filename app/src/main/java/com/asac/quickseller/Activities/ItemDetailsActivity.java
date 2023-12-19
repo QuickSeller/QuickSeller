@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -39,6 +40,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     public static final String TAG = "ItemDetailsActivity";
     Button addCommentBtn=null;
     EditText commentEditText = null;
+    Button button= null;
     List<Comment> commentList = null;
     CommentsAdapter commentsAdapter;
 
@@ -58,7 +60,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         CityEnum city = (CityEnum) intent.getSerializableExtra("city");
         String owner = intent.getStringExtra("owner");
         String date = intent.getStringExtra("date");
-
+        String phone = intent.getStringExtra("phone");
 
         Log.d("City", "Received city: " + city);
         TextView titleTextView = findViewById(R.id.itemDetailsItemNameTextView);
@@ -68,15 +70,25 @@ public class ItemDetailsActivity extends AppCompatActivity {
         TextView ownerTextView = findViewById(R.id.itemDetailsOwner);
 //        imageView = findViewById(R.id.itemDetailsImageView);
         TextView dateTextView = findViewById(R.id.itemDetailsDate);
+        TextView phoneTextView = findViewById(R.id.itemDetailsPhone);
 
 
         cityTextView.setText("City : " + city);
-        titleTextView.setText("Item Name : " + title);
+        titleTextView.setText(title);
         descriptionTextView.setText("Description : " + description);
         priceTextView.setText("Price : " + price);
         dateTextView.setText("Date :" + date);
         ownerTextView.setText("Owner : " + owner);
+        phoneTextView.setText("Phone: " + phone);
 
+        button = (Button) findViewById(R.id.buttonCall);
+
+        button.setOnClickListener(v -> {
+            String phoneNumber = phoneTextView.getText().toString().trim();
+            if (!phoneNumber.isEmpty()) {
+                dialPhoneNumber(phoneNumber);
+            }
+        });
 
         commentList=new ArrayList<>();
         recyclerViewSetup();
@@ -85,6 +97,12 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void dialPhoneNumber(String phoneNumber) {
+        Intent intentDial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+        intentDial.setData(Uri.parse("tel:" + phoneNumber.substring(5)));
+        startActivity(intentDial);
     }
 
     private void recyclerViewSetup(){
