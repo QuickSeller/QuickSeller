@@ -2,6 +2,7 @@ package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.core.model.annotations.BelongsTo;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.Objects;
@@ -21,7 +22,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the Comment type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Comments",  authRules = {
+@ModelConfig(pluralName = "Comments", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 public final class Comment implements Model {
@@ -29,10 +30,12 @@ public final class Comment implements Model {
   public static final QueryField CONTENT = field("Comment", "content");
   public static final QueryField CREATED_AT = field("Comment", "createdAt");
   public static final QueryField POST = field("Comment", "postId");
+  public static final QueryField USER = field("Comment", "userId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String content;
   private final @ModelField(targetType="AWSDateTime", isRequired = true) Temporal.DateTime createdAt;
   private final @ModelField(targetType="Post", isRequired = true) @BelongsTo(targetName = "postId", type = Post.class) Post post;
+  private final @ModelField(targetType="User", isRequired = true) @BelongsTo(targetName = "userId", type = User.class) User user;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   /** @deprecated This API is internal to Amplify and should not be used. */
   @Deprecated
@@ -56,15 +59,20 @@ public final class Comment implements Model {
       return post;
   }
   
+  public User getUser() {
+      return user;
+  }
+  
   public Temporal.DateTime getUpdatedAt() {
       return updatedAt;
   }
   
-  private Comment(String id, String content, Temporal.DateTime createdAt, Post post) {
+  private Comment(String id, String content, Temporal.DateTime createdAt, Post post, User user) {
     this.id = id;
     this.content = content;
     this.createdAt = createdAt;
     this.post = post;
+    this.user = user;
   }
   
   @Override
@@ -79,6 +87,7 @@ public final class Comment implements Model {
               ObjectsCompat.equals(getContent(), comment.getContent()) &&
               ObjectsCompat.equals(getCreatedAt(), comment.getCreatedAt()) &&
               ObjectsCompat.equals(getPost(), comment.getPost()) &&
+              ObjectsCompat.equals(getUser(), comment.getUser()) &&
               ObjectsCompat.equals(getUpdatedAt(), comment.getUpdatedAt());
       }
   }
@@ -90,6 +99,7 @@ public final class Comment implements Model {
       .append(getContent())
       .append(getCreatedAt())
       .append(getPost())
+      .append(getUser())
       .append(getUpdatedAt())
       .toString()
       .hashCode();
@@ -103,6 +113,7 @@ public final class Comment implements Model {
       .append("content=" + String.valueOf(getContent()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("post=" + String.valueOf(getPost()) + ", ")
+      .append("user=" + String.valueOf(getUser()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
@@ -125,6 +136,7 @@ public final class Comment implements Model {
       id,
       null,
       null,
+      null,
       null
     );
   }
@@ -133,7 +145,8 @@ public final class Comment implements Model {
     return new CopyOfBuilder(id,
       content,
       createdAt,
-      post);
+      post,
+      user);
   }
   public interface ContentStep {
     CreatedAtStep content(String content);
@@ -146,7 +159,12 @@ public final class Comment implements Model {
   
 
   public interface PostStep {
-    BuildStep post(Post post);
+    UserStep post(Post post);
+  }
+  
+
+  public interface UserStep {
+    BuildStep user(User user);
   }
   
 
@@ -156,20 +174,22 @@ public final class Comment implements Model {
   }
   
 
-  public static class Builder implements ContentStep, CreatedAtStep, PostStep, BuildStep {
+  public static class Builder implements ContentStep, CreatedAtStep, PostStep, UserStep, BuildStep {
     private String id;
     private String content;
     private Temporal.DateTime createdAt;
     private Post post;
+    private User user;
     public Builder() {
       
     }
     
-    private Builder(String id, String content, Temporal.DateTime createdAt, Post post) {
+    private Builder(String id, String content, Temporal.DateTime createdAt, Post post, User user) {
       this.id = id;
       this.content = content;
       this.createdAt = createdAt;
       this.post = post;
+      this.user = user;
     }
     
     @Override
@@ -180,7 +200,8 @@ public final class Comment implements Model {
           id,
           content,
           createdAt,
-          post);
+          post,
+          user);
     }
     
     @Override
@@ -198,9 +219,16 @@ public final class Comment implements Model {
     }
     
     @Override
-     public BuildStep post(Post post) {
+     public UserStep post(Post post) {
         Objects.requireNonNull(post);
         this.post = post;
+        return this;
+    }
+    
+    @Override
+     public BuildStep user(User user) {
+        Objects.requireNonNull(user);
+        this.user = user;
         return this;
     }
     
@@ -216,11 +244,12 @@ public final class Comment implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String content, Temporal.DateTime createdAt, Post post) {
-      super(id, content, createdAt, post);
+    private CopyOfBuilder(String id, String content, Temporal.DateTime createdAt, Post post, User user) {
+      super(id, content, createdAt, post, user);
       Objects.requireNonNull(content);
       Objects.requireNonNull(createdAt);
       Objects.requireNonNull(post);
+      Objects.requireNonNull(user);
     }
     
     @Override
@@ -237,6 +266,12 @@ public final class Comment implements Model {
      public CopyOfBuilder post(Post post) {
       return (CopyOfBuilder) super.post(post);
     }
+    
+    @Override
+     public CopyOfBuilder user(User user) {
+      return (CopyOfBuilder) super.user(user);
+    }
   }
 
+  
 }

@@ -14,7 +14,7 @@
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/commentAuthorTextView"
+            android:id="@+id/usernameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Username"
@@ -30,7 +30,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/commentDateTextView"
+            android:id="@+id/createdAtTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

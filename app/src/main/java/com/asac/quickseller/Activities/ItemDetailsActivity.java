@@ -24,6 +24,8 @@ import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.CityEnum;
 import com.amplifyframework.datastore.generated.model.Comment;
 import com.amplifyframework.datastore.generated.model.Post;
+import com.amplifyframework.datastore.generated.model.ProductCategoryEnum;
+import com.amplifyframework.datastore.generated.model.User;
 import com.asac.quickseller.R;
 import com.asac.quickseller.adapter.CommentsAdapter;
 import com.asac.quickseller.adapter.ItemDetailsImageAdapter;
@@ -121,6 +123,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String postId = intent.getStringExtra("postId");
 
+
         Amplify.API.query(
                 ModelQuery.list(Comment.class, Comment.POST.eq(postId)),
                 success -> {
@@ -137,6 +140,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
                     Log.e(TAG, "ItemDetailsActivity(): Read Comment Failed", failure);
                 }
         );
+
 
         addComments();
         loadAndDisplayImages();
@@ -168,29 +172,44 @@ public class ItemDetailsActivity extends AppCompatActivity {
         addCommentBtn.setOnClickListener(b -> {
             String comment = commentEditText.getText().toString();
 
-            Comment newComment = Comment.builder()
-                    .content(comment)
-                    .createdAt(new Temporal.DateTime(new Date(), 0))
-                    .post(Post.justId(postId))
-                    .build();
+            // Query the current authenticated user
+            Amplify.API.query(
+                    ModelQuery.list(User.class, User.EMAIL.eq(Amplify.Auth.getCurrentUser().getUsername())),
+                    response -> {
+                        if (response.hasData() && response.getData().iterator().hasNext()) {
+                            User user = response.getData().iterator().next();
 
-            Amplify.API.mutate(
-                    ModelMutation.create(newComment),
-                    success -> {
-                        Log.i(TAG, "ItemDetailsActivity(): Comment added Successfully" + success.toString());
-                        runOnUiThread(() -> {
-                            Snackbar.make(findViewById(R.id.itemDetails), "Comment Added", Snackbar.LENGTH_SHORT).show();
-                            commentsAdapter.notifyDataSetChanged();
-                            queryComments(postId);  // Move this inside the runOnUiThread block
-                        });
-                        commentEditText.setText("");
+                            // Build the new comment with the associated user
+                            Comment newComment = Comment.builder()
+                                    .content(comment)
+                                    .createdAt(new Temporal.DateTime(new Date(), 0))
+                                    .post(Post.justId(postId))
+                                    .user(user)  // Set the user for the comment
+                                    .build();
+
+                            // Create the comment
+                            Amplify.API.mutate(
+                                    ModelMutation.create(newComment),
+                                    success -> {
+                                        Log.i(TAG, "ItemDetailsActivity(): Comment added Successfully" + success.toString());
+                                        runOnUiThread(() -> {
+                                            Snackbar.make(findViewById(R.id.itemDetails), "Comment Added", Snackbar.LENGTH_SHORT).show();
+                                            commentsAdapter.notifyDataSetChanged();
+                                            queryComments(postId);  // Move this inside the runOnUiThread block
+                                        });
+                                        commentEditText.setText("");
+                                    },
+                                    failure -> {
+                                        Log.e(TAG, "ItemDetailsActivity(): Failure in adding Comment" + failure.toString());
+                                    }
+                            );
+                        }
                     },
-                    failure -> {
-                        Log.e(TAG, "ItemDetailsActivity(): Failure in adding Comment" + failure.toString());
-                    }
+                    error -> Log.e(TAG, "Error querying user data", error)
             );
         });
     }
+
 
 
     private void queryComments(String postId) {

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Comment;
 import com.asac.quickseller.R;
 
@@ -35,10 +36,18 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.commne
     @Override
     public void onBindViewHolder(@NonNull commnetsViewHolder holder, int position) {
         TextView commentTextView = (TextView) holder.itemView.findViewById(R.id.commentTextViewFragment);
+        TextView usernameTextView = holder.itemView.findViewById(R.id.usernameTextView);
+        TextView createdAtTextView = holder.itemView.findViewById(R.id.createdAtTextView);
+
         Comment comment = comments.get(position);
-        String commentId = comment.getId();
+//        String commentId = comment.getId();
         String commentContent = comment.getContent();
+        String username = comment.getUser().getUsername(); // Get the username from the Comment object
+        Temporal.DateTime createdAt = comment.getCreatedAt();
+
         commentTextView.setText(commentContent);
+        usernameTextView.setText("Username: " + username); // Display the username
+        createdAtTextView.setText("Date: " + createdAt.toString()); // Display the createdAt date
 
     }
 

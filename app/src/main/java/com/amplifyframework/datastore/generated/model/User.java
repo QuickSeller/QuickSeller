@@ -2,7 +2,6 @@ package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.annotations.HasMany;
 import com.amplifyframework.core.model.temporal.Temporal;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.Objects;
@@ -22,7 +21,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the User type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Users",  authRules = {
+@ModelConfig(pluralName = "Users", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 public final class User implements Model {
@@ -37,6 +36,7 @@ public final class User implements Model {
   private final @ModelField(targetType="String", isRequired = true) String phoneNumber;
   private final @ModelField(targetType="String") String image;
   private final @ModelField(targetType="Post") @HasMany(associatedWith = "user", type = Post.class) List<Post> posts = null;
+  private final @ModelField(targetType="Comment") @HasMany(associatedWith = "user", type = Comment.class) List<Comment> comment = null;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   /** @deprecated This API is internal to Amplify and should not be used. */
@@ -67,6 +67,10 @@ public final class User implements Model {
   
   public List<Post> getPosts() {
       return posts;
+  }
+  
+  public List<Comment> getComment() {
+      return comment;
   }
   
   public Temporal.DateTime getCreatedAt() {
