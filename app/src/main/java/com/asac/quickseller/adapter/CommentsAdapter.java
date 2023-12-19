@@ -40,15 +40,23 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.commne
         TextView createdAtTextView = holder.itemView.findViewById(R.id.createdAtTextView);
 
         Comment comment = comments.get(position);
-//        String commentId = comment.getId();
         String commentContent = comment.getContent();
-        String username = comment.getUser().getUsername(); // Get the username from the Comment object
+        String username = comment.getUser().getUsername();
         Temporal.DateTime createdAt = comment.getCreatedAt();
 
         commentTextView.setText(commentContent);
-        usernameTextView.setText("Username: " + username); // Display the username
-        createdAtTextView.setText("Date: " + createdAt.toString()); // Display the createdAt date
+        usernameTextView.setText("Username: " + username);
+        createdAtTextView.setText("Date: " + formatDate(createdAt));
 
+    }
+
+    private String formatDate(Temporal.DateTime dateTime) {
+        String dateTimeString = dateTime.toString();
+        if (dateTimeString.length() >= 19) {
+            return dateTimeString.substring(34, dateTimeString.length()-10);
+        } else {
+            return dateTimeString;
+        }
     }
 
     @Override

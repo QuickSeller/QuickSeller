@@ -138,7 +138,7 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
     }
 
-    //Privacy Policy Functionalty
+    //Privacy Policy Functionality
     private void setupPrivacyPolicyButton() {
         Button privacyPolicyButton = findViewById(R.id.settingprivacyandpolicybutton);
         privacyPolicyButton.setOnClickListener(b -> {

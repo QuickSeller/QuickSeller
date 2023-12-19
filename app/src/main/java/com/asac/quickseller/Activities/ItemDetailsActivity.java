@@ -4,34 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
-import com.amplifyframework.auth.AuthUser;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.CityEnum;
 import com.amplifyframework.datastore.generated.model.Comment;
 import com.amplifyframework.datastore.generated.model.Post;
-import com.amplifyframework.datastore.generated.model.ProductCategoryEnum;
 import com.amplifyframework.datastore.generated.model.User;
 import com.asac.quickseller.R;
 import com.asac.quickseller.adapter.CommentsAdapter;
 import com.asac.quickseller.adapter.ItemDetailsImageAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -57,8 +50,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
         String title = intent.getStringExtra("title");
         String description = intent.getStringExtra("description");
         String price = intent.getStringExtra("price");
-//        String productCategory = intent.getStringExtra("productCategory");
-//        String[] images = intent.getStringArrayExtra("images");
         CityEnum city = (CityEnum) intent.getSerializableExtra("city");
         String owner = intent.getStringExtra("owner");
         String date = intent.getStringExtra("date");
@@ -70,7 +61,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
         TextView descriptionTextView = findViewById(R.id.itemDetailsItemDescription);
         TextView priceTextView = findViewById(R.id.itemDetailsItemPrice);
         TextView ownerTextView = findViewById(R.id.itemDetailsOwner);
-//        imageView = findViewById(R.id.itemDetailsImageView);
         TextView dateTextView = findViewById(R.id.itemDetailsDate);
         TextView phoneTextView = findViewById(R.id.itemDetailsPhone);
 
@@ -172,22 +162,19 @@ public class ItemDetailsActivity extends AppCompatActivity {
         addCommentBtn.setOnClickListener(b -> {
             String comment = commentEditText.getText().toString();
 
-            // Query the current authenticated user
             Amplify.API.query(
                     ModelQuery.list(User.class, User.EMAIL.eq(Amplify.Auth.getCurrentUser().getUsername())),
                     response -> {
                         if (response.hasData() && response.getData().iterator().hasNext()) {
                             User user = response.getData().iterator().next();
 
-                            // Build the new comment with the associated user
                             Comment newComment = Comment.builder()
                                     .content(comment)
                                     .createdAt(new Temporal.DateTime(new Date(), 0))
                                     .post(Post.justId(postId))
-                                    .user(user)  // Set the user for the comment
+                                    .user(user)
                                     .build();
 
-                            // Create the comment
                             Amplify.API.mutate(
                                     ModelMutation.create(newComment),
                                     success -> {
@@ -209,8 +196,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
             );
         });
     }
-
-
 
     private void queryComments(String postId) {
         Log.i(TAG, "Querying comments for post ID: " + postId);
