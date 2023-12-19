@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="75dp"
             android:layout_gravity="center_vertical"
-            android:backgroundTint="#FF4081"
+            android:backgroundTint="@color/themeColor"
             android:src="@android:drawable/ic_menu_revert" />
 
         <TextView
@@ -30,10 +30,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="#FF4081"
+            android:background="@color/themeColor"
             android:padding="20dp"
             android:text="New Post"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/black"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -42,7 +42,7 @@
         android:id="@+id/addItemAddImageBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#ED8AAC"
+        android:backgroundTint="@color/blue"
         android:text="Add Product Image" />
 
 
@@ -143,7 +143,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:backgroundTint="#FF4081"
+        android:backgroundTint="@color/blue"
         android:text="Add" />
+
+    <View
+        android:layout_width="510dp"
+        android:layout_height="14dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_side_bg" />
 
 </LinearLayout>

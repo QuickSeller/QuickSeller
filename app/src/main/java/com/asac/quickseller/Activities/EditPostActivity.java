@@ -13,6 +13,7 @@ import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
+import com.amplifyframework.datastore.generated.model.CityEnum;
 import com.amplifyframework.datastore.generated.model.Post;
 import com.amplifyframework.datastore.generated.model.ProductCategoryEnum;
 import com.amplifyframework.datastore.generated.model.User;
@@ -97,7 +98,7 @@ public class EditPostActivity extends AppCompatActivity {
                         User existingUser = existingPost.getUser();
                         Temporal.DateTime existingCreatedAt = existingPost.getCreatedAt();
                         ProductCategoryEnum existingProductCategory = existingPost.getProductCategory();
-                        String existingCity = existingPost.getCity();
+                        String existingCity = String.valueOf(existingPost.getCity());
 
                         // Get the updated values from the EditText fields
                         // Use existing values or set default values based on your logic
@@ -107,7 +108,7 @@ public class EditPostActivity extends AppCompatActivity {
                         // Create a new Post object with updated values, using existing user, createdAt, productCategory, and city
                         Post updatedPost = Post.builder()
                                 .user(existingUser)
-                                .city(updatedCity)
+                                .city(CityEnum.valueOf(updatedCity))
                                 .title(updatedTitle)
                                 .price(String.valueOf(updatedPrice))
                                 .productCategory(updatedProductCategory)

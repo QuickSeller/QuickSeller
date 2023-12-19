@@ -59,6 +59,10 @@ query GetPost($id: ID!) {
     productCategory
     images
     createdAt
+    comments {
+      nextToken
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -93,6 +97,20 @@ query GetComment($id: ID!) {
     id
     content
     createdAt
+    postId
+    post {
+      id
+      userId
+      city
+      title
+      description
+      price
+      productCategory
+      images
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -108,6 +126,7 @@ query ListComments(
       id
       content
       createdAt
+      postId
       updatedAt
       __typename
     }

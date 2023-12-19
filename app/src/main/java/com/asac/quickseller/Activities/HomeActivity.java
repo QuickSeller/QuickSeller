@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
@@ -54,7 +55,7 @@ public class HomeActivity extends AppCompatActivity {
     private final String TAG = "HomeActivity";
     private ArrayList<Post> items = new ArrayList<>();
     private MyAdapter adapter;
-
+    ImageButton addPost = null;
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
     private ProductCategoryEnum selectedCategory = null;
@@ -74,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.post_view);
         adapter = new MyAdapter(getApplicationContext(), items);
-
+        setupAddPostBtn();
 //        List<Post> items = new ArrayList<>();
 //        items.add(Post.builder()
 //                .city(CityEnum.Amman)
@@ -200,7 +201,7 @@ public class HomeActivity extends AppCompatActivity {
         categoryName.setText(category.name());
         categoryName.setTextColor(selectedCategories.contains(category)
                 ? ContextCompat.getColor(context, R.color.g_dark_blue)
-                : ContextCompat.getColor(context, R.color.g_orange));
+                : ContextCompat.getColor(context, R.color.black));
         categoryName.setTextSize(12);
         categoryName.setGravity(Gravity.CENTER_HORIZONTAL);
     }
@@ -323,5 +324,15 @@ public class HomeActivity extends AppCompatActivity {
                 query(request);
             }
         }
+    }
+
+
+    private void setupAddPostBtn() {
+        addPost = (ImageButton) findViewById(R.id.homePageAddPostBtn);
+        addPost.setOnClickListener(b -> {
+            Intent goToAddPost = new Intent(HomeActivity.this, AddItemActivity.class);
+            startActivity(goToAddPost);
+        });
+
     }
 }

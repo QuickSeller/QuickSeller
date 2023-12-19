@@ -8,13 +8,8 @@
     tools:context=".Activities.SettingsActivity">
 
     <RelativeLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_close"
-            android:padding="14dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
 
 
         <TextView
@@ -22,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Settings"
-            android:textColor="@color/g_orange_light1"
+            android:paddingTop="10dp"
+            android:textColor="@color/main_blue"
             android:textSize="18dp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -36,14 +32,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="150dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:src="@drawable/logo3"/>
+                android:src="@drawable/finallogo"/>
 
             <Button
-                android:backgroundTint="@color/g_orange_light1"
+                android:backgroundTint="@color/main_blue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -59,7 +55,7 @@
             </Button>
 
             <Button
-                android:backgroundTint="@color/g_orange_light1"
+                android:backgroundTint="@color/main_blue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -74,7 +70,7 @@
             </Button>
 
             <Button
-                android:backgroundTint="@color/g_orange_light1"
+                android:backgroundTint="@color/main_blue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -89,7 +85,7 @@
             </Button>
 
             <Button
-                android:backgroundTint="@color/g_orange_light1"
+                android:backgroundTint="@color/main_blue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -104,7 +100,7 @@
             </Button>
 
             <Button
-                android:backgroundTint="@color/g_orange_light1"
+                android:backgroundTint="@color/main_blue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/settingsPageSignOut"
@@ -122,14 +118,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </RelativeLayout>
-
-            <Button
-                android:id="@+id/settingsPageAddPostBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Add post" />
-
 
         </LinearLayout>
     </ScrollView>
@@ -151,9 +139,9 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@drawable/bottom_navigation_background"
+        android:background="@color/white"
         app:elevation="0dp"
-        app:itemIconTint="@drawable/bottom_nav_item_background"
+        app:itemIconTint="@color/main_blue"
         app:itemPaddingBottom="10dp"
         app:itemPaddingTop="10dp"
         app:itemRippleColor="@color/g_white"

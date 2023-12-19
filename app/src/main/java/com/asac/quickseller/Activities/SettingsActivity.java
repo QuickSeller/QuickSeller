@@ -23,7 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
 
-    Button addPost = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         setupViewPager();
         setupBottomNavigation();
-        setupAddPostBtn();
+
         setupAboutUsButton();
         setupPrivacyPolicyButton();
         setupLogOutButton();
@@ -42,14 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
         setupMyPostButton();
     }
 
-    private void setupAddPostBtn() {
-        addPost = (Button) findViewById(R.id.settingsPageAddPostBtn);
-        addPost.setOnClickListener(b -> {
-            Intent goToAddPost = new Intent(SettingsActivity.this, AddItemActivity.class);
-            startActivity(goToAddPost);
-        });
 
-    }
 
     private void setupViewPager() {
         NavbarAdapter navbarAdapter = new NavbarAdapter(this);

@@ -84,6 +84,10 @@ mutation CreatePost(
     productCategory
     images
     createdAt
+    comments {
+      nextToken
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -113,6 +117,10 @@ mutation UpdatePost(
     productCategory
     images
     createdAt
+    comments {
+      nextToken
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -142,6 +150,10 @@ mutation DeletePost(
     productCategory
     images
     createdAt
+    comments {
+      nextToken
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -155,6 +167,20 @@ mutation CreateComment(
     id
     content
     createdAt
+    postId
+    post {
+      id
+      userId
+      city
+      title
+      description
+      price
+      productCategory
+      images
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -168,6 +194,20 @@ mutation UpdateComment(
     id
     content
     createdAt
+    postId
+    post {
+      id
+      userId
+      city
+      title
+      description
+      price
+      productCategory
+      images
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -181,6 +221,20 @@ mutation DeleteComment(
     id
     content
     createdAt
+    postId
+    post {
+      id
+      userId
+      city
+      title
+      description
+      price
+      productCategory
+      images
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }

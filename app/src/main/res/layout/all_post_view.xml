@@ -11,14 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/fade_gray">
+        android:background="@drawable/circularbordersolid"
+        >
 
         <!-- Product Image -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/baseline_person_24" />
+            android:src="@drawable/qslogo"
+            android:paddingTop="20dp"/>
 
         <!-- Product Name -->
         <TextView
@@ -39,7 +41,7 @@
             android:gravity="center"
             android:padding="8dp"
             android:text="$19.99"
-            android:textColor="@android:color/holo_green_dark"
+            android:textColor="@android:color/black"
             android:textSize="14sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

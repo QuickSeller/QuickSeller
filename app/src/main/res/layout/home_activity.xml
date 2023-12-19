@@ -5,7 +5,7 @@
     android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fade_gray"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Activities.HomeActivity">
 
@@ -70,7 +70,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/logoooo" />
+                    android:src="@drawable/qslogo" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -138,8 +138,15 @@
                 tools:ignore="MissingConstraints" />
 
 
-
-
+            <ImageButton
+                android:id="@+id/homePageAddPostBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="320dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/main_blue"
+                app:srcCompat="@drawable/baseline_add_24" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -153,15 +160,18 @@
 
     </ScrollView>
 
-
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_weight="1" />
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:background="@drawable/bottom_navigation_background"
+        android:background="@color/white"
         app:elevation="0dp"
-        app:itemIconTint="@drawable/bottom_nav_item_background"
+        app:itemIconTint="@color/themeColor"
         app:itemRippleColor="@color/g_white"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -174,55 +174,36 @@ ______
 
 1. Entities:
 
-- Product
-Properties: id, name, description, dateCreated, productCategory, productImageS3Key, productLatitude, productLongitude, userId
-Relationships: userPerson (belongsTo User), orders (hasMany OrderProduct), comments (hasMany Comment)
+- Post
+Properties: id, name, description, dateCreated, productCategory, productImageS3Key, city ,userId
+Relationships: userPerson (belongsTo User) comments (hasMany Comment)
 
 - User
-Properties: id, email, fullName
-Relationships: products (hasMany Product), orders (hasMany Order), comments (hasMany Comment)
-
-- Order
-Properties: id, orderDate, orderStatus, userId
-Relationships: products (hasMany OrderProduct), user (belongsTo User)
-
+Properties: id, email, fullName, phoneNumber, userImageS3Key
+Relationships: posts (hasMany Posts)
 - Comment
-Properties: id, content, createdAt, productId, userId
-Relationships: product (belongsTo Product), user (belongsTo User)
-
-- OrderProduct
-Properties: id, orderId, productId, quantity
-Relationships: order (belongsTo Order), product (belongsTo Product)
+Properties: id, content, createdAt, postId
+Relationships: post (belongsTo Post)
 
 2. Relationships:
-Product has a one-to-many relationship with OrderProduct and Comment.
-User has a one-to-many relationship with Product, Order, and Comment.
-Order has a one-to-many relationship with OrderProduct and belongs to a User.
-Comment belongs to both Product and User.
-OrderProduct belongs to both Order and Product.
+User has a one-to-many relationship with Posts.
+Comment belongs to Posts.
 
 
 3. Database Schema Diagram: 
 Collections (Tables):
-- Product
-Properties: id (ID), name (String), description (String), dateCreated (AWSDateTime), productCategory (ProductCategoryEnum), productImageS3Key (String), productLatitude (String), productLongitude (String), userId (ID)
-Relationships: userPerson (belongsTo User), orders (hasMany OrderProduct), comments (hasMany Comment)
+- Post
+Properties: id (ID), name (String), price (String), description (String), dateCreated (AWSDateTime), productCategory (ProductCategoryEnum), City (CityEnum) ,productImageS3Key (String), userId (ID)
+Relationships: userPerson (belongsTo User)
 
 - User
-Properties: id (ID), email (String), fullName (String)
-Relationships: products (hasMany Product), orders (hasMany Order), comments (hasMany Comment)
+Properties: id (ID), email (String), fullName (String), phoneNumber  (String)
+  Relationships: post (hasMany Posts),
 
-- Order
-Properties: id (ID), orderDate (AWSDateTime), orderStatus (OrderStatusEnum), userId (ID)
-Relationships: products (hasMany OrderProduct), user (belongsTo User)
 
 - Comment
-Properties: id (ID), content (String), createdAt (AWSDateTime), productId (ID), userId (ID)
-Relationships: product (belongsTo Product), user (belongsTo User)
-
-- OrderProduct
-Properties: id (ID), orderId (ID), productId (ID), quantity (Int)
-Relationships: order (belongsTo Order), product (belongsTo Product)
+Properties: id (ID), content (String), createdAt (AWSDateTime), postId (ID),
+Relationships: post (belongsTo Post)
 
 
 

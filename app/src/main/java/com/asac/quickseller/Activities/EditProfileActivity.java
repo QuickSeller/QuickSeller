@@ -64,10 +64,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
         getUserDataAndPopulateFields();
         saveImageButton.setOnClickListener(v -> onSaveButtonClick());
-        editProfileImageView = findViewById(R.id.editImageView);
+//        editProfileImageView = findViewById(R.id.editImageView);
 
-        activityResultLauncher = getImagePickingActivityResultLauncher();
-        setUpAddImageButton();
+//        activityResultLauncher = getImagePickingActivityResultLauncher();
+//        setUpAddImageButton();
     }
 
 
@@ -177,70 +177,70 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
 
-    private void uploadInputStreamToS3(InputStream pickedImageInputStream, String pickedImageFilename, Uri pickedImageFileUri) {
-        try {
-            pickedImageInputStream.reset();
-        } catch (IOException e) {
-            Log.e(TAG, "IOException while resetting input stream");
-        }
+//    private void uploadInputStreamToS3(InputStream pickedImageInputStream, String pickedImageFilename, Uri pickedImageFileUri) {
+//        try {
+//            pickedImageInputStream.reset();
+//        } catch (IOException e) {
+//            Log.e(TAG, "IOException while resetting input stream");
+//        }
+//
+//        Amplify.Storage.uploadInputStream(
+//                pickedImageFilename,
+//                pickedImageInputStream,
+//                success -> {
+//                    Log.i(TAG, "Succeeded in getting file uploaded to S3! Key is: " + success.getKey());
+//                    s3ImageKey = success.getKey();
+//                    ImageView taskImageView = findViewById(R.id.editImageView);
+//                    InputStream pickedImageInputStreamCopy = null;
+//                    try {
+//                        pickedImageInputStreamCopy = getContentResolver().openInputStream(pickedImageFileUri);
+//                        Bitmap bitmap = BitmapFactory.decodeStream(pickedImageInputStreamCopy);
+//                        taskImageView.setImageBitmap(bitmap);
+//                    } catch (FileNotFoundException e) {
+//                        Log.e(TAG, "Could not get file stream from URI! " + e.getMessage(), e);
+//                    } finally {
+//                        if (pickedImageInputStreamCopy != null) {
+//                            try {
+//                                pickedImageInputStreamCopy.close();
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                },
+//                failure -> {
+//                    Log.e(TAG, "Failure in uploading file to S3 with filename: " + pickedImageFilename + " with error: " + failure.getMessage());
+//                }
+//        );
+//    }
 
-        Amplify.Storage.uploadInputStream(
-                pickedImageFilename,
-                pickedImageInputStream,
-                success -> {
-                    Log.i(TAG, "Succeeded in getting file uploaded to S3! Key is: " + success.getKey());
-                    s3ImageKey = success.getKey();
-                    ImageView taskImageView = findViewById(R.id.editImageView);
-                    InputStream pickedImageInputStreamCopy = null;
-                    try {
-                        pickedImageInputStreamCopy = getContentResolver().openInputStream(pickedImageFileUri);
-                        Bitmap bitmap = BitmapFactory.decodeStream(pickedImageInputStreamCopy);
-                        taskImageView.setImageBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        Log.e(TAG, "Could not get file stream from URI! " + e.getMessage(), e);
-                    } finally {
-                        if (pickedImageInputStreamCopy != null) {
-                            try {
-                                pickedImageInputStreamCopy.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                },
-                failure -> {
-                    Log.e(TAG, "Failure in uploading file to S3 with filename: " + pickedImageFilename + " with error: " + failure.getMessage());
-                }
-        );
-    }
-
-    private ActivityResultLauncher<Intent> getImagePickingActivityResultLauncher() {
-        ActivityResultLauncher<Intent> imagePickingActivityResultLauncher =
-                registerForActivityResult(
-                        new ActivityResultContracts.StartActivityForResult(),
-                        new ActivityResultCallback<ActivityResult>() {
-                            @Override
-                            public void onActivityResult(ActivityResult result) {
-                                if (result.getResultCode() == Activity.RESULT_OK) {
-                                    if (result.getData() != null) {
-                                        Uri pickedImageFileUri = result.getData().getData();
-                                        try {
-                                            InputStream pickedImageInputStream = getContentResolver().openInputStream(pickedImageFileUri);
-                                            String pickedImageFilename = getFileNameFromUri(pickedImageFileUri);
-                                            Log.i(TAG, "Succeeded in getting input stream from file on phone! Filename is: " + pickedImageFilename);
-                                            uploadInputStreamToS3(pickedImageInputStream, pickedImageFilename, pickedImageFileUri);
-                                        } catch (FileNotFoundException e) {
-                                            Log.e(TAG, "Could not get file from file picker! " + e.getMessage(), e);
-                                        }
-                                    }
-                                } else {
-                                    Log.e(TAG, "Activity result error in ActivityResultLauncher.onActivityResult");
-                                }
-                            }
-                        });
-
-        return imagePickingActivityResultLauncher;
-    }
+//    private ActivityResultLauncher<Intent> getImagePickingActivityResultLauncher() {
+//        ActivityResultLauncher<Intent> imagePickingActivityResultLauncher =
+//                registerForActivityResult(
+//                        new ActivityResultContracts.StartActivityForResult(),
+//                        new ActivityResultCallback<ActivityResult>() {
+//                            @Override
+//                            public void onActivityResult(ActivityResult result) {
+//                                if (result.getResultCode() == Activity.RESULT_OK) {
+//                                    if (result.getData() != null) {
+//                                        Uri pickedImageFileUri = result.getData().getData();
+//                                        try {
+//                                            InputStream pickedImageInputStream = getContentResolver().openInputStream(pickedImageFileUri);
+//                                            String pickedImageFilename = getFileNameFromUri(pickedImageFileUri);
+//                                            Log.i(TAG, "Succeeded in getting input stream from file on phone! Filename is: " + pickedImageFilename);
+//                                            uploadInputStreamToS3(pickedImageInputStream, pickedImageFilename, pickedImageFileUri);
+//                                        } catch (FileNotFoundException e) {
+//                                            Log.e(TAG, "Could not get file from file picker! " + e.getMessage(), e);
+//                                        }
+//                                    }
+//                                } else {
+//                                    Log.e(TAG, "Activity result error in ActivityResultLauncher.onActivityResult");
+//                                }
+//                            }
+//                        });
+//
+//        return imagePickingActivityResultLauncher;
+//    }
 //    private void setUpSaveButton() {
 //        Button saveButton = findViewById(R.id.saveImageButton);
 //        saveButton.setOnClickListener(v -> {
@@ -280,12 +280,12 @@ public class EditProfileActivity extends AppCompatActivity {
 //        );
 //    }
 
-    private void setUpAddImageButton() {
-        Button addImageButton = findViewById(R.id.addImageButton);
-        addImageButton.setOnClickListener(b -> {
-            launchImageSelectionIntent();
-        });
-    }
+//    private void setUpAddImageButton() {
+//        Button addImageButton = findViewById(R.id.addImageButton);
+//        addImageButton.setOnClickListener(b -> {
+//            launchImageSelectionIntent();
+//        });
+//    }
 
     private void launchImageSelectionIntent() {
         Intent imageFilePickingIntent = new Intent(Intent.ACTION_GET_CONTENT);

@@ -7,28 +7,16 @@
 
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="232dp"
-        android:layout_height="228dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="-63dp"
-        android:layout_marginTop="-45dp"
-        android:layout_marginEnd="290dp"
-        app:srcCompat="@drawable/d2" />
-
-    <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="199dp"
-        android:layout_height="155dp"
+        android:layout_width="296dp"
+        android:layout_height="283dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="124dp"
-        app:srcCompat="@drawable/verify" />
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginEnd="102dp"
+        app:srcCompat="@drawable/email" />
 
     <TextView
         android:id="@+id/textViewTitle"
@@ -38,7 +26,7 @@
         android:layout_marginTop="250dp"
         android:fontFamily="serif-monospace"
         android:text="Verify Your Account"
-        android:textColor="@color/g_blue_gray200"
+        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -48,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewTitle"
         android:layout_marginTop="50dp"
-        android:background="@drawable/edit_text_background"
+        android:background="@drawable/circularbordersolid"
         android:enabled="false"
         android:fontFamily="sans-serif-light"
         android:hint="Email"
@@ -66,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/verifyAccountUsernameEditText"
         android:layout_marginTop="50dp"
-        android:background="@drawable/edit_text_background"
+        android:background="@drawable/circularbordersolid"
         android:fontFamily="sans-serif"
         android:hint="Verification Code"
         android:inputType="text"
@@ -82,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/verifyAccountVerificatoinCodeEditText"
         android:layout_marginTop="50dp"
-        android:backgroundTint="#CD483E"
+        android:backgroundTint="@color/blue"
         android:fontFamily="serif-monospace"
         android:paddingStart="20dp"
         android:paddingTop="10dp"
@@ -90,21 +78,9 @@
         android:paddingBottom="10dp"
         android:text="Submit"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:strokeColor="#F4EFEF" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="301dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:srcCompat="@drawable/d1" />
 
 </RelativeLayout>

@@ -64,7 +64,6 @@
         <activity
             android:name=".Activities.WelcomePageActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,7 +75,9 @@
             android:exported="false" />
         <activity
             android:name=".Activities.VerifyActivity"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".Activities.SignupActivity"
             android:exported="false" />
