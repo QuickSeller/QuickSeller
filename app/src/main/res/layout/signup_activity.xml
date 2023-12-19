@@ -35,13 +35,13 @@
                 android:textSize="36sp"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                android:textColor="@color/g_orange_light1"/>
+                android:textColor="@color/main_blue"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/signupEmailEditText"
                 android:background="@drawable/custum_edittext"
-                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawableLeft="@drawable/baseline_email_24"
                 android:drawablePadding="8dp"
                 android:inputType="textEmailAddress"
                 android:hint="E-mail"
@@ -82,7 +82,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/signupPasswordEditText"
                 android:background="@drawable/custum_edittext"
-                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:inputType="textPassword"
                 android:hint="Password"
@@ -97,10 +97,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:id="@+id/signupSubmitButton"
-                android:text="SignUp"
+                android:text="SIGN UP"
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/g_orange_light1"
+                android:backgroundTint="@color/main_blue"
                 app:cornerRadius="20dp"/>
 
 
@@ -111,10 +111,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="Already have account?"
+        android:text="Already have an account?"
         android:textSize="18sp"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:layout_marginTop="20dp"/>
     <TextView
         android:layout_width="wrap_content"

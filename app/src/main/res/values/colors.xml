@@ -9,7 +9,7 @@
     <color name="g_red">#FF0000</color>
     <color name="g_orange">#D9470D</color>
     <color name="g_orange_light">#FFB69F</color>
-    <color name="g_orange_light1">#FC987A</color>
+
     <color name="fade_gray">#F3F3F3</color>
     <color name="primary">#4CAF50</color>
     <!---to use-->
@@ -25,6 +25,11 @@
 
     <!--normal colors-->
     <color name="darkTextColor">#020000</color>
+
+    <color name="main_blue">#11CFC5</color>
+    <color name="light_green">#B4F8C8</color>
+    <color name="light_blue">#A0E7E5</color>
+
 
 
     <!--colors for light mode-->
