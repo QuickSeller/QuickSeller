@@ -169,7 +169,7 @@ ______
 
 ## Domain Modeling and Schema
 
-![Schema](Assests/DomainModeling.jpg)
+![Schema](Assests/DomainModeling.png)
 
 
 1. Entities:
