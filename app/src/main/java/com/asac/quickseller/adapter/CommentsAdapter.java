@@ -45,7 +45,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.commne
         Temporal.DateTime createdAt = comment.getCreatedAt();
 
         commentTextView.setText(commentContent);
-        usernameTextView.setText("Username: " + username);
+        usernameTextView.setText( username);
         createdAtTextView.setText("Date: " + formatDate(createdAt));
 
     }
