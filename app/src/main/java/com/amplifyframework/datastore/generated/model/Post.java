@@ -398,6 +398,5 @@ public final class Post implements Model {
       return (CopyOfBuilder) super.images(images);
     }
   }
-
   
 }

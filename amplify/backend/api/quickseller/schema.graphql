@@ -36,17 +36,16 @@ enum CityEnum {
   Amman
   Zarqa
   Irbid
+  Aqaba
+  Mafraq
+  Madaba
+  Salt
 }
 enum ProductCategoryEnum {
   Clothes
   Electronics
-  Perishable_Goods
-  Office_supplies
+  Perishable Goods
+  Office supplies
   Misc
-}
-
-enum OrderStatusEnum {
-  Pending
-  Completed
-  Cancelled
+  Others
 }

@@ -6,5 +6,6 @@ public enum ProductCategoryEnum {
   Electronics,
   Perishable_Goods,
   Office_supplies,
-  Misc
+  Misc,
+  Others
 }

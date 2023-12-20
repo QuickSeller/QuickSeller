@@ -1,5 +1,6 @@
 package com.asac.quickseller.adapter;
 
+import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,11 +21,14 @@ import com.asac.quickseller.Activities.EditPostActivity;
 import com.asac.quickseller.R;
 
 import java.util.List;
+import java.util.logging.Handler;
 
 public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsViewHolder> {
 
     private List<Post> posts;
     private Context context;
+    private Handler mainThreadHandler;
+
 
     public MyPostsAdapter(Context context, List<Post> posts) {
         this.context = context;
@@ -80,15 +84,17 @@ public class MyPostsAdapter extends RecyclerView.Adapter<MyPostsAdapter.MyPostsV
     private void deletePost(Post post) {
         Amplify.API.mutate(ModelMutation.delete(post),
                 success -> {
-                    // Post deleted successfully, update the UI
-                    posts.remove(post);
-                    notifyDataSetChanged();
-                    Log.i("DeleteButton", "Post deleted successfully");
+                    runOnUiThread(() -> {
+                        posts.remove(post);
+                        notifyDataSetChanged();
+                        Log.i("DeleteButton", "Post deleted successfully");
+                    });
                 },
                 error -> {
                     Log.e("DeleteButton", "Error deleting post", error);
                 });
     }
+
 
 
     @Override
