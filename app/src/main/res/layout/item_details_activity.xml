@@ -51,7 +51,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/itemDetailsImageRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="200dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal"/>
@@ -198,11 +198,19 @@
                             android:id="@+id/HomePageEditTextComment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="5dp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="8dp"
+                            android:layout_marginTop="10dp"
+                            android:paddingBottom="8dp"
                             android:hint="Enter your comment"
+                            android:background="@drawable/circularbordersolid"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:inputType="textMultiLine"
-                            android:gravity="bottom"
-                            android:layout_marginBottom="16dp"/>
+                            android:gravity="top"
+                            android:layout_marginBottom="16dp" />
+
 
                         <Button
                             android:id="@+id/HomePageAddCommentBtn"

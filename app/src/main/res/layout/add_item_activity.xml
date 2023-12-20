@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activities.AddItemActivity">
+    tools:context=".Activities.AddItemActivity"
+    android:background="@drawable/loginsignupbackground">
 
     <!-- Top pink-colored bar with "Add item" text -->
 
@@ -37,121 +38,171 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-
     <Button
         android:id="@+id/addItemAddImageBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
-        android:text="Add Product Image" />
-
-
-
-    <ImageView
-        android:id="@+id/AddItemimageView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="20dp"
-        android:layout_marginTop="20dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <Spinner
-        android:id="@+id/AddItemCategoryspinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:minHeight="40dp" />
-
-    <Spinner
-        android:id="@+id/AddItemCitiesSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:minHeight="40dp" />
-
-    <TextView
-        android:id="@+id/titleTextView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:text="Product Name:"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/productNameAddItemEditText"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="#57DAD5D5"
-        android:ems="10"
-        android:hint="Product Name"
-        android:inputType="text"
-        android:paddingLeft="15dp" />
-
-    <TextView
-        android:id="@+id/titleTextView44"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:text="description:"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/descriptionAddItemEditText"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="#57DAD5D5"
-        android:ems="10"
-        android:hint="description"
-        android:inputType="text"
-        android:paddingLeft="15dp" />
-
-    <TextView
-        android:id="@+id/titleTextViewPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:text="Price:"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/priceAddItemEditText"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="#57DAD5D5"
-        android:ems="10"
-        android:hint="Enter Price"
-        android:inputType="numberDecimal"
-        android:paddingLeft="15dp" />
-
-    <Button
-        android:id="@+id/addItemButton"
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/blue"
-        android:text="Add" />
+        android:backgroundTint="@color/main_blue"
+        android:text="Add Product Image"
+        android:textColor="@color/black" />
 
-    <View
-        android:layout_width="510dp"
-        android:layout_height="14dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_side_bg" />
 
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@drawable/custum_edittext"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+
+                <ImageView
+                    android:id="@+id/AddItemimageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="20dp"
+                    android:layout_marginTop="0dp"
+                    android:src="@drawable/baseline_image_search_24"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/titleTextView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Category:"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/AddItemCategoryspinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:minHeight="40dp" />
+
+                <TextView
+                    android:id="@+id/titleTextView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Location:"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/AddItemCitiesSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:minHeight="40dp" />
+
+                <TextView
+                    android:id="@+id/titleTextView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Product Name:"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/productNameAddItemEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:background="#57DAD5D5"
+                    android:ems="10"
+                    android:hint="Product Name"
+                    android:inputType="text"
+                    android:paddingLeft="15dp" />
+
+                <TextView
+                    android:id="@+id/titleTextView44"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="20dp"
+                    android:text="description:"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/descriptionAddItemEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:background="#57DAD5D5"
+                    android:ems="10"
+                    android:hint="description"
+                    android:inputType="text"
+                    android:paddingLeft="15dp" />
+
+                <TextView
+                    android:id="@+id/titleTextViewPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Price:"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/priceAddItemEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:background="#57DAD5D5"
+                    android:ems="10"
+                    android:hint="Enter Price"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="15dp" />
+
+                <Button
+                    android:id="@+id/addItemButton"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/main_blue"
+                    android:text="Add"
+                    android:textColor="@color/black" />
+
+<!--                <View-->
+<!--                    android:layout_width="510dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_alignParentLeft="true"-->
+<!--                    android:layout_alignParentTop="true"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:background="@drawable/ic_side_bg" />-->
+
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
