@@ -36,6 +36,10 @@ enum CityEnum {
   Amman
   Zarqa
   Irbid
+  Aqaba
+  Mafraq
+  Madaba
+  Salt
 }
 enum ProductCategoryEnum {
   Clothes
@@ -43,6 +47,7 @@ enum ProductCategoryEnum {
   Perishable_Goods
   Office_supplies
   Misc
+  Others
 }
 
 enum OrderStatusEnum {

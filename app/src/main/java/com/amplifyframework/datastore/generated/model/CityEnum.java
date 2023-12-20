@@ -4,5 +4,9 @@ package com.amplifyframework.datastore.generated.model;
 public enum CityEnum {
   Amman,
   Zarqa,
-  Irbid
+  Irbid,
+  Aqaba,
+  Mafraq,
+  Madaba,
+  Salt
 }
