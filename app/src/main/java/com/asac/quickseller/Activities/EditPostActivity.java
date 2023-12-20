@@ -2,6 +2,7 @@ package com.asac.quickseller.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -112,6 +113,9 @@ public class EditPostActivity extends AppCompatActivity {
                                 mutationResponse -> {
                                     runOnUiThread(() -> {
                                         showToast("Post updated successfully");
+                                        Intent intent = new Intent(EditPostActivity.this, MyPostsActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
                                         finish();
                                     });
                                 },

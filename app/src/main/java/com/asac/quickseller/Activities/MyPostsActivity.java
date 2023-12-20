@@ -1,6 +1,7 @@
 package com.asac.quickseller.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 
@@ -62,25 +63,22 @@ public class MyPostsActivity extends AppCompatActivity {
                                             myPosts.clear();
                                             myPosts.addAll(userPosts);
                                             myPostsAdapter.notifyDataSetChanged();
-                                            Log.i("Done" , "Done");
+                                            Log.i("Done", "Done");
 
                                         });
                                     },
                                     postError -> {
-                                        Log.i("Error" , "Error");
+                                        Log.i("Error", "Error");
                                     }
                             );
                         }
                     },
                     userError -> {
-                        Log.i("Error2" , "Error2");
+                        Log.i("Error2", "Error2");
                     }
             );
         }
     }
-
-
-
 
 
 }
