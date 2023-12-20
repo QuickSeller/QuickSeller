@@ -18,6 +18,7 @@ import com.amplifyframework.datastore.generated.model.Post;
 import com.amplifyframework.datastore.generated.model.ProductCategoryEnum;
 import com.amplifyframework.datastore.generated.model.User;
 import com.asac.quickseller.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -111,8 +112,8 @@ public class EditPostActivity extends AppCompatActivity {
                                 ModelMutation.update(updatedPost),
                                 mutationResponse -> {
                                     runOnUiThread(() -> {
-                                        showToast("Post updated successfully");
-                                        finish();
+                                        Snackbar.make(findViewById(R.id.edit_post), "Post updated", Snackbar.LENGTH_SHORT).show();
+                                    finish();
                                     });
                                 },
                                 error -> {

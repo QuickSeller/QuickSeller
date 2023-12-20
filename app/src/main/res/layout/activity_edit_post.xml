@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_post"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loginsignupbackground"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".Activities.EditPostActivity"
-    android:gravity="center"
-    android:background="@drawable/loginsignupbackground">
+    tools:context=".Activities.EditPostActivity">
+
 
 
     <androidx.cardview.widget.CardView
@@ -46,17 +48,17 @@
                 android:id="@+id/editPostActivityEditDescriptionEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:hint="Description"
-                android:inputType="textMultiLine"
-                android:layout_marginTop="20dp"/>
+                android:inputType="textMultiLine" />
 
             <EditText
                 android:id="@+id/editPostActivityEditPriceEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:hint="Price"
-                android:inputType="numberDecimal"
-                android:layout_marginTop="20dp"/>
+                android:inputType="numberDecimal" />
 
 
             <Button

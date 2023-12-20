@@ -44,14 +44,8 @@ enum CityEnum {
 enum ProductCategoryEnum {
   Clothes
   Electronics
-  Perishable_Goods
-  Office_supplies
+  Perishable Goods
+  Office supplies
   Misc
   Others
-}
-
-enum OrderStatusEnum {
-  Pending
-  Completed
-  Cancelled
 }
