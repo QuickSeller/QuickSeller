@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,7 +31,7 @@ public class MyPostsActivity extends AppCompatActivity {
     private MyPostsAdapter myPostsAdapter;
     private List<Post> myPosts = new ArrayList<>();
 
-    ImageView backToSettings = null;
+    ImageButton backBtn=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +46,12 @@ public class MyPostsActivity extends AppCompatActivity {
         queryMyPosts();
         setupBackBtn();
     }
+
     private void setupBackBtn(){
-        backToSettings= (ImageView) findViewById(R.id.backFromMyPost);
-        backToSettings.setOnClickListener(b -> {
-            Intent backBtn = new Intent(MyPostsActivity.this, SettingsActivity.class);
-            startActivity(backBtn);
+        backBtn = (ImageButton) findViewById(R.id.backFromMyPost);
+        backBtn.setOnClickListener(b -> {
+            Intent back = new Intent(MyPostsActivity.this, SettingsActivity.class);
+            startActivity(back);
         });
     }
 
@@ -75,25 +78,22 @@ public class MyPostsActivity extends AppCompatActivity {
                                             myPosts.clear();
                                             myPosts.addAll(userPosts);
                                             myPostsAdapter.notifyDataSetChanged();
-                                            Log.i("Done" , "Done");
+                                            Log.i("Done", "Done");
 
                                         });
                                     },
                                     postError -> {
-                                        Log.i("Error" , "Error");
+                                        Log.i("Error", "Error");
                                     }
                             );
                         }
                     },
                     userError -> {
-                        Log.i("Error2" , "Error2");
+                        Log.i("Error2", "Error2");
                     }
             );
         }
     }
-
-
-
 
 
 }

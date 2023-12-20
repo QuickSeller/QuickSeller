@@ -2,6 +2,7 @@ package com.asac.quickseller.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +19,6 @@ import com.amplifyframework.datastore.generated.model.Post;
 import com.amplifyframework.datastore.generated.model.ProductCategoryEnum;
 import com.amplifyframework.datastore.generated.model.User;
 import com.asac.quickseller.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -112,8 +112,11 @@ public class EditPostActivity extends AppCompatActivity {
                                 ModelMutation.update(updatedPost),
                                 mutationResponse -> {
                                     runOnUiThread(() -> {
-                                        Snackbar.make(findViewById(R.id.edit_post), "Post updated", Snackbar.LENGTH_SHORT).show();
-                                    finish();
+                                        showToast("Post updated successfully");
+                                        Intent intent = new Intent(EditPostActivity.this, MyPostsActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
                                     });
                                 },
                                 error -> {
