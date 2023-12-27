@@ -2,8 +2,12 @@ package com.asac.quickseller.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +31,8 @@ public class MyPostsActivity extends AppCompatActivity {
     private MyPostsAdapter myPostsAdapter;
     private List<Post> myPosts = new ArrayList<>();
 
+    ImageButton backBtn=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +44,15 @@ public class MyPostsActivity extends AppCompatActivity {
         recyclerView.setAdapter(myPostsAdapter);
 
         queryMyPosts();
+        setupBackBtn();
+    }
+
+    private void setupBackBtn(){
+        backBtn = (ImageButton) findViewById(R.id.backFromMyPost);
+        backBtn.setOnClickListener(b -> {
+            Intent back = new Intent(MyPostsActivity.this, SettingsActivity.class);
+            startActivity(back);
+        });
     }
 
     private void queryMyPosts() {
